@@ -1,4 +1,3 @@
-<script src="flashcards.js"></script>
 document.addEventListener('DOMContentLoaded', () => {
   const questions = [
     "What are the main goals of the European Green Deal?",
