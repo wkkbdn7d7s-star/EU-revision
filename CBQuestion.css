@@ -1,0 +1,74 @@
+/* Import professional font */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+body {
+  font-family: 'Merriweather', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #2e4d3d; /* Dark matte green */
+  color: #f5f5f5;
+}
+
+.container {
+  text-align: center;
+  background: #3b5a49; /* Slightly lighter green for card */
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  max-width: 700px;
+  width: 90%;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #f5f5f5;
+}
+
+#question {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-bottom: 25px;
+  padding: 25px 30px;
+  background: #4a6b57;
+  border-radius: 15px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+#timer {
+  font-size: 1.3em;
+  margin-bottom: 25px;
+  font-weight: bold;
+  color: #f5f5f5;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+button {
+  background: #6ca078;
+  border: none;
+  color: #f5f5f5;
+  padding: 15px 35px;
+  font-size: 1.1em;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+}
+
+button:hover {
+  background: #85b18c;
+  transform: scale(1.05);
+}
