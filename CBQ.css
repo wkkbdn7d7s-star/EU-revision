@@ -8,16 +8,16 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  background: #2e4d3d; /* Dark matte green */
+  background: #002080; /* Deep EU navy blue */
   color: #f5f5f5;
 }
 
 .container {
   text-align: center;
-  background: #3b5a49; /* Slightly lighter green for card */
+  background: #1a2a66; /* Medium-dark EU blue */
   padding: 50px 40px;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
   max-width: 700px;
   width: 90%;
   transition: all 0.3s ease;
@@ -27,21 +27,23 @@ h1 {
   font-size: 2.5em;
   margin-bottom: 30px;
   color: #f5f5f5;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
 }
 
 #question {
   font-size: 1.5em;
   font-weight: 500;
   margin-bottom: 25px;
-  padding: 25px 30px;
-  background: #4a6b57;
-  border-radius: 15px;
+  padding: 30px 35px;
+  background: #3355aa; /* Medium EU blue for card */
+  border-radius: 18px;
   min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease, transform 0.2s ease;
-  box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
+  box-shadow: inset 0 4px 8px rgba(0,0,0,0.25);
+  color: #f0f0f0;
 }
 
 #question.fade {
@@ -53,7 +55,8 @@ h1 {
   font-size: 1.5em;
   margin-bottom: 30px;
   font-weight: bold;
-  color: #003399; /* Starts blue */
+  color: #99c2ff; /* lighter blue for timer */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
   transition: color 0.3s ease;
 }
 
@@ -65,20 +68,22 @@ h1 {
 }
 
 button {
-  background: #6ca078;
+  background: #4d6fcc; /* EU medium blue */
   border: none;
   color: #f5f5f5;
   padding: 15px 40px;
   font-size: 1.2em;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: all 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   box-shadow: 2px 6px 12px rgba(0,0,0,0.25);
+  font-weight: 600;
 }
 
 button:hover {
-  background: #85b18c;
+  background: #637fd6; /* lighter hover blue */
   transform: scale(1.05);
+  box-shadow: 3px 8px 15px rgba(0,0,0,0.35);
 }
 
 /* Optional pulse animation for timer */
