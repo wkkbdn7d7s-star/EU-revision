@@ -6,7 +6,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   background: #2e4d3d; /* Dark matte green */
   color: #f5f5f5;
@@ -17,9 +17,10 @@ body {
   background: #3b5a49; /* Slightly lighter green for card */
   padding: 50px 40px;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   max-width: 700px;
   width: 90%;
+  transition: all 0.3s ease;
 }
 
 h1 {
@@ -35,18 +36,25 @@ h1 {
   padding: 25px 30px;
   background: #4a6b57;
   border-radius: 15px;
-  min-height: 80px;
+  min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease, transform 0.2s ease;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
+}
+
+#question.fade {
+  opacity: 0;
+  transform: scale(0.98);
 }
 
 #timer {
-  font-size: 1.3em;
-  margin-bottom: 25px;
+  font-size: 1.5em;
+  margin-bottom: 30px;
   font-weight: bold;
-  color: #f5f5f5;
+  color: #003399; /* Starts blue */
+  transition: color 0.3s ease;
 }
 
 .buttons {
@@ -60,15 +68,26 @@ button {
   background: #6ca078;
   border: none;
   color: #f5f5f5;
-  padding: 15px 35px;
-  font-size: 1.1em;
-  border-radius: 10px;
+  padding: 15px 40px;
+  font-size: 1.2em;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease, transform 0.2s ease;
+  box-shadow: 2px 6px 12px rgba(0,0,0,0.25);
 }
 
 button:hover {
   background: #85b18c;
   transform: scale(1.05);
+}
+
+/* Optional pulse animation for timer */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 0.3s ease;
 }
