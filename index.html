@@ -3,8 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EU Flashcards Portal</title>
+  <title>ECi</title>
+
+  <!-- Main CSS -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- App icons (optional but helps browsers detect icons) -->
+  <link rel="icon" type="image/png" sizes="512x512" href="eci-icon.png">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -78,8 +87,8 @@
 <body>
 
   <header>
-    <h1>Welcome, Future EU Officials</h1>
-    <p>Select a practice test below to start sharpening your knowledge.</p>
+    <h1>Welcome to ECi</h1>
+    <p>Prepare for your EU career with practice tests and flashcards.</p>
   </header>
 
   <main>
@@ -99,8 +108,19 @@
   </main>
 
   <footer>
-    &copy; 2025 EU Flashcards Portal
+    &copy; 2025 ECi
   </footer>
+
+  <!-- Register Service Worker for PWA functionality -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('✅ Service Worker registered successfully.'))
+          .catch(err => console.log('⚠️ Service Worker registration failed:', err));
+      });
+    }
+  </script>
 
 </body>
 </html>
