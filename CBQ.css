@@ -1,3 +1,4 @@
+/* Import professional font */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
 body {
@@ -48,7 +49,7 @@ body {
   margin-bottom: 30px;
   font-weight: bold;
   color: #ffffff; /* Start white */
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
   transition: color 0.3s ease;
 }
 
@@ -78,6 +79,7 @@ button:hover {
   box-shadow: 3px 8px 15px rgba(0,0,0,0.35);
 }
 
+/* Optional pulse animation for timer */
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
