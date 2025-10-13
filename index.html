@@ -6,6 +6,7 @@
   <title>EU Flashcards Portal</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    /* Base Styles */
     body {
       font-family: Arial, sans-serif;
       background-color: #003399; /* EU dark blue */
@@ -14,11 +15,43 @@
       color: white;
     }
 
-    header {
+    /* Navigation Bar */
+    nav {
       background-color: #002080;
-      padding: 50px 20px;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav ul li {
+      font-size: 1.1em;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      transition: color 0.3s;
+      font-weight: bold;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700; /* Gold highlight on hover */
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 50px 20px 30px 20px;
     }
 
     header h1 {
@@ -33,6 +66,7 @@
       color: #d0d4e8;
     }
 
+    /* Main Cards Layout */
     main {
       display: flex;
       flex-wrap: wrap;
@@ -66,6 +100,7 @@
       box-shadow: 0 12px 25px rgba(0,0,0,0.25);
     }
 
+    /* Footer */
     footer {
       text-align: center;
       padding: 20px;
@@ -77,29 +112,47 @@
 </head>
 <body>
 
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="EUknowledge.html">EU Knowledge</a></li>
+      <li><a href="CBQ.html">Competency-Based Questions</a></li>
+      <li><a href="EUcompetencies.html">EU Competencies</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
   <header>
     <h1>Welcome, Future EU Officials</h1>
     <p>Select a practice test below to start sharpening your knowledge.</p>
   </header>
 
+  <!-- Main Content Cards -->
   <main>
-    <!-- Card for EU Knowledge -->
+    <!-- EU Knowledge Flashcards -->
     <div class="card">
       <h2>EU Knowledge</h2>
       <p>Practice flashcards on EU policies, priorities, and digital strategies.</p>
       <a href="EUknowledge.html">Start Test →</a>
     </div>
 
-    <!-- Add more cards for other tests -->
-    <!--
+    <!-- Competency-Based Questions -->
     <div class="card">
-      <h2>Another Test</h2>
-      <p>Brief description of the test.</p>
-      <a href="AnotherTest.html">Start Test →</a>
+      <h2>Competency-Based Questions</h2>
+      <p>Test your skills with real-world EU scenarios and interview-style questions.</p>
+      <a href="CBQ.html">Start Test →</a>
     </div>
-    -->
+
+    <!-- EU Competencies -->
+    <div class="card">
+      <h2>EU Competencies</h2>
+      <p>Assess your understanding of core EU competencies required for officials.</p>
+      <a href="EUcompetencies.html">Start Test →</a>
+    </div>
   </main>
 
+  <!-- Footer -->
   <footer>
     &copy; 2025 EU Flashcards Portal
   </footer>
