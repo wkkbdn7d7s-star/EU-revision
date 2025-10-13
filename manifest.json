@@ -1,17 +1,16 @@
 {
   "name": "ECi",
   "short_name": "ECi",
-  "description": "Prepare for your EU career with flashcards and competency questions.",
+  "description": "EU Flashcards Portal for future EU officials",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#002080",
+  "background_color": "#003399",
   "theme_color": "#003399",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "eci-icon.png",
-      "sizes": "1024x1024",
-      "type": "image/png"
+      "src": "eci-icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
     }
   ]
 }
