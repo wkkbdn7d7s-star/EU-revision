@@ -43,7 +43,6 @@ function getQuestion() {
   const randomIndex = Math.floor(Math.random() * questions.length);
   const questionBox = document.getElementById("question");
 
-  // Smooth fade animation
   questionBox.style.opacity = 0;
   setTimeout(() => {
     questionBox.innerText = questions[randomIndex];
@@ -58,11 +57,8 @@ function startTimer() {
   const timerBox = document.getElementById("timer");
   clearInterval(timerInterval);
   elapsedSeconds = 0;
-
-  // Start blue
   timerBox.innerText = "00:00";
-  timerBox.style.backgroundColor = "#003399";
-  timerBox.style.color = "#ffffff";
+  timerBox.style.color = "#ffffff"; // start white
 
   timerInterval = setInterval(() => {
     elapsedSeconds++;
@@ -70,13 +66,12 @@ function startTimer() {
     const seconds = String(elapsedSeconds % 60).padStart(2, "0");
     timerBox.innerText = `${minutes}:${seconds}`;
 
-    // Color coding for background
-    if (elapsedSeconds < 180) timerBox.style.backgroundColor = "#003399"; // blue
-    else if (elapsedSeconds < 240) timerBox.style.backgroundColor = "#FFD700"; // yellow
-    else if (elapsedSeconds < 270) timerBox.style.backgroundColor = "#FFA500"; // orange
-    else timerBox.style.backgroundColor = "#FF0000"; // red
+    // Color coding
+    if (elapsedSeconds < 180) timerBox.style.color = "#ffffff"; // white
+    else if (elapsedSeconds < 240) timerBox.style.color = "#FFFF00"; // yellow
+    else if (elapsedSeconds < 270) timerBox.style.color = "#FFA500"; // orange
+    else timerBox.style.color = "#FF0000"; // red
 
-    // Pulse animation
     timerBox.classList.add("pulse");
     setTimeout(() => timerBox.classList.remove("pulse"), 300);
   }, 1000);
@@ -87,7 +82,6 @@ function resetTimer() {
   elapsedSeconds = 0;
   const timerBox = document.getElementById("timer");
   timerBox.innerText = "00:00";
-  timerBox.style.backgroundColor = "#003399";
   timerBox.style.color = "#ffffff";
 }
 
@@ -97,3 +91,9 @@ function copyQuestion() {
     alert("Question copied to clipboard!");
   });
 }
+
+// Attach event listeners after DOM loads
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("nextBtn").addEventListener("click", getQuestion);
+  document.getElementById("copyBtn").addEventListener("click", copyQuestion);
+});
