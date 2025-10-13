@@ -3,81 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to EU Flashcards</title>
+  <title>EU Flashcards Portal</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #003399; /* EU dark blue */
-      color: white;
       margin: 0;
       padding: 0;
+      color: white;
     }
 
     header {
       background-color: #002080;
-      padding: 30px 20px;
+      padding: 50px 20px;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
-    h1 {
+    header h1 {
       margin: 0;
-      font-size: 2em;
+      font-size: 2.5em;
+      font-weight: bold;
     }
 
-    p {
+    header p {
       margin-top: 10px;
-      font-size: 1.1em;
+      font-size: 1.2em;
+      color: #d0d4e8;
     }
 
     main {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 50px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 50px 20px;
     }
 
-    .test-list {
-      list-style: none;
-      padding: 0;
-      width: 300px;
-    }
-
-    .test-list li {
-      background-color: #556cd6;
-      margin: 10px 0;
+    .card {
+      background-color: #f5f7fa; /* light card color */
+      color: #003399;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      width: 280px;
       text-align: center;
-      border-radius: 8px;
-      transition: transform 0.2s, background-color 0.2s;
+      padding: 30px 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    .test-list li a {
-      display: block;
-      padding: 15px;
-      color: white;
+    .card a {
       text-decoration: none;
+      color: inherit;
+      font-size: 1.2em;
       font-weight: bold;
-      font-size: 1.1em;
+      display: block;
+      margin-top: 20px;
     }
 
-    .test-list li a:hover {
-      background-color: #4455aa;
-      transform: scale(1.03);
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #002080;
+      color: #d0d4e8;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>Welcome, Future EU Officials</h1>
-    <p>Select a practice test below to start practicing your knowledge.</p>
+    <p>Select a practice test below to start sharpening your knowledge.</p>
   </header>
 
   <main>
-    <ul class="test-list">
-      <li><a href="EUknowledge.html">EU Knowledge</a></li>
-      <!-- Add more tests here -->
-      <!-- <li><a href="AnotherTest.html">Another Test</a></li> -->
-    </ul>
+    <!-- Card for EU Knowledge -->
+    <div class="card">
+      <h2>EU Knowledge</h2>
+      <p>Practice flashcards on EU policies, priorities, and digital strategies.</p>
+      <a href="EUknowledge.html">Start Test →</a>
+    </div>
+
+    <!-- Add more cards for other tests -->
+    <!--
+    <div class="card">
+      <h2>Another Test</h2>
+      <p>Brief description of the test.</p>
+      <a href="AnotherTest.html">Start Test →</a>
+    </div>
+    -->
   </main>
+
+  <footer>
+    &copy; 2025 EU Flashcards Portal
+  </footer>
+
 </body>
 </html>
