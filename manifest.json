@@ -1,0 +1,21 @@
+{
+  "name": "EU Flashcards Portal",
+  "short_name": "EU Flashcards",
+  "description": "Practice EU knowledge and competencies anywhere.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#003399",
+  "theme_color": "#002080",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
