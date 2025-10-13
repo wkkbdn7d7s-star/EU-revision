@@ -1,99 +1,100 @@
-const questions = [
-  "Tell me about a time you dealt with a difficult colleague?",
-  "Tell me about a time you developed a new skill or competency",
-  "Tell me about a time you disagreed with your hierarchy",
-  "Tell me about a time you did not deliver on time",
-  "Tell me about a time you did not deliver up to the quality required",
-  "Tell me about a time you delivered above expectations but were disappointed",
-  "Tell me about a time you had to improve your interpersonal skills in a new job",
-  "Tell me about a time you managed low-intensity work periods",
-  "Tell me about a time you led a team",
-  "Tell me about a time you changed your mind",
-  "Tell me about a time you received feedback you disagreed with",
-  "Tell me about a time you implemented a new idea",
-  "Tell me about a time when you valued diversity and inclusion",
-  "Tell me about a time when you delivered above expectations",
-  "Tell me about a time you showed adaptive behaviours",
-  "Tell me about a time you faced a challenge",
-  "Tell me about a time you represented the European Commission",
-  "Tell me about a time you questioned procedures",
-  "Tell me about a time you delegated a task",
-  "Tell me about a time you could not agree with a colleague",
-  "Tell me about a time you motivated others to achieve a goal",
-  "Tell me about a time you had to adapt quickly to a new policy or procedure",
-  "Tell me about a time you influenced a decision through collaboration",
-  "Tell me about a time you resolved a conflict between team members",
-  "Tell me about a time you handled a sensitive situation with discretion",
-  "Tell me about a time you prioritized competing tasks under pressure",
-  "Tell me about a time you implemented a process improvement",
-  "Tell me about a time you took initiative beyond your assigned role",
-  "Tell me about a time you managed a project from start to finish",
-  "Tell me about a time you built consensus among stakeholders",
-  "Tell me about a time you had to make a difficult ethical decision",
-  "Tell me about a time you innovated to solve a problem",
-  "Tell me about a time you had to work with limited resources",
-  "Tell me about a time you handled constructive criticism positively",
-  "Tell me about a time you mentored or coached someone"
-];
-
-let timerInterval;
-let elapsedSeconds = 0;
-
-function getQuestion() {
-  const randomIndex = Math.floor(Math.random() * questions.length);
-  const questionBox = document.getElementById("question");
-
-  questionBox.style.opacity = 0;
-  setTimeout(() => {
-    questionBox.innerText = questions[randomIndex];
-    questionBox.style.opacity = 1;
-  }, 200);
-
-  resetTimer();
-  startTimer();
-}
-
-function startTimer() {
-  const timerBox = document.getElementById("timer");
-  clearInterval(timerInterval);
-  elapsedSeconds = 0;
-  timerBox.innerText = "00:00";
-  timerBox.style.color = "#ffffff"; // start white
-
-  timerInterval = setInterval(() => {
-    elapsedSeconds++;
-    const minutes = String(Math.floor(elapsedSeconds / 60)).padStart(2, "0");
-    const seconds = String(elapsedSeconds % 60).padStart(2, "0");
-    timerBox.innerText = `${minutes}:${seconds}`;
-
-    // Color coding
-    if (elapsedSeconds < 180) timerBox.style.color = "#ffffff"; // white
-    else if (elapsedSeconds < 240) timerBox.style.color = "#FFFF00"; // yellow
-    else if (elapsedSeconds < 270) timerBox.style.color = "#FFA500"; // orange
-    else timerBox.style.color = "#FF0000"; // red
-
-    timerBox.classList.add("pulse");
-    setTimeout(() => timerBox.classList.remove("pulse"), 300);
-  }, 1000);
-}
-
-function resetTimer() {
-  clearInterval(timerInterval);
-  elapsedSeconds = 0;
-  const timerBox = document.getElementById("timer");
-  timerBox.innerText = "00:00";
-  timerBox.style.color = "#ffffff";
-}
-
-function copyQuestion() {
-  const questionText = document.getElementById("question").innerText;
-  navigator.clipboard.writeText(questionText).then(() => {
-    alert("Question copied to clipboard!");
-  });
-}
-
-// Attach event listeners after DOM loads
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("nextBtn").addEventListener("click", getQuestion);
-  document.getElementById("copyBtn").addEventListener("click", copyQuestion);
+  const questions = [
+    "Tell me about a time you dealt with a difficult colleague?",
+    "Tell me about a time you developed a new skill or competency",
+    "Tell me about a time you disagreed with your hierarchy",
+    "Tell me about a time you did not deliver on time",
+    "Tell me about a time you did not deliver up to the quality required",
+    "Tell me about a time you delivered above expectations but were disappointed",
+    "Tell me about a time you had to improve your interpersonal skills in a new job",
+    "Tell me about a time you managed low-intensity work periods",
+    "Tell me about a time you led a team",
+    "Tell me about a time you changed your mind",
+    "Tell me about a time you received feedback you disagreed with",
+    "Tell me about a time you implemented a new idea",
+    "Tell me about a time when you valued diversity and inclusion",
+    "Tell me about a time when you delivered above expectations",
+    "Tell me about a time you showed adaptive behaviours",
+    "Tell me about a time you faced a challenge",
+    "Tell me about a time you represented the European Commission",
+    "Tell me about a time you questioned procedures",
+    "Tell me about a time you delegated a task",
+    "Tell me about a time you could not agree with a colleague",
+    "Tell me about a time you motivated others to achieve a goal",
+    "Tell me about a time you had to adapt quickly to a new policy or procedure",
+    "Tell me about a time you influenced a decision through collaboration",
+    "Tell me about a time you resolved a conflict between team members",
+    "Tell me about a time you handled a sensitive situation with discretion",
+    "Tell me about a time you prioritized competing tasks under pressure",
+    "Tell me about a time you implemented a process improvement",
+    "Tell me about a time you took initiative beyond your assigned role",
+    "Tell me about a time you managed a project from start to finish",
+    "Tell me about a time you built consensus among stakeholders",
+    "Tell me about a time you had to make a difficult ethical decision",
+    "Tell me about a time you innovated to solve a problem",
+    "Tell me about a time you had to work with limited resources",
+    "Tell me about a time you handled constructive criticism positively",
+    "Tell me about a time you mentored or coached someone"
+  ];
+
+  let timerInterval;
+  let elapsedSeconds = 0;
+
+  const questionEl = document.getElementById("question");
+  const timerEl = document.getElementById("timer");
+  const nextBtn = document.getElementById("nextBtn");
+  const copyBtn = document.getElementById("copyBtn");
+
+  function getQuestion() {
+    const randomIndex = Math.floor(Math.random() * questions.length);
+
+    // Fade animation
+    questionEl.classList.add("fade");
+    setTimeout(() => {
+      questionEl.innerText = questions[randomIndex];
+      questionEl.classList.remove("fade");
+    }, 200);
+
+    resetTimer();
+    startTimer();
+  }
+
+  function startTimer() {
+    clearInterval(timerInterval);
+    elapsedSeconds = 0;
+    timerEl.innerText = "00:00";
+    timerEl.style.color = "#ffffff"; // start white
+
+    timerInterval = setInterval(() => {
+      elapsedSeconds++;
+      const minutes = String(Math.floor(elapsedSeconds / 60)).padStart(2, "0");
+      const seconds = String(elapsedSeconds % 60).padStart(2, "0");
+      timerEl.innerText = `${minutes}:${seconds}`;
+
+      // Change color based on elapsed time
+      if (elapsedSeconds < 180) timerEl.style.color = "#ffffff"; // white
+      else if (elapsedSeconds < 240) timerEl.style.color = "#FFFF00"; // yellow
+      else if (elapsedSeconds < 270) timerEl.style.color = "#FFA500"; // orange
+      else timerEl.style.color = "#FF0000"; // red
+
+      timerEl.classList.add("pulse");
+      setTimeout(() => timerEl.classList.remove("pulse"), 300);
+    }, 1000);
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    elapsedSeconds = 0;
+    timerEl.innerText = "00:00";
+    timerEl.style.color = "#ffffff";
+  }
+
+  function copyQuestion() {
+    navigator.clipboard.writeText(questionEl.innerText).then(() => {
+      alert("Question copied to clipboard!");
+    });
+  }
+
+  nextBtn.addEventListener("click", getQuestion);
+  copyBtn.addEventListener("click", copyQuestion);
 });
