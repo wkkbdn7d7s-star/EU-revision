@@ -48,8 +48,8 @@ body {
   font-size: 1.5em;
   margin-bottom: 30px;
   font-weight: bold;
-  color: #ffffff; /* Start white */
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  color: #ffffff; /* Start white for maximum visibility */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4); /* subtle shadow for contrast */
   transition: color 0.3s ease;
 }
 
