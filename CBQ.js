@@ -39,17 +39,15 @@ const questions = [
 let timerInterval;
 let elapsedSeconds = 0;
 
-const questionEl = document.getElementById("question");
-const timerEl = document.getElementById("timer");
-const nextBtn = document.getElementById("nextBtn");
-const copyBtn = document.getElementById("copyBtn");
-
-function nextQuestion() {
+function getQuestion() {
   const randomIndex = Math.floor(Math.random() * questions.length);
-  questionEl.style.opacity = 0;
+  const questionBox = document.getElementById("question");
+
+  // Smooth fade animation
+  questionBox.style.opacity = 0;
   setTimeout(() => {
-    questionEl.innerText = questions[randomIndex];
-    questionEl.style.opacity = 1;
+    questionBox.innerText = questions[randomIndex];
+    questionBox.style.opacity = 1;
   }, 200);
 
   resetTimer();
@@ -57,43 +55,45 @@ function nextQuestion() {
 }
 
 function startTimer() {
+  const timerBox = document.getElementById("timer");
   clearInterval(timerInterval);
   elapsedSeconds = 0;
-  timerEl.innerText = "00:00";
-  timerEl.style.color = "#003399";
+
+  // Start blue
+  timerBox.innerText = "00:00";
+  timerBox.style.backgroundColor = "#003399";
+  timerBox.style.color = "#ffffff";
 
   timerInterval = setInterval(() => {
     elapsedSeconds++;
     const minutes = String(Math.floor(elapsedSeconds / 60)).padStart(2, "0");
     const seconds = String(elapsedSeconds % 60).padStart(2, "0");
-    timerEl.innerText = `${minutes}:${seconds}`;
+    timerBox.innerText = `${minutes}:${seconds}`;
 
-    if (elapsedSeconds < 180) timerEl.style.color = "#003399"; // blue
-    else if (elapsedSeconds < 240) timerEl.style.color = "#FFFF00"; // yellow
-    else if (elapsedSeconds < 270) timerEl.style.color = "#FFA500"; // orange
-    else timerEl.style.color = "#FF0000"; // red
+    // Color coding for background
+    if (elapsedSeconds < 180) timerBox.style.backgroundColor = "#003399"; // blue
+    else if (elapsedSeconds < 240) timerBox.style.backgroundColor = "#FFD700"; // yellow
+    else if (elapsedSeconds < 270) timerBox.style.backgroundColor = "#FFA500"; // orange
+    else timerBox.style.backgroundColor = "#FF0000"; // red
 
-    timerEl.classList.add("pulse");
-    setTimeout(() => timerEl.classList.remove("pulse"), 300);
+    // Pulse animation
+    timerBox.classList.add("pulse");
+    setTimeout(() => timerBox.classList.remove("pulse"), 300);
   }, 1000);
 }
 
 function resetTimer() {
   clearInterval(timerInterval);
   elapsedSeconds = 0;
-  timerEl.innerText = "00:00";
-  timerEl.style.color = "#003399";
+  const timerBox = document.getElementById("timer");
+  timerBox.innerText = "00:00";
+  timerBox.style.backgroundColor = "#003399";
+  timerBox.style.color = "#ffffff";
 }
 
 function copyQuestion() {
-  navigator.clipboard.writeText(questionEl.innerText).then(() => {
+  const questionText = document.getElementById("question").innerText;
+  navigator.clipboard.writeText(questionText).then(() => {
     alert("Question copied to clipboard!");
   });
 }
-
-// Event listeners
-nextBtn.addEventListener("click", nextQuestion);
-copyBtn.addEventListener("click", copyQuestion);
-
-// Initialize first question
-questionEl.innerText = 'Click "Next Question" to start';
