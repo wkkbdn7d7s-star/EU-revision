@@ -1,91 +1,135 @@
-/* Import professional font */
+/* EU Competencies Flashcards module styling — matches EU Motivation look */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
+:root {
+  --bg: #002080;
+  --panel: #f5f7fa;
+  --card-bg: #ffffff;
+  --accent: #4d6fcc;
+  --text-dark: #003399;
+  --muted: #bfc8e6;
+}
+
+* { box-sizing: border-box; }
+
 body {
-  font-family: 'Merriweather', serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   margin: 0;
-  background: #002080; /* Deep EU navy blue */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  font-family: 'Merriweather', serif;
   color: #f5f5f5;
+  padding: 24px;
 }
 
 .container {
-  text-align: center;
-  background: #1a2a66; /* Medium-dark EU blue */
-  padding: 50px 40px;
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-  max-width: 700px;
-  width: 90%;
-  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 900px;
 }
 
-#question {
-  font-size: 1.5em;
-  font-weight: 500;
-  margin-bottom: 25px;
-  padding: 30px 35px;
-  background: #3355aa; /* Medium EU blue for card */
-  border-radius: 18px;
-  min-height: 100px;
+.card {
+  background: linear-gradient(180deg, #1a2a66 0%, #16305f 100%);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  color: #eef3ff;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.question {
+  min-height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease, transform 0.2s ease;
-  box-shadow: inset 0 4px 8px rgba(0,0,0,0.25);
-  color: #f0f0f0;
+  padding: 20px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.15rem;
+  color: #f8fbff;
+  transition: opacity .28s ease, transform .28s ease;
 }
 
-#question.fade {
+.question.fade {
   opacity: 0;
-  transform: scale(0.98);
+  transform: translateY(6px);
 }
 
-#timer {
-  font-size: 1.5em;
-  margin-bottom: 30px;
-  font-weight: bold;
-  color: #ffffff; /* Start white for maximum visibility */
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.4); /* subtle shadow for contrast */
-  transition: color 0.3s ease;
-}
-
-.buttons {
+.controls {
   display: flex;
+  gap: 12px;
   justify-content: center;
-  gap: 20px;
   flex-wrap: wrap;
 }
 
 button {
-  background: #4d6fcc; /* EU medium blue */
+  background: var(--accent);
+  color: #fff;
   border: none;
-  color: #f5f5f5;
-  padding: 15px 40px;
-  font-size: 1.2em;
-  border-radius: 14px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 2px 6px 12px rgba(0,0,0,0.25);
-  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.22);
+  transition: transform .15s ease, background .15s ease;
 }
 
-button:hover {
-  background: #637fd6; /* lighter hover blue */
-  transform: scale(1.05);
-  box-shadow: 3px 8px 15px rgba(0,0,0,0.35);
+button:hover { 
+  transform: translateY(-3px);
+  background: #637fd6;
 }
 
-/* Optional pulse animation for timer */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+.status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: #dfe8ff;
 }
 
-.pulse {
-  animation: pulse 0.3s ease;
+#counter {
+  background: rgba(255,255,255,0.05);
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #ffffff;
+}
+
+#timer {
+  font-size: 1.6rem;
+  background: rgba(255,255,255,0.06);
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #ffffff; /* timer color will update dynamically in JS */
+}
+
+.note {
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 6px;
+}
+
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 1.8rem;
+  text-decoration: none;
+  color: #fff;
+  transition: transform .2s ease;
+}
+
+.back-arrow:hover {
+  transform: translateX(-3px);
+}
+
+@media (max-width: 520px) {
+  .question { font-size: 1rem; min-height: 110px; padding: 16px; }
+  button { padding: 10px 14px; font-size: 0.95rem; }
+  #timer { font-size: 1.4rem; }
 }
