@@ -33,6 +33,17 @@
       padding: 50px 20px;
       text-align: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    header .logo {
+      width: 100px; /* adjust as needed */
+      height: auto;
+      border-radius: 12px; /* optional */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
     header h1 {
@@ -42,7 +53,7 @@
     }
 
     header p {
-      margin-top: 10px;
+      margin-top: 0;
       font-size: 1.2em;
       color: #d0d4e8;
     }
@@ -107,6 +118,7 @@
 <body>
 
   <header>
+    <img src="eci-icon.png" alt="EUreka Logo" class="logo">
     <h1>Welcome to EUreka!</h1>
     <p>Prepare for your EU career with practice tests and flashcards.</p>
   </header>
