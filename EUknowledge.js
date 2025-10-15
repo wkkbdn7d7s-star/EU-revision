@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const questions = [
     "What are the main goals of the European Green Deal?",
     "How does the EU plan to achieve climate neutrality by 2050?",
@@ -42,52 +42,81 @@ document.addEventListener('DOMContentLoaded', () => {
     "How does the EU coordinate with international organisations (UN, NATO, WTO) on global challenges?"
   ];
 
-  let currentQuestion = 0;
-  let timerValue = 120; // 2 minutes per question
+  let remaining = [];
+  let shownCount = 0;
   let timerInterval;
+  let elapsed = 0;
 
-  const questionElement = document.getElementById('question');
-  const timerElement = document.getElementById('timer');
-  const nextBtn = document.getElementById('nextBtn');
-  const prevBtn = document.getElementById('prevBtn');
+  const questionEl = document.getElementById("question");
+  const counterEl = document.getElementById("counter");
+  const timerEl = document.getElementById("timer");
+  const nextBtn = document.getElementById("nextBtn");
+  const shuffleBtn = document.getElementById("shuffleBtn");
+  const copyBtn = document.getElementById("copyBtn");
 
-  function showQuestion(index) {
-    questionElement.textContent = questions[index];
+  shuffleQuestions();
+
+  function shuffleQuestions() {
+    remaining = [...questions].sort(() => Math.random() - 0.5);
+    shownCount = 0;
+    updateCounter();
+    questionEl.textContent = "Shuffled — click Next Question to begin.";
     resetTimer();
+  }
+
+  function nextQuestion() {
+    if (!remaining.length) {
+      questionEl.textContent = "All questions shown. Shuffle to restart.";
+      resetTimer();
+      return;
+    }
+    const q = remaining.shift();
+    questionEl.classList.add("fade");
+    setTimeout(() => {
+      questionEl.textContent = q;
+      questionEl.classList.remove("fade");
+    }, 160);
+
+    shownCount++;
+    updateCounter();
+    resetTimer();
+    startTimer();
+  }
+
+  function updateCounter() {
+    counterEl.textContent = `${shownCount} / ${questions.length}`;
+  }
+
+  function startTimer() {
+    clearInterval(timerInterval);
+    elapsed = 0;
+    timerEl.textContent = "00:00";
+    timerInterval = setInterval(() => {
+      elapsed++;
+      const m = String(Math.floor(elapsed / 60)).padStart(2,'0');
+      const s = String(elapsed % 60).padStart(2,'0');
+      timerEl.textContent = `${m}:${s}`;
+      timerEl.classList.add('pulse');
+      setTimeout(() => timerEl.classList.remove('pulse'), 250);
+    }, 1000);
   }
 
   function resetTimer() {
     clearInterval(timerInterval);
-    timerValue = 120;
-    updateTimerDisplay();
-    timerInterval = setInterval(() => {
-      timerValue--;
-      updateTimerDisplay();
-      if (timerValue <= 0) {
-        clearInterval(timerInterval);
-        nextQuestion();
-      }
-    }, 1000);
+    elapsed = 0;
+    timerEl.textContent = "00:00";
   }
 
-  function updateTimerDisplay() {
-    const minutes = Math.floor(timerValue / 60);
-    const seconds = timerValue % 60;
-    timerElement.textContent = `⏳ ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  }
-
-  function nextQuestion() {
-    currentQuestion = (currentQuestion + 1) % questions.length;
-    showQuestion(currentQuestion);
-  }
-
-  function prevQuestion() {
-    currentQuestion = (currentQuestion - 1 + questions.length) % questions.length;
-    showQuestion(currentQuestion);
+  function copyQuestion() {
+    const text = questionEl.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const prev = copyBtn.textContent;
+      copyBtn.textContent = "Copied!";
+      setTimeout(()=> copyBtn.textContent = prev, 900);
+    }).catch(()=> alert("Copy failed — try selecting text manually."));
   }
 
   nextBtn.addEventListener('click', nextQuestion);
-  prevBtn.addEventListener('click', prevQuestion);
-
-  showQuestion(currentQuestion);
+  shuffleBtn.addEventListener('click', shuffleQuestions);
+  copyBtn.addEventListener('click', copyQuestion);
 });
