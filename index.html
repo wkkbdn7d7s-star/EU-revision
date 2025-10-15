@@ -168,4 +168,68 @@
     </div>
 
     <div class="card mock-card">
-      <h2>Mock E
+      <h2>Mock Exam</h2>
+      <p>Simulate a complete EU interview with timed questions and sections.</p>
+      <a href="Mockexam.html">Start Mock Exam →</a>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 EUreka!
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+    import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
+      authDomain: "eureka-63b47.firebaseapp.com",
+      projectId: "eureka-63b47",
+      storageBucket: "eureka-63b47.firebasestorage.app",
+      messagingSenderId: "655168214317",
+      appId: "1:655168214317:web:e7d928bc5c1ea525fa6fa4",
+      measurementId: "G-4ZJBL0203J"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    console.log("✅ Firebase initialized successfully!");
+
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const userEmail = document.getElementById("userEmail");
+    const provider = new GoogleAuthProvider();
+
+    loginBtn.addEventListener("click", () => {
+      signInWithPopup(auth, provider)
+        .then(result => console.log("✅ Logged in:", result.user.email))
+        .catch(err => console.error(err));
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth).catch(err => console.error(err));
+    });
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+        userEmail.textContent = user.email;
+        window.currentUser = user;
+      } else {
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+        userEmail.textContent = "";
+        window.currentUser = null;
+      }
+    });
+  </script>
+</body>
+</html>
