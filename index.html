@@ -11,18 +11,16 @@
   <!-- Web App Manifest -->
   <link rel="manifest" href="manifest.json" />
 
-  <!-- Favicon -->
+  <!-- Favicon & Apple Touch Icon -->
   <link rel="icon" type="image/png" href="eci-icon.png" />
-
-  <!-- iOS PWA Meta Tags -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="apple-touch-icon" href="eci-icon.png" />
+
+  <meta name="mobile-web-app-capable" content="yes" />
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #003399; /* EU dark blue */
+      background-color: #003399;
       margin: 0;
       padding: 0;
       color: white;
@@ -31,14 +29,14 @@
     header {
       background-color: #002080;
       padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       gap: 20px;
       flex-wrap: wrap;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      text-align: center;
     }
 
     header .logo {
@@ -98,7 +96,6 @@
       box-shadow: 0 12px 25px rgba(0,0,0,0.25);
     }
 
-    /* Distinctive Mock Exam card */
     .mock-card {
       background: linear-gradient(135deg, #002080, #0055cc);
       color: white;
@@ -162,26 +159,13 @@
     &copy; 2025 EUreka!
   </footer>
 
-  <!-- Register Service Worker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(() => console.log('✅ Service Worker registered successfully.'))
-          .catch(err => console.log('⚠️ Service Worker registration failed:', err));
-      });
-    }
-  </script>
-
   <!-- Firebase SDKs -->
   <script type="module">
-    // Import the Firebase SDKs
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
     import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
     import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-    // Your Firebase configuration (safe for frontend use)
     const firebaseConfig = {
       apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
       authDomain: "eureka-63b47.firebaseapp.com",
@@ -192,7 +176,6 @@
       measurementId: "G-4ZJBL0203J"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const auth = getAuth(app);
