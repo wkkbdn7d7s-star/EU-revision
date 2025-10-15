@@ -42,21 +42,52 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = document.getElementById("nextBtn");
   const copyBtn = document.getElementById("copyBtn");
 
+  // Create Shuffle button
+  const shuffleBtn = document.createElement("button");
+  shuffleBtn.id = "shuffleBtn";
+  shuffleBtn.textContent = "Shuffle";
+  document.querySelector(".buttons").appendChild(shuffleBtn);
+
   let timerInterval;
   let elapsedSeconds = 0;
+  let currentIndex = 0;
+  let shuffledQuestions = [...questions];
+
+  function shuffleQuestions() {
+    for (let i = shuffledQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledQuestions[i], shuffledQuestions[j]] = [shuffledQuestions[j], shuffledQuestions[i]];
+    }
+    currentIndex = 0;
+    showQuestion();
+  }
 
   function showQuestion() {
-    const randomIndex = Math.floor(Math.random() * questions.length);
+    if (currentIndex >= shuffledQuestions.length) currentIndex = 0;
+    const question = shuffledQuestions[currentIndex];
 
-    // Fade effect
     questionEl.classList.add("fade");
     setTimeout(() => {
-      questionEl.textContent = questions[randomIndex];
+      questionEl.textContent = question;
       questionEl.classList.remove("fade");
     }, 200);
 
+    updateCounter();
     resetTimer();
     startTimer();
+
+    currentIndex++;
+  }
+
+  function updateCounter() {
+    let counterEl = document.getElementById("counter");
+    if (!counterEl) {
+      counterEl = document.createElement("span");
+      counterEl.id = "counter";
+      counterEl.style.marginLeft = "10px";
+      document.querySelector(".buttons").appendChild(counterEl);
+    }
+    counterEl.textContent = `${currentIndex + 1} / ${shuffledQuestions.length}`;
   }
 
   function startTimer() {
@@ -71,13 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const seconds = String(elapsedSeconds % 60).padStart(2, "0");
       timerEl.textContent = `${minutes}:${seconds}`;
 
-      // Dynamic color changes
-      if (elapsedSeconds < 180) timerEl.style.color = "#ffffff";        // white
-      else if (elapsedSeconds < 240) timerEl.style.color = "#FFFF00";   // yellow
-      else if (elapsedSeconds < 270) timerEl.style.color = "#FFA500";   // orange
-      else timerEl.style.color = "#FF0000";                             // red
+      if (elapsedSeconds < 180) timerEl.style.color = "#ffffff";
+      else if (elapsedSeconds < 240) timerEl.style.color = "#FFFF00";
+      else if (elapsedSeconds < 270) timerEl.style.color = "#FFA500";
+      else timerEl.style.color = "#FF0000";
 
-      // subtle pulse animation
       timerEl.classList.add("pulse");
       setTimeout(() => timerEl.classList.remove("pulse"), 300);
     }, 1000);
@@ -99,5 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   nextBtn.addEventListener("click", showQuestion);
+  shuffleBtn.addEventListener("click", shuffleQuestions);
   copyBtn.addEventListener("click", copyQuestion);
+
+  // Show first question on load
+  shuffleQuestions();
 });
