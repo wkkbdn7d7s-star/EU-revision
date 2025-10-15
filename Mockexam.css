@@ -113,13 +113,6 @@ button:hover{
   color:#dfe8ff;
 }
 
-#counter{
-  background: rgba(255,255,255,0.05);
-  padding:6px 10px;
-  border-radius:8px;
-  color:#ffffff;
-}
-
 #timer{
   font-size:1.6rem;
   background: rgba(255,255,255,0.06);
