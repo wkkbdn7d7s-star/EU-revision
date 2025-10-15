@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EUreka! — EU Knowledge</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EU Knowledge — EUreka!</title>
   <link rel="stylesheet" href="EUknowledge.css">
 </head>
 <body>
-  <header>
-    <h1>EU Knowledge Practice</h1>
-    <p>Test your understanding of EU policies, institutions, and priorities.</p>
-  </header>
+  <div class="container">
+    <header class="page-header">
+      <h1>EU Knowledge</h1>
+      <p>Practice EU policy, climate, digital and institutional questions.</p>
+    </header>
 
-  <main>
-    <div class="card">
-      <h2 id="question">Loading question...</h2>
-      <div id="timer">⏳</div>
-      <div class="buttons">
-        <button id="prevBtn">Previous</button>
-        <button id="nextBtn">Next</button>
+    <main class="card">
+      <div id="question" class="question">Click "Next Question" to start</div>
+
+      <div class="controls">
+        <button id="nextBtn">Next Question</button>
+        <button id="shuffleBtn">Shuffle</button>
+        <button id="copyBtn">Copy</button>
       </div>
-    </div>
-  </main>
 
-  <footer>
-    &copy; 2025 EUreka!
-  </footer>
+      <div class="status">
+        <span id="counter">0 / 0</span>
+        <span id="timer">00:00</span>
+      </div>
+    </main>
+  </div>
 
   <script src="EUknowledge.js"></script>
 </body>
