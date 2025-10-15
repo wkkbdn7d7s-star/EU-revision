@@ -31,7 +31,7 @@
       padding: 30px 20px;
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       gap: 20px;
       flex-wrap: wrap;
@@ -61,6 +61,20 @@
       margin-top: 5px;
       font-size: 1.1em;
       color: #d0d4e8;
+    }
+
+    #authUI button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+
+    #authUI span {
+      font-size: 0.9em;
+      margin-left: 10px;
     }
 
     main {
@@ -127,6 +141,11 @@
       <h1>Welcome to EUreka!</h1>
       <p>Prepare for your European Commission internal competition oral exam with practice questions and mocks.</p>
     </div>
+    <div id="authUI">
+      <button id="loginBtn">Login</button>
+      <button id="logoutBtn" style="display:none;">Logout</button>
+      <span id="userEmail"></span>
+    </div>
   </header>
 
   <main>
@@ -149,39 +168,4 @@
     </div>
 
     <div class="card mock-card">
-      <h2>Mock Exam</h2>
-      <p>Simulate a complete EU interview with timed questions and sections.</p>
-      <a href="Mockexam.html">Start Mock Exam →</a>
-    </div>
-  </main>
-
-  <footer>
-    &copy; 2025 EUreka!
-  </footer>
-
-  <!-- Firebase SDKs -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
-    import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
-      authDomain: "eureka-63b47.firebaseapp.com",
-      projectId: "eureka-63b47",
-      storageBucket: "eureka-63b47.firebasestorage.app",
-      messagingSenderId: "655168214317",
-      appId: "1:655168214317:web:e7d928bc5c1ea525fa6fa4",
-      measurementId: "G-4ZJBL0203J"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    console.log("✅ Firebase initialized successfully!");
-  </script>
-</body>
-</html>
+      <h2>Mock E
