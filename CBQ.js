@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Full set of Competency Based questions/fit questions (sample + common).
   const questions = [
     "Tell me about a time you dealt with a difficult colleague?",
     "Tell me about a time you developed a new skill or competency",
@@ -37,100 +38,86 @@ document.addEventListener("DOMContentLoaded", () => {
     "Tell me about a time you mentored or coached someone"
   ];
 
+  let remaining = [];
+  let shownCount = 0;
+  let timerInterval;
+  let elapsed = 0;
+
   const questionEl = document.getElementById("question");
+  const counterEl = document.getElementById("counter");
   const timerEl = document.getElementById("timer");
   const nextBtn = document.getElementById("nextBtn");
+  const shuffleBtn = document.getElementById("shuffleBtn");
   const copyBtn = document.getElementById("copyBtn");
 
-  // Create Shuffle button
-  const shuffleBtn = document.createElement("button");
-  shuffleBtn.id = "shuffleBtn";
-  shuffleBtn.textContent = "Shuffle";
-  document.querySelector(".buttons").appendChild(shuffleBtn);
-
-  let timerInterval;
-  let elapsedSeconds = 0;
-  let currentIndex = 0;
-  let shuffledQuestions = [...questions];
+  // Initialize by shuffling
+  shuffleQuestions();
 
   function shuffleQuestions() {
-    for (let i = shuffledQuestions.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledQuestions[i], shuffledQuestions[j]] = [shuffledQuestions[j], shuffledQuestions[i]];
-    }
-    currentIndex = 0;
-    showQuestion();
+    remaining = [...questions].sort(() => Math.random() - 0.5);
+    shownCount = 0;
+    updateCounter();
+    questionEl.textContent = "Shuffled — click Next Question to begin.";
+    resetTimer();
   }
 
-  function showQuestion() {
-    if (currentIndex >= shuffledQuestions.length) currentIndex = 0;
-    const question = shuffledQuestions[currentIndex];
-
+  function nextQuestion() {
+    if (!remaining.length) {
+      questionEl.textContent = "All questions shown. Shuffle to restart.";
+      resetTimer();
+      return;
+    }
+    const q = remaining.shift();
+    // fade effect
     questionEl.classList.add("fade");
     setTimeout(() => {
-      questionEl.textContent = question;
+      questionEl.textContent = q;
       questionEl.classList.remove("fade");
-    }, 200);
+    }, 160);
 
+    shownCount++;
     updateCounter();
     resetTimer();
     startTimer();
-
-    currentIndex++;
   }
 
   function updateCounter() {
-    let counterEl = document.getElementById("counter");
-    if (!counterEl) {
-      counterEl = document.createElement("span");
-      counterEl.id = "counter";
-      counterEl.style.marginLeft = "10px";
-      document.querySelector(".buttons").appendChild(counterEl);
-    }
-    counterEl.textContent = `${currentIndex + 1} / ${shuffledQuestions.length}`;
+    counterEl.textContent = `${shownCount} / ${questions.length}`;
   }
 
   function startTimer() {
     clearInterval(timerInterval);
-    elapsedSeconds = 0;
+    elapsed = 0;
     timerEl.textContent = "00:00";
-    timerEl.style.color = "#ffffff";
-
     timerInterval = setInterval(() => {
-      elapsedSeconds++;
-      const minutes = String(Math.floor(elapsedSeconds / 60)).padStart(2, "0");
-      const seconds = String(elapsedSeconds % 60).padStart(2, "0");
-      timerEl.textContent = `${minutes}:${seconds}`;
-
-      if (elapsedSeconds < 180) timerEl.style.color = "#ffffff";
-      else if (elapsedSeconds < 240) timerEl.style.color = "#FFFF00";
-      else if (elapsedSeconds < 270) timerEl.style.color = "#FFA500";
-      else timerEl.style.color = "#FF0000";
-
-      timerEl.classList.add("pulse");
-      setTimeout(() => timerEl.classList.remove("pulse"), 300);
+      elapsed++;
+      const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
+      const s = String(elapsed % 60).padStart(2, '0');
+      timerEl.textContent = `${m}:${s}`;
+      // subtle pulse
+      timerEl.classList.add('pulse');
+      setTimeout(() => timerEl.classList.remove('pulse'), 250);
     }, 1000);
   }
 
   function resetTimer() {
     clearInterval(timerInterval);
-    elapsedSeconds = 0;
+    elapsed = 0;
     timerEl.textContent = "00:00";
-    timerEl.style.color = "#ffffff";
   }
 
   function copyQuestion() {
-    navigator.clipboard.writeText(questionEl.textContent).then(() => {
+    const text = questionEl.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      // small visual confirmation
       const prev = copyBtn.textContent;
       copyBtn.textContent = "Copied!";
-      setTimeout(() => copyBtn.textContent = prev, 900);
-    }).catch(() => alert("Copy failed — select text manually"));
+      setTimeout(()=> copyBtn.textContent = prev, 900);
+    }).catch(()=> alert("Copy failed — try selecting text manually."));
   }
 
-  nextBtn.addEventListener("click", showQuestion);
-  shuffleBtn.addEventListener("click", shuffleQuestions);
-  copyBtn.addEventListener("click", copyQuestion);
-
-  // Show first question on load
-  shuffleQuestions();
+  // Event listeners
+  nextBtn.addEventListener('click', nextQuestion);
+  shuffleBtn.addEventListener('click', shuffleQuestions);
+  copyBtn.addEventListener('click', copyQuestion);
 });
