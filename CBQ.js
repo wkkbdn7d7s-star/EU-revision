@@ -37,21 +37,21 @@ document.addEventListener("DOMContentLoaded", () => {
     "Tell me about a time you mentored or coached someone"
   ];
 
-  let timerInterval;
-  let elapsedSeconds = 0;
-
   const questionEl = document.getElementById("question");
   const timerEl = document.getElementById("timer");
   const nextBtn = document.getElementById("nextBtn");
   const copyBtn = document.getElementById("copyBtn");
 
-  function getQuestion() {
+  let timerInterval;
+  let elapsedSeconds = 0;
+
+  function showQuestion() {
     const randomIndex = Math.floor(Math.random() * questions.length);
 
-    // Fade animation
+    // Fade effect
     questionEl.classList.add("fade");
     setTimeout(() => {
-      questionEl.innerText = questions[randomIndex];
+      questionEl.textContent = questions[randomIndex];
       questionEl.classList.remove("fade");
     }, 200);
 
@@ -62,21 +62,22 @@ document.addEventListener("DOMContentLoaded", () => {
   function startTimer() {
     clearInterval(timerInterval);
     elapsedSeconds = 0;
-    timerEl.innerText = "00:00";
-    timerEl.style.color = "#ffffff"; // start white
+    timerEl.textContent = "00:00";
+    timerEl.style.color = "#ffffff";
 
     timerInterval = setInterval(() => {
       elapsedSeconds++;
       const minutes = String(Math.floor(elapsedSeconds / 60)).padStart(2, "0");
       const seconds = String(elapsedSeconds % 60).padStart(2, "0");
-      timerEl.innerText = `${minutes}:${seconds}`;
+      timerEl.textContent = `${minutes}:${seconds}`;
 
-      // Change color based on elapsed time
-      if (elapsedSeconds < 180) timerEl.style.color = "#ffffff"; // white
-      else if (elapsedSeconds < 240) timerEl.style.color = "#FFFF00"; // yellow
-      else if (elapsedSeconds < 270) timerEl.style.color = "#FFA500"; // orange
-      else timerEl.style.color = "#FF0000"; // red
+      // Dynamic color changes
+      if (elapsedSeconds < 180) timerEl.style.color = "#ffffff";        // white
+      else if (elapsedSeconds < 240) timerEl.style.color = "#FFFF00";   // yellow
+      else if (elapsedSeconds < 270) timerEl.style.color = "#FFA500";   // orange
+      else timerEl.style.color = "#FF0000";                             // red
 
+      // subtle pulse animation
       timerEl.classList.add("pulse");
       setTimeout(() => timerEl.classList.remove("pulse"), 300);
     }, 1000);
@@ -85,16 +86,18 @@ document.addEventListener("DOMContentLoaded", () => {
   function resetTimer() {
     clearInterval(timerInterval);
     elapsedSeconds = 0;
-    timerEl.innerText = "00:00";
+    timerEl.textContent = "00:00";
     timerEl.style.color = "#ffffff";
   }
 
   function copyQuestion() {
-    navigator.clipboard.writeText(questionEl.innerText).then(() => {
-      alert("Question copied to clipboard!");
-    });
+    navigator.clipboard.writeText(questionEl.textContent).then(() => {
+      const prev = copyBtn.textContent;
+      copyBtn.textContent = "Copied!";
+      setTimeout(() => copyBtn.textContent = prev, 900);
+    }).catch(() => alert("Copy failed — select text manually"));
   }
 
-  nextBtn.addEventListener("click", getQuestion);
+  nextBtn.addEventListener("click", showQuestion);
   copyBtn.addEventListener("click", copyQuestion);
 });
