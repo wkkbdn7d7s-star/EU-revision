@@ -41,94 +41,53 @@ document.addEventListener('DOMContentLoaded', () => {
     "How does the EU mainstream climate and digital priorities into its budget?",
     "How does the EU coordinate with international organisations (UN, NATO, WTO) on global challenges?"
   ];
-const questions = [
-  "What are the main goals of the European Green Deal?",
-  "How does the EU plan to achieve climate neutrality by 2050?",
-  "What is the role of the 'Fit for 55' package in EU climate policy?",
-  "How does the EU balance environmental goals with economic competitiveness?",
-  "What measures has the EU adopted to promote a circular economy?",
-  "What are the objectives of the EU’s Digital Decade strategy?",
-  "How does the EU regulate artificial intelligence and emerging technologies?",
-  "What role does Horizon Europe play in supporting research and innovation?",
-  "How does the EU address cybersecurity challenges across member states?",
-  "What are the key priorities for the EU’s digital single market?",
-  "What is the purpose of the EU’s cohesion policy?",
-  "How does the EU aim to reduce disparities between regions?",
-  "What is the role of the European Social Fund Plus (ESF+)?",
-  "How does the EU promote youth employment and mobility (e.g., Erasmus+)?",
-  "How does the Recovery and Resilience Facility support post-pandemic recovery?",
-  "How is the EU working to reduce dependence on fossil fuels?",
-  "What are the main goals of the REPowerEU plan?",
-  "How does the EU ensure energy security across member states?",
-  "How is the EU promoting renewable energy and energy efficiency?",
-  "How does the EU integrate climate and energy security into foreign policy?",
-  "How does the EU monitor rule of law in member states?",
-  "What tools does the EU have to address breaches of democratic values?",
-  "How does the EU promote gender equality and inclusion?",
-  "How does the Charter of Fundamental Rights influence EU policymaking?",
-  "What is the role of the EU Agency for Fundamental Rights?",
-  "What are the EU’s enlargement priorities for the next decade?",
-  "How does the EU support its neighbourhood policy?",
-  "What role does the EU play in global climate negotiations?",
-  "How does the EU coordinate its foreign and security policy (CFSP)?",
-  "What are the EU’s priorities in international trade agreements?",
-  "How does the EU integrate sustainability into all policies?",
-  "How does the EU address migration in a fair and effective way?",
-  "What role does the EU play in global health policy (e.g., pandemic response)?",
-  "How does the EU ensure strategic autonomy in key sectors (e.g., energy, tech)?",
-  "How does the Multiannual Financial Framework (MFF) reflect EU priorities?",
-  "How does the EU balance solidarity and responsibility in asylum policy?",
-  "What are the EU’s priorities in tackling disinformation and protecting media freedom?",
-  "How is the EU promoting resilience in supply chains and critical raw materials?",
-  "How does the EU mainstream climate and digital priorities into its budget?",
-  "How does the EU coordinate with international organisations (UN, NATO, WTO) on global challenges?"
-];
 
-let currentQuestion = 0;
-let timerValue = 120; // 2 minutes per question
-let timerInterval;
+  let currentQuestion = 0;
+  let timerValue = 120; // 2 minutes per question
+  let timerInterval;
 
-const questionElement = document.getElementById('question');
-const timerElement = document.getElementById('timer');
-const nextBtn = document.getElementById('nextBtn');
-const prevBtn = document.getElementById('prevBtn');
+  const questionElement = document.getElementById('question');
+  const timerElement = document.getElementById('timer');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
 
-function showQuestion(index) {
-  questionElement.textContent = questions[index];
-  resetTimer();
-}
+  function showQuestion(index) {
+    questionElement.textContent = questions[index];
+    resetTimer();
+  }
 
-function resetTimer() {
-  clearInterval(timerInterval);
-  timerValue = 120;
-  updateTimerDisplay();
-  timerInterval = setInterval(() => {
-    timerValue--;
+  function resetTimer() {
+    clearInterval(timerInterval);
+    timerValue = 120;
     updateTimerDisplay();
-    if (timerValue <= 0) {
-      clearInterval(timerInterval);
-      nextQuestion();
-    }
-  }, 1000);
-}
+    timerInterval = setInterval(() => {
+      timerValue--;
+      updateTimerDisplay();
+      if (timerValue <= 0) {
+        clearInterval(timerInterval);
+        nextQuestion();
+      }
+    }, 1000);
+  }
 
-function updateTimerDisplay() {
-  const minutes = Math.floor(timerValue / 60);
-  const seconds = timerValue % 60;
-  timerElement.textContent = `⏳ ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-}
+  function updateTimerDisplay() {
+    const minutes = Math.floor(timerValue / 60);
+    const seconds = timerValue % 60;
+    timerElement.textContent = `⏳ ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
 
-function nextQuestion() {
-  currentQuestion = (currentQuestion + 1) % questions.length;
+  function nextQuestion() {
+    currentQuestion = (currentQuestion + 1) % questions.length;
+    showQuestion(currentQuestion);
+  }
+
+  function prevQuestion() {
+    currentQuestion = (currentQuestion - 1 + questions.length) % questions.length;
+    showQuestion(currentQuestion);
+  }
+
+  nextBtn.addEventListener('click', nextQuestion);
+  prevBtn.addEventListener('click', prevQuestion);
+
   showQuestion(currentQuestion);
-}
-
-function prevQuestion() {
-  currentQuestion = (currentQuestion - 1 + questions.length) % questions.length;
-  showQuestion(currentQuestion);
-}
-
-nextBtn.addEventListener('click', nextQuestion);
-prevBtn.addEventListener('click', prevQuestion);
-
-showQuestion(currentQuestion);
+});
