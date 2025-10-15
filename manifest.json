@@ -1,7 +1,7 @@
 {
-  "name": "ECi",
-  "short_name": "ECi",
-  "description": "EU Flashcards Portal for future EU officials",
+  "name": "EUreka!",
+  "short_name": "EUreka!",
+  "description": "Portal to practice your oral exam for internal EU officials competitions",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#003399",
