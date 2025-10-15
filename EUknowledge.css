@@ -7,6 +7,10 @@
   --accent: #4d6fcc;
   --text-dark: #003399;
   --muted: #bfc8e6;
+  --timer-white: #ffffff;
+  --timer-yellow: #fff100;
+  --timer-orange: #ff9900;
+  --timer-red: #ff3333;
 }
 
 * { box-sizing: border-box; }
@@ -116,7 +120,8 @@ button:hover{ transform: translateY(-3px); background:#637fd6; }
   background: rgba(255,255,255,0.06);
   padding:6px 10px;
   border-radius:8px;
-  color:#ffffff;
+  color: var(--timer-white);
+  transition: color 0.3s ease;
 }
 
 .note{
