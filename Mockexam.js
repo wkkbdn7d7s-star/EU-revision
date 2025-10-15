@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("✅ Mock Exam JS loaded");
 
+  // --- Question pools ---
   const euKnowledge = [
     "What are the core priorities of the European Commission?",
     "Explain the role of the European Parliament in the legislative process.",
@@ -15,11 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const competencies = [
-    "Tell me about a time you dealt with a difficult colleague?",
-    "Tell me about a time you developed a new skill or competency",
-    "Tell me about a time you disagreed with your hierarchy",
-    "Tell me about a time you did not deliver on time",
-    "Tell me about a time you led a team"
+    "Tell me about a time you dealt with a difficult colleague.",
+    "Tell me about a time you developed a new skill or competency.",
+    "Tell me about a time you disagreed with your hierarchy.",
+    "Tell me about a time you did not deliver on time.",
+    "Tell me about a time you did not deliver up to the quality required.",
+    "Tell me about a time you delivered above expectations but were disappointed.",
+    "Tell me about a time you led a team.",
+    "Tell me about a time you implemented a new idea.",
+    "Tell me about a time you handled a sensitive situation with discretion.",
+    "Tell me about a time you resolved a conflict between team members."
   ];
 
   const content = document.getElementById("content");
@@ -29,40 +35,47 @@ document.addEventListener("DOMContentLoaded", () => {
   let timerInterval;
   let remainingSeconds;
 
-  if (startBtn) {
-    startBtn.addEventListener("click", startKnowledgeSection);
-  } else {
-    console.error("❌ startBtn not found!");
-  }
+  if (startBtn) startBtn.addEventListener("click", startKnowledgeStage);
 
-  // --- Step 1: EU Knowledge (10 min) ---
-  function startKnowledgeSection() {
+  // --- Step 1: Preparation Stage (EU Knowledge) ---
+  function startKnowledgeStage() {
     const randomQs = euKnowledge.sort(() => 0.5 - Math.random()).slice(0, 3);
     content.innerHTML = `
       <h2>Preparation Stage</h2>
-      <p>Prepare your answers to these 3 EU Knowledge questions:</p>
+      <p>You have 10 minutes to prepare a presentation on <strong>one</strong> of the following three EU Knowledge questions:</p>
       <ol>${randomQs.map(q => `<li>${q}</li>`).join("")}</ol>
+      <div class="button-group">
+        <button id="skipBtn">Skip</button>
+      </div>
     `;
-    startTimer(10 * 60, startPresentationSection);
+    document.getElementById("skipBtn").addEventListener("click", startPresentationStage);
+    startTimer(10 * 60, startPresentationStage);
   }
 
-  // --- Step 2: Presentation (5 min) ---
-  function startPresentationSection() {
+  // --- Step 2: Presentation Stage ---
+  function startPresentationStage() {
     content.innerHTML = `
       <h2>Presentation Stage</h2>
-      <p>Now, present your answer to one of the questions you prepared.</p>
+      <p>Now, present your answer to the question you selected. You have 5 minutes.</p>
+      <div class="button-group">
+        <button id="skipBtn">Skip</button>
+      </div>
     `;
-    startTimer(5 * 60, startCompetencySection);
+    document.getElementById("skipBtn").addEventListener("click", startCompetencyStage);
+    startTimer(5 * 60, startCompetencyStage);
   }
 
-  // --- Step 3: Competency (5×3 min) ---
-  function startCompetencySection() {
+  // --- Step 3: Competency Stage (5 questions, 3 minutes each) ---
+  function startCompetencyStage() {
     const randomQs = competencies.sort(() => 0.5 - Math.random()).slice(0, 5);
     let index = 0;
 
-    function askNext() {
+    function showNextQuestion() {
       if (index >= randomQs.length) {
-        content.innerHTML = `<h2>Mock Exam Complete</h2><p>Well done! You’ve finished the full simulation.</p>`;
+        content.innerHTML = `
+          <h2>Mock Exam Complete</h2>
+          <p>Excellent work — you’ve completed the full ECi simulation!</p>
+        `;
         timerEl.textContent = "";
         return;
       }
@@ -70,17 +83,26 @@ document.addEventListener("DOMContentLoaded", () => {
       content.innerHTML = `
         <h2>Competency Question ${index + 1}</h2>
         <p>${randomQs[index]}</p>
+        <div class="button-group">
+          <button id="skipBtn">Skip</button>
+        </div>
       `;
+      document.getElementById("skipBtn").addEventListener("click", () => {
+        clearInterval(timerInterval);
+        index++;
+        showNextQuestion();
+      });
+
       startTimer(3 * 60, () => {
         index++;
-        askNext();
+        showNextQuestion();
       });
     }
 
-    askNext();
+    showNextQuestion();
   }
 
-  // --- Timer ---
+  // --- Timer functions ---
   function startTimer(seconds, callback) {
     clearInterval(timerInterval);
     remainingSeconds = seconds;
@@ -89,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
     timerInterval = setInterval(() => {
       remainingSeconds--;
       updateTimerDisplay();
-
       if (remainingSeconds <= 0) {
         clearInterval(timerInterval);
         callback();
