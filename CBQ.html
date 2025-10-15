@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EU Competencies Flashcards</title>
 
-  <!-- Shared global styles -->
+  <!-- Shared global styles (back arrow, etc.) -->
   <link rel="stylesheet" href="EUreka-base.css">
 
   <!-- Module-specific styles -->
@@ -16,12 +16,19 @@
   <a href="index.html" class="back-arrow" title="Back to homepage">←</a>
 
   <div class="container">
-    <div id="question">Click "Next Question" to start</div>
-    <div id="timer">00:00</div>
-    <div class="buttons">
-      <button id="nextBtn">Next Question</button>
-      <button id="copyBtn">Copy Question</button>
-    </div>
+    <main class="card">
+      <div id="question" class="question">Click "Next Question" to start</div>
+
+      <div class="controls">
+        <button id="nextBtn">Next Question</button>
+        <button id="copyBtn">Copy Question</button>
+      </div>
+
+      <div class="status">
+        <span id="counter">0 / 0</span>
+        <span id="timer">00:00</span>
+      </div>
+    </main>
   </div>
 
   <!-- Optional global JS for back arrow confirmation -->
