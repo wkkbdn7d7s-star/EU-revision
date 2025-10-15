@@ -4,10 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EU Motivation — EUreka!</title>
+
+  <!-- Shared global styles (back arrow, etc.) -->
+  <link rel="stylesheet" href="EUreka-base.css">
+
+  <!-- Module-specific styles -->
   <link rel="stylesheet" href="EUmotivation.css">
 </head>
 <body>
+  <!-- Back arrow -->
   <a href="index.html" class="back-arrow" title="Back to homepage">←</a>
+
   <div class="container">
     <header class="page-header">
       <h1>EU Motivation</h1>
@@ -27,10 +34,13 @@
         <span id="counter">0 / 0</span>
         <span id="timer">00:00</span>
       </div>
-      </footer>
     </main>
   </div>
 
+  <!-- Optional global JS for back arrow confirmation -->
+  <script src="EUreka-base.js"></script>
+
+  <!-- Module-specific JS -->
   <script src="EUmotivation.js"></script>
 </body>
 </html>
