@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (startBtn) startBtn.addEventListener("click", startKnowledgeStage);
 
-  // --- Step 1: Preparation Stage (Knowledge) ---
+  // --- Stage Functions ---
   function startKnowledgeStage() {
     const randomQs = euKnowledge.sort(() => 0.5 - Math.random()).slice(0, 3);
     content.innerHTML = `
@@ -131,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
     startTimer(10 * 60, startPresentationStage);
   }
 
-  // --- Step 2: Presentation Stage ---
   function startPresentationStage() {
     content.innerHTML = `
       <h2>Presentation Stage</h2>
@@ -144,14 +143,13 @@ document.addEventListener("DOMContentLoaded", () => {
     startTimer(5 * 60, startCompetencyStage);
   }
 
-  // --- Step 3: Competency Stage ---
   function startCompetencyStage() {
     const randomQs = competencies.sort(() => 0.5 - Math.random()).slice(0, 5);
     let index = 0;
 
     function showNextQuestion() {
       if (index >= randomQs.length) {
-        startMotivationStage(); // go to Motivation stage
+        startMotivationStage();
         return;
       }
 
@@ -162,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
           <button id="skipBtn">Skip</button>
         </div>
       `;
-
       document.getElementById("skipBtn").addEventListener("click", () => {
         clearInterval(timerInterval);
         index++;
@@ -178,18 +175,14 @@ document.addEventListener("DOMContentLoaded", () => {
     showNextQuestion();
   }
 
-  // --- Step 4: Motivation Stage ---
   function startMotivationStage() {
     const randomQs = motivation.sort(() => 0.5 - Math.random()).slice(0, 3);
     let index = 0;
 
     function showNextQuestion() {
       if (index >= randomQs.length) {
-        content.innerHTML = `
-          <h2>Mock Exam Complete</h2>
-          <p>Excellent work — you’ve completed the full EUreka! simulation!</p>
-        `;
-        timerEl.textContent = "";
+        // Instead of static completion message, show self-assessment
+        window.showSelfAssessmentForm();
         return;
       }
 
@@ -200,7 +193,6 @@ document.addEventListener("DOMContentLoaded", () => {
           <button id="skipBtn">Skip</button>
         </div>
       `;
-
       document.getElementById("skipBtn").addEventListener("click", () => {
         clearInterval(timerInterval);
         index++;
@@ -216,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showNextQuestion();
   }
 
-  // --- Timer functions ---
+  // --- Timer Functions ---
   function startTimer(seconds, callback) {
     clearInterval(timerInterval);
     remainingSeconds = seconds;
@@ -237,7 +229,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const seconds = String(remainingSeconds % 60).padStart(2, "0");
     timerEl.textContent = `${minutes}:${seconds}`;
 
-    // Timer color logic: white -> yellow -> orange -> red
     if (remainingSeconds <= 30) timerEl.style.color = "red";
     else if (remainingSeconds <= 90) timerEl.style.color = "orange";
     else if (remainingSeconds <= 180) timerEl.style.color = "yellow";
