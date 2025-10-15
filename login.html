@@ -4,79 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EUreka Login</title>
-
-  <!-- Firebase SDKs -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
-      authDomain: "eureka-63b47.firebaseapp.com",
-      projectId: "eureka-63b47",
-      storageBucket: "eureka-63b47.firebasestorage.app",
-      messagingSenderId: "655168214317",
-      appId: "1:655168214317:web:e7d928bc5c1ea525fa6fa4",
-      measurementId: "G-4ZJBL0203J"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Wait for the DOM to load
-    window.addEventListener("DOMContentLoaded", () => {
-      const loginBtn = document.getElementById("loginBtn");
-      const registerBtn = document.getElementById("registerBtn");
-      const emailInput = document.getElementById("email");
-      const passwordInput = document.getElementById("password");
-      const feedback = document.getElementById("feedback");
-
-      // Login
-      loginBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-        if (!email || !password) {
-          feedback.textContent = "⚠️ Enter both email and password.";
-          feedback.style.color = "orange";
-          return;
-        }
-
-        try {
-          const userCredential = await signInWithEmailAndPassword(auth, email, password);
-          feedback.textContent = `✅ Logged in as ${userCredential.user.email}`;
-          feedback.style.color = "lightgreen";
-        } catch (error) {
-          feedback.textContent = `❌ ${error.message}`;
-          feedback.style.color = "red";
-        }
-      });
-
-      // Register
-      registerBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-        if (!email || !password) {
-          feedback.textContent = "⚠️ Enter both email and password.";
-          feedback.style.color = "orange";
-          return;
-        }
-
-        try {
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          feedback.textContent = `✅ Registered as ${userCredential.user.email}`;
-          feedback.style.color = "lightgreen";
-        } catch (error) {
-          feedback.textContent = `❌ ${error.message}`;
-          feedback.style.color = "red";
-        }
-      });
-    });
-  </script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -133,5 +60,68 @@
     </div>
     <div id="feedback"></div>
   </div>
+
+  <!-- Firebase SDKs at the end of body -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
+      authDomain: "eureka-63b47.firebaseapp.com",
+      projectId: "eureka-63b47",
+      storageBucket: "eureka-63b47.firebasestorage.app",
+      messagingSenderId: "655168214317",
+      appId: "1:655168214317:web:e7d928bc5c1ea525fa6fa4",
+      measurementId: "G-4ZJBL0203J"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginBtn = document.getElementById("loginBtn");
+    const registerBtn = document.getElementById("registerBtn");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const feedback = document.getElementById("feedback");
+
+    loginBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      if (!email || !password) {
+        feedback.textContent = "⚠️ Enter both email and password.";
+        feedback.style.color = "orange";
+        return;
+      }
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        feedback.textContent = `✅ Logged in as ${userCredential.user.email}`;
+        feedback.style.color = "lightgreen";
+      } catch (error) {
+        feedback.textContent = `❌ ${error.message}`;
+        feedback.style.color = "red";
+      }
+    });
+
+    registerBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      if (!email || !password) {
+        feedback.textContent = "⚠️ Enter both email and password.";
+        feedback.style.color = "orange";
+        return;
+      }
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        feedback.textContent = `✅ Registered as ${userCredential.user.email}`;
+        feedback.style.color = "lightgreen";
+      } catch (error) {
+        feedback.textContent = `❌ ${error.message}`;
+        feedback.style.color = "red";
+      }
+    });
+  </script>
 </body>
 </html>
