@@ -39,6 +39,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
     // Firebase config
     const firebaseConfig = {
@@ -54,11 +55,19 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Track current user
+    let currentUser = null;
+    onAuthStateChanged(auth, user => {
+      currentUser = user; // null if logged out
+    });
 
     // Make Firestore globally accessible
     window.db = db;
     window.addDoc = addDoc;
     window.collection = collection;
+    window.currentUser = currentUser;
   </script>
 
   <!-- Mock Exam JS -->
@@ -66,7 +75,6 @@
 
   <!-- Self-assessment injection after mock ends -->
   <script>
-    // This function will be called by Mockexam.js after the last question
     function showSelfAssessmentForm() {
       const content = document.getElementById('content');
       const timerEl = document.getElementById('timer');
@@ -90,6 +98,12 @@
       const feedbackMsg = document.getElementById("feedbackMsg");
 
       submitBtn.addEventListener("click", async () => {
+        if (!window.currentUser) {
+          feedbackMsg.textContent = "⚠️ Please log in to save your score.";
+          feedbackMsg.style.color = "orange";
+          return;
+        }
+
         const score = parseInt(scoreInput.value.trim());
         if (isNaN(score) || score < 1 || score > 10) {
           feedbackMsg.textContent = "⚠️ Please enter a valid score between 1 and 10.";
@@ -98,9 +112,9 @@
         }
 
         try {
-          await addDoc(collection(db, "mockScores"), {
+          await addDoc(collection(db, "users", window.currentUser.uid, "mockScores"), {
             score,
-            timestamp: new Date().toISOString(),
+            timestamp: new Date().toISOString()
           });
           feedbackMsg.textContent = "✅ Thank you! Your score has been recorded.";
           feedbackMsg.style.color = "lightgreen";
@@ -114,7 +128,6 @@
       });
     }
 
-    // Expose the function globally for Mockexam.js
     window.showSelfAssessmentForm = showSelfAssessmentForm;
   </script>
 
