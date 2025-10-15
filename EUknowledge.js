@@ -91,13 +91,25 @@ document.addEventListener("DOMContentLoaded", () => {
     clearInterval(timerInterval);
     elapsed = 0;
     timerEl.textContent = "00:00";
+    timerEl.style.color = "var(--timer-white)";
+
     timerInterval = setInterval(() => {
       elapsed++;
       const m = String(Math.floor(elapsed / 60)).padStart(2,'0');
       const s = String(elapsed % 60).padStart(2,'0');
       timerEl.textContent = `${m}:${s}`;
-      timerEl.classList.add('pulse');
-      setTimeout(() => timerEl.classList.remove('pulse'), 250);
+
+      // change color at milestones
+      if (elapsed >= 270) { // 4:30
+        timerEl.style.color = "var(--timer-red)";
+      } else if (elapsed >= 240) { // 4:00
+        timerEl.style.color = "var(--timer-orange)";
+      } else if (elapsed >= 180) { // 3:00
+        timerEl.style.color = "var(--timer-yellow)";
+      } else {
+        timerEl.style.color = "var(--timer-white)";
+      }
+
     }, 1000);
   }
 
@@ -105,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     clearInterval(timerInterval);
     elapsed = 0;
     timerEl.textContent = "00:00";
+    timerEl.style.color = "var(--timer-white)";
   }
 
   function copyQuestion() {
