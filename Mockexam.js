@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "How does mobility (relocation/rotation) fit into your career plans?"
   ];
 
+  // --- DOM elements ---
   const content = document.getElementById("content");
   const timerEl = document.getElementById("timer");
   const startBtn = document.getElementById("startBtn");
@@ -156,11 +157,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       content.innerHTML = `
         <h2>Competency Question ${index + 1}</h2>
-        <p>${randomQs[index]}</p>
+        <p class="question">${randomQs[index]}</p>
         <div class="button-group">
           <button id="skipBtn">Skip</button>
         </div>
       `;
+
       document.getElementById("skipBtn").addEventListener("click", () => {
         clearInterval(timerInterval);
         index++;
@@ -193,11 +195,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       content.innerHTML = `
         <h2>Motivation Question ${index + 1}</h2>
-        <p>${randomQs[index]}</p>
+        <p class="question">${randomQs[index]}</p>
         <div class="button-group">
           <button id="skipBtn">Skip</button>
         </div>
       `;
+
       document.getElementById("skipBtn").addEventListener("click", () => {
         clearInterval(timerInterval);
         index++;
