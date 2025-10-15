@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (index >= randomQs.length) {
         content.innerHTML = `
           <h2>Mock Exam Complete</h2>
-          <p>Excellent work — you’ve completed the full ECi simulation!</p>
+          <p>Excellent work — you’ve completed the full EUreka! simulation!</p>
         `;
         timerEl.textContent = "";
         return;
