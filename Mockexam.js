@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showNextQuestion() {
       if (index >= randomQs.length) {
-        window.showSelfAssessmentForm(); // Show self-assessment at end
+        showSelfAssessmentForm();
         return;
       }
 
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showNextQuestion();
   }
 
-  // --- Timer Functions ---
+  // --- Timer ---
   function startTimer(seconds, callback) {
     clearInterval(timerInterval);
     remainingSeconds = seconds;
@@ -234,11 +234,8 @@ document.addEventListener("DOMContentLoaded", () => {
     else timerEl.style.color = "#ffffff";
   }
 
-  // --- Self-assessment integration ---
+  // --- Self-assessment (local only, no Firebase) ---
   function showSelfAssessmentForm() {
-    const content = document.getElementById('content');
-    const timerEl = document.getElementById('timer');
-
     content.innerHTML = `
       <h2>Mock Exam Complete 🎉</h2>
       <p>Great job! Please rate your overall performance (1–10):</p>
@@ -257,13 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreInput = document.getElementById("scoreInput");
     const feedbackMsg = document.getElementById("feedbackMsg");
 
-    submitBtn.addEventListener("click", async () => {
-      if (!window.currentUser) {
-        feedbackMsg.textContent = "⚠️ Please log in to save your score.";
-        feedbackMsg.style.color = "orange";
-        return;
-      }
-
+    submitBtn.addEventListener("click", () => {
       const score = parseInt(scoreInput.value.trim());
       if (isNaN(score) || score < 1 || score > 10) {
         feedbackMsg.textContent = "⚠️ Please enter a valid score between 1 and 10.";
@@ -271,23 +262,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      try {
-        await window.addDoc(window.collection(window.db, "users", window.currentUser.uid, "mockScores"), {
-          score,
-          timestamp: new Date().toISOString()
-        });
-        feedbackMsg.textContent = "✅ Thank you! Your score has been recorded.";
-        feedbackMsg.style.color = "lightgreen";
-        scoreInput.disabled = true;
-        submitBtn.disabled = true;
-      } catch (err) {
-        console.error("Error saving score:", err);
-        feedbackMsg.textContent = "❌ Error saving your score. Please try again later.";
-        feedbackMsg.style.color = "red";
-      }
+      feedbackMsg.textContent = `✅ Thank you! Your self-assessed score is ${score}/10.`;
+      feedbackMsg.style.color = "lightgreen";
+      scoreInput.disabled = true;
+      submitBtn.disabled = true;
     });
   }
-
-  // Expose globally
-  window.showSelfAssessmentForm = showSelfAssessmentForm;
 });
