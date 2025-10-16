@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Useful Links | EUreka!</title>
+
+  <link rel="icon" type="image/png" href="eci-icon.png" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #003399;
+      margin: 0;
+      padding: 0;
+      color: white;
+    }
+
+    header {
+      background-color: #002080;
+      padding: 25px 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      color: white; /* Title in white */
+    }
+
+    header p {
+      color: #d0d4e8;
+      font-size: 1.1em;
+      margin-top: 5px;
+    }
+
+    .back-arrow {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.8em;
+      color: white; /* Back arrow in white */
+      text-decoration: none;
+    }
+
+    main {
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .module-card {
+      background-color: #f5f7fa;
+      color: #003399;
+      border-radius: 16px;
+      width: 300px;
+      padding: 25px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+
+    .module-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    }
+
+    .module-card h2 {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+    }
+
+    .module-card p {
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+
+    .module-card a {
+      text-decoration: none;
+      color: #003399; /* Visit Website link in blue */
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .module-card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #002080;
+      color: #d0d4e8;
+      font-size: 0.9em;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="index.html" class="back-arrow" title="Back to homepage">←</a>
+
+  <header>
+    <h1>Useful Links</h1>
+    <p>Important EU news sources, press updates, and training platforms.</p>
+  </header>
+
+  <main>
+    <div class="module-card">
+      <h2>Euractiv</h2>
+      <p>Independent European media network covering EU policy and news.</p>
+      <a href="https://www.euractiv.com/" target="_blank">Visit Website →</a>
+    </div>
+
+    <div class="module-card">
+      <h2>Politico Europe</h2>
+      <p>Leading news source for EU policy, politics, and institutional developments.</p>
+      <a href="https://www.politico.eu/" target="_blank">Visit Website →</a>
+    </div>
+
+    <div class="module-card">
+      <h2>Commission Press Corner</h2>
+      <p>Official press releases and communications from the European Commission.</p>
+      <a href="https://ec.europa.eu/commission/presscorner/home/en" target="_blank">Visit Website →</a>
+    </div>
+
+    <div class="module-card">
+      <h2>EU Training</h2>
+      <p>Paid platform offering courses and professional training for EU careers.</p>
+      <a href="https://eutraining.eu/" target="_blank">Visit Website →</a>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 EUreka!
+  </footer>
+</body>
+</html>
