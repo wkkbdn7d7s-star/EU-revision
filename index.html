@@ -63,12 +63,24 @@
       color: #d0d4e8;
     }
 
-    main {
+    section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    section h2 {
+      color: #ffd700;
+      font-size: 1.8em;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .card-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
-      padding: 50px 20px;
     }
 
     .card {
@@ -125,35 +137,63 @@
     <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
     <div class="text">
       <h1>Welcome to EUreka!</h1>
-      <p>Prepare for your European Commission internal competition oral exam with practice questions and mocks.</p>
+      <p>Prepare for your European Commission internal competition oral exam with practice questions, mocks, and learning resources.</p>
     </div>
   </header>
 
-  <main>
-    <div class="card">
-      <h2>EU Knowledge</h2>
-      <p>Practice questions on EU policies, priorities, and institutions.</p>
-      <a href="EUknowledge.html">Start Exercise →</a>
-    </div>
+  <!-- Section 1: Oral Exam Practice -->
+  <section id="oral-exam">
+    <h2>🎙 Oral Exam Practice</h2>
+    <div class="card-container">
+      <div class="card">
+        <h3>EU Knowledge</h3>
+        <p>Practice questions on EU policies, priorities, and institutions.</p>
+        <a href="EUknowledge.html">Start Exercise →</a>
+      </div>
 
-    <div class="card">
-      <h2>EU Competencies</h2>
-      <p>Practice behavioral and competency-based questions for EU roles.</p>
-      <a href="CBQ.html">Start Exercise →</a>
-    </div>
+      <div class="card">
+        <h3>EU Competencies</h3>
+        <p>Practice behavioral and competency-based questions for EU roles.</p>
+        <a href="CBQ.html">Start Exercise →</a>
+      </div>
 
-    <div class="card">
-      <h2>EU Motivation</h2>
-      <p>Reflect on your motivation and suitability for a career in the EU institutions.</p>
-      <a href="EUmotivation.html">Start Exercise →</a>
-    </div>
+      <div class="card">
+        <h3>EU Motivation</h3>
+        <p>Reflect on your motivation and suitability for a career in the EU institutions.</p>
+        <a href="EUmotivation.html">Start Exercise →</a>
+      </div>
 
-    <div class="card mock-card">
-      <h2>Mock Exam</h2>
-      <p>Simulate a complete EU interview with timed questions and sections.</p>
-      <a href="Mockexam.html">Start Mock Exam →</a>
+      <div class="card mock-card">
+        <h3>Mock Exam</h3>
+        <p>Simulate a complete EU interview with timed questions and sections.</p>
+        <a href="Mockexam.html">Start Mock Exam →</a>
+      </div>
     </div>
-  </main>
+  </section>
+
+  <!-- Section 2: Exam Preparation Material -->
+  <section id="exam-prep">
+    <h2>📚 Exam Preparation Material</h2>
+    <div class="card-container">
+      <div class="card">
+        <h3>Preparation Modules</h3>
+        <p>Structured study guides and topic summaries for EU competition preparation.</p>
+        <a href="Preparation.html">Explore Modules →</a>
+      </div>
+
+      <div class="card">
+        <h3>Useful Links</h3>
+        <p>Access official EU resources, training platforms, and external study websites.</p>
+        <a href="UsefulLinks.html">Browse Links →</a>
+      </div>
+
+      <div class="card">
+        <h3>Documents & Notes</h3>
+        <p>Download reading material, templates, and summaries for deeper preparation.</p>
+        <a href="Documents.html">View Documents →</a>
+      </div>
+    </div>
+  </section>
 
   <footer>
     &copy; 2025 EUreka!
