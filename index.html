@@ -12,10 +12,9 @@
   <meta name="mobile-web-app-capable" content="yes" />
 
   <style>
-    /* --- Global styles --- */
     body {
       font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(160deg, #eaf0ff 0%, #dce7ff 100%);
+      background-color: #f2f5ff;
       margin: 0;
       padding: 0;
       color: #002266;
@@ -59,40 +58,55 @@
     }
 
     main {
+      padding: 50px 20px;
+      background-color: #ffffff;
+    }
+
+    section {
+      margin-bottom: 60px;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 1.8em;
+      margin-bottom: 30px;
+      color: #002080;
+      border-bottom: 3px solid #0044cc;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .card-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
-      padding: 50px 20px;
+      margin-top: 30px;
     }
 
     .card {
-      background-color: white;
+      background-color: #f8f9ff;
       color: #002266;
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       width: 280px;
       text-align: center;
       padding: 30px 20px;
-      border-top: 5px solid #0044cc;
       transition: transform 0.3s, box-shadow 0.3s;
+      border-top: 5px solid #0044cc;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .card h2 {
-      color: #002266;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
     }
 
     .card a {
       text-decoration: none;
       color: #0044cc;
       font-weight: bold;
-      margin-top: 20px;
       display: inline-block;
+      margin-top: 15px;
       transition: color 0.3s;
     }
 
@@ -100,20 +114,30 @@
       color: #ffcc00;
     }
 
-    /* Mock card with EU gold accent */
+    /* Mock Exam Card */
     .mock-card {
-      background: linear-gradient(135deg, #003399, #0055cc);
-      color: white;
+      background: linear-gradient(135deg, #0044cc, #001a66);
+      color: #fff;
       border-top: 5px solid #ffcc00;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    .mock-card h3 {
+      color: #ffcc00;
     }
 
     .mock-card a {
       color: #ffcc00;
     }
 
+    .mock-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    }
+
     footer {
       text-align: center;
-      padding: 25px;
+      padding: 20px;
       background-color: #002080;
       color: #d0d4e8;
       font-size: 0.9em;
@@ -126,50 +150,62 @@
     <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
     <div class="text">
       <h1>Welcome to EUreka!</h1>
-      <p>Your companion for mastering the European Commission internal competition oral exam.</p>
+      <p>Prepare for your European Commission internal competition oral exam with practice questions and mock interviews.</p>
     </div>
   </header>
 
   <main>
-    <div class="card">
-      <h2>EU Knowledge</h2>
-      <p>Practice questions on EU policies, priorities, and institutions.</p>
-      <a href="EUknowledge.html">Start Exercise →</a>
-    </div>
+    <!-- ORAL EXAM PRACTICE -->
+    <section>
+      <h2>Oral Exam Practice</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>EU Knowledge</h3>
+          <p>Practice questions on EU policies, priorities, and institutions.</p>
+          <a href="EUknowledge.html">Start Exercise →</a>
+        </div>
 
-    <div class="card">
-      <h2>EU Competencies</h2>
-      <p>Practice behavioral and competency-based questions for EU roles.</p>
-      <a href="CBQ.html">Start Exercise →</a>
-    </div>
+        <div class="card">
+          <h3>EU Competencies</h3>
+          <p>Practice behavioral and competency-based questions for EU roles.</p>
+          <a href="CBQ.html">Start Exercise →</a>
+        </div>
 
-    <div class="card">
-      <h2>EU Motivation</h2>
-      <p>Reflect on your motivation and suitability for a career in the EU institutions.</p>
-      <a href="EUmotivation.html">Start Exercise →</a>
-    </div>
+        <div class="card">
+          <h3>EU Motivation</h3>
+          <p>Reflect on your motivation and suitability for a career in the EU institutions.</p>
+          <a href="EUmotivation.html">Start Exercise →</a>
+        </div>
 
-    <div class="card mock-card">
-      <h2>Mock Exam</h2>
-      <p>Simulate a complete EU interview with timed questions and sections.</p>
-      <a href="Mockexam.html">Start Mock Exam →</a>
-    </div>
+        <div class="card mock-card">
+          <h3>Mock Exam</h3>
+          <p>Simulate a complete EU interview with timed questions and self-assessment.</p>
+          <a href="Mockexam.html">Start Mock Exam →</a>
+        </div>
+      </div>
+    </section>
 
-    <div class="card">
-      <h2>Preparation Materials</h2>
-      <p>Explore curated study resources and official EU documentation.</p>
-      <a href="Preparation.html">Open Materials →</a>
-    </div>
+    <!-- EXAM PREPARATION MATERIALS -->
+    <section>
+      <h2>Exam Preparation Materials</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Preparation Modules</h3>
+          <p>Access key EU resources, fact sheets, and legal bases for study.</p>
+          <a href="Preparation.html">Open Modules →</a>
+        </div>
 
-    <div class="card">
-      <h2>Useful Links</h2>
-      <p>Access key EU media, data, and training platforms.</p>
-      <a href="UsefulLinks.html">Explore Links →</a>
-    </div>
+        <div class="card">
+          <h3>Useful Links</h3>
+          <p>Find trusted news outlets, statistics, and EU-focused training tools.</p>
+          <a href="UsefulLinks.html">Explore Links →</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    &copy; 2025 EUreka! | Built for European Commission candidates
+    &copy; 2025 EUreka! | Empowering EU candidates for success
   </footer>
 </body>
 </html>
