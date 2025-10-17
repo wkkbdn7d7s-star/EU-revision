@@ -114,7 +114,6 @@
       color: #ffcc00;
     }
 
-    /* Mock Exam Card */
     .mock-card {
       background: linear-gradient(135deg, #0044cc, #001a66);
       color: #fff;
@@ -142,18 +141,32 @@
       color: #d0d4e8;
       font-size: 0.9em;
     }
+
+    /* Login/score form styles */
+    .auth-section input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+      box-sizing: border-box;
+    }
+
+    .auth-section button {
+      margin: 5px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .auth-section p {
+      margin-top: 10px;
+      font-weight: bold;
+    }
   </style>
 
   <!-- Firebase SDK -->
   <script type="module">
-    // Firebase App
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-
-    // Firebase Auth
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-
-    // Firebase Firestore
     import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -171,7 +184,6 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Make globally accessible
     window.auth = auth;
     window.db = db;
     window.firebaseFns = {
@@ -184,7 +196,6 @@
       getDoc
     };
   </script>
-
 </head>
 
 <body>
@@ -244,10 +255,104 @@
         </div>
       </div>
     </section>
+
+    <!-- USER LOGIN & SCORE SECTION -->
+    <section class="auth-section">
+      <h2>User Login & Score</h2>
+      <div style="max-width:400px; margin:auto; text-align:center;">
+        <input id="email" type="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+        <div>
+          <button id="signup-btn">Sign Up</button>
+          <button id="login-btn">Log In</button>
+          <button id="logout-btn">Log Out</button>
+        </div>
+        <input id="score" type="number" placeholder="Enter your score">
+        <div>
+          <button id="save-btn">Save Score</button>
+          <button id="load-btn">Load Score</button>
+        </div>
+        <p id="status"></p>
+      </div>
+    </section>
+
   </main>
 
   <footer>
     &copy; 2025 EUreka! | Empowering EU candidates for success
   </footer>
+
+  <!-- Firebase Auth & Score Logic -->
+  <script type="module">
+    const status = document.getElementById("status");
+
+    document.getElementById("signup-btn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        await firebaseFns.createUserWithEmailAndPassword(auth, email, password);
+        status.textContent = "Registered and logged in!";
+      } catch (err) {
+        status.textContent = "Error: " + err.message;
+      }
+    });
+
+    document.getElementById("login-btn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        await firebaseFns.signInWithEmailAndPassword(auth, email, password);
+        status.textContent = "Logged in!";
+      } catch (err) {
+        status.textContent = "Error: " + err.message;
+      }
+    });
+
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      await firebaseFns.signOut(auth);
+      status.textContent = "Logged out!";
+    });
+
+    document.getElementById("save-btn").addEventListener("click", async () => {
+      const score = parseInt(document.getElementById("score").value);
+      const user = auth.currentUser;
+      if (!user) {
+        status.textContent = "Please log in first!";
+        return;
+      }
+      try {
+        await firebaseFns.setDoc(firebaseFns.doc(db, "scores", user.uid), { score });
+        status.textContent = "Score saved!";
+      } catch (err) {
+        status.textContent = "Error: " + err.message;
+      }
+    });
+
+    document.getElementById("load-btn").addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        status.textContent = "Please log in first!";
+        return;
+      }
+      try {
+        const docSnap = await firebaseFns.getDoc(firebaseFns.doc(db, "scores", user.uid));
+        if (docSnap.exists()) {
+          status.textContent = "Your score: " + docSnap.data().score;
+        } else {
+          status.textContent = "No score found!";
+        }
+      } catch (err) {
+        status.textContent = "Error: " + err.message;
+      }
+    });
+
+    firebaseFns.onAuthStateChanged(auth, user => {
+      if (user) {
+        console.log("Logged in as:", user.email);
+      } else {
+        console.log("Logged out");
+      }
+    });
+  </script>
 </body>
 </html>
