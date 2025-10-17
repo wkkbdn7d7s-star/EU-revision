@@ -143,6 +143,48 @@
       font-size: 0.9em;
     }
   </style>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Firebase App
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
+
+    // Firebase Auth
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+    // Firebase Firestore
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
+      authDomain: "eureka-63b47.firebaseapp.com",
+      projectId: "eureka-63b47",
+      storageBucket: "eureka-63b47.firebasestorage.app",
+      messagingSenderId: "655168214317",
+      appId: "1:655168214317:web:3d3ffc07706ba39efa6fa4",
+      measurementId: "G-KFTB45DCFZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Make globally accessible
+    window.auth = auth;
+    window.db = db;
+    window.firebaseFns = {
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged,
+      doc,
+      setDoc,
+      getDoc
+    };
+  </script>
+
 </head>
 
 <body>
