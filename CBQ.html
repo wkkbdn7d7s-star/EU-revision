@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EU Competencies — EUreka!</title>
 
-  <!-- Combined CSS -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
@@ -17,9 +16,6 @@
       --text-dark: #003399;
       --muted: #bfc8e6;
       --timer-white: #ffffff;
-      --timer-yellow: #fff100;
-      --timer-orange: #ff9900;
-      --timer-red: #ff3333;
     }
 
     * { box-sizing: border-box; }
@@ -180,7 +176,6 @@
     }
   </style>
 
-  <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
@@ -240,11 +235,9 @@
     </main>
   </div>
 
-  <!-- Optional global JS -->
   <script src="EUreka-base.js"></script>
   <script src="CBQ.js"></script>
 
-  <!-- Self-Assessment JS -->
   <script type="module">
     const { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged } = window.firebaseFns;
     const form = document.getElementById("assessment-form");
