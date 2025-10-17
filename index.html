@@ -181,6 +181,7 @@
         <option value="EUknowledge">EU Knowledge</option>
         <option value="EUcompetencies">EU Competencies</option>
         <option value="EUmotivation">EU Motivation</option>
+        <option value="Mockexam">Mock Exam</option>
         <option value="average">Average</option>
       </select>
       <canvas id="performance-chart"></canvas>
@@ -220,7 +221,7 @@
       try {
         const userCred = await firebaseFns.createUserWithEmailAndPassword(auth, email, password);
         await firebaseFns.setDoc(firebaseFns.doc(db, "users", userCred.user.uid), {
-          selfAssessment: { EUknowledge: [], EUcompetencies: [], EUmotivation: [] }
+          selfAssessment: { EUknowledge: [], EUcompetencies: [], EUmotivation: [], Mockexam: [] }
         });
         status.textContent = "Registered & logged in!";
       } catch(err) { status.textContent = err.message; }
@@ -238,10 +239,10 @@
       status.textContent = "Logged out!";
     });
 
-    // ✅ Fine-grained timestamped submissions (no daily grouping)
+    // Fine-grained timestamped submissions
     function formatSubmissions(submissions) {
       return submissions
-        .map(s => ({
+        .map(s => ( {
           timestamp: new Date(s.timestamp || s.submittedAt).toLocaleString('en-GB', {
             hour12: false,
             day: '2-digit', month: 'short',
@@ -262,7 +263,7 @@
       let submissions = [];
 
       if(section === "average") {
-        const allSections = ["EUknowledge","EUcompetencies","EUmotivation"];
+        const allSections = ["EUknowledge","EUcompetencies","EUmotivation","Mockexam"];
         const merged = allSections.flatMap(sec => data.selfAssessment[sec] || []);
         submissions = formatSubmissions(merged);
       } else {
