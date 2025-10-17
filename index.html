@@ -85,17 +85,17 @@
     /* Styled dropdown */
     #section-filter {
       margin: 10px 0 20px 0;
-      padding: 8px 12px;
+      padding: 10px 14px;
       font-size: 1em;
-      border-radius: 10px;
-      border: none;
-      background-color: #ece7e1;
+      border-radius: 12px;
+      border: 2px solid #d4af7f;
+      background-color: #f8f4f0;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       color: #2c2a28;
       font-weight: bold;
-      transition: background-color 0.3s;
+      transition: all 0.3s ease;
     }
-    #section-filter:hover { background-color: #f3ede6; }
+    #section-filter:hover { background-color: #fff9f0; border-color: #0052cc; }
 
     #performance-chart { max-width: 100%; }
   </style>
@@ -238,49 +238,35 @@
       status.textContent = "Logged out!";
     });
 
-    function groupByDay(submissions) {
-      const grouped = {};
-      submissions.forEach(s => {
-        const day = new Date(s.timestamp).toISOString().split("T")[0];
-        if(!grouped[day]) grouped[day] = [];
-        grouped[day].push(s);
-      });
-      return Object.entries(grouped).map(([day, arr]) => {
-        const avg = { timestamp: day, clarity:0, structure:0, confidence:0 };
-        arr.forEach(s => { avg.clarity += s.clarity; avg.structure += s.structure; avg.confidence += s.confidence; });
-        const n = arr.length;
-        avg.clarity /= n; avg.structure /= n; avg.confidence /= n;
-        return avg;
-      }).sort((a,b) => new Date(a.timestamp)-new Date(b.timestamp));
+    // ✅ Fine-grained timestamped submissions (no daily grouping)
+    function formatSubmissions(submissions) {
+      return submissions
+        .map(s => ({
+          timestamp: new Date(s.timestamp || s.submittedAt).toLocaleString('en-GB', {
+            hour12: false,
+            day: '2-digit', month: 'short',
+            hour: '2-digit', minute: '2-digit', second: '2-digit'
+          }),
+          clarity: s.clarity,
+          structure: s.structure,
+          confidence: s.confidence
+        }))
+        .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
     }
 
     async function updateChart(user) {
       const docSnap = await firebaseFns.getDoc(firebaseFns.doc(db, "users", user.uid));
       if(!docSnap.exists()) return;
-
       const data = docSnap.data();
       let section = sectionFilter.value;
       let submissions = [];
 
       if(section === "average") {
         const allSections = ["EUknowledge","EUcompetencies","EUmotivation"];
-        const merged = {};
-        allSections.forEach(sec => {
-          (data.selfAssessment[sec] || []).forEach(s => {
-            const day = new Date(s.timestamp).toISOString().split("T")[0];
-            if(!merged[day]) merged[day] = [];
-            merged[day].push(s);
-          });
-        });
-        submissions = Object.entries(merged).map(([day, arr]) => {
-          const avg = { timestamp: day, clarity:0, structure:0, confidence:0 };
-          arr.forEach(s => { avg.clarity += s.clarity; avg.structure += s.structure; avg.confidence += s.confidence; });
-          const n = arr.length;
-          avg.clarity /= n; avg.structure /= n; avg.confidence /= n;
-          return avg;
-        }).sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+        const merged = allSections.flatMap(sec => data.selfAssessment[sec] || []);
+        submissions = formatSubmissions(merged);
       } else {
-        submissions = groupByDay(data.selfAssessment[section] || []);
+        submissions = formatSubmissions(data.selfAssessment[section] || []);
       }
 
       const labels = submissions.map(s => s.timestamp);
@@ -294,12 +280,16 @@
         data: {
           labels,
           datasets: [
-            { label: 'Clarity', data: clarity, borderColor: '#0052cc', fill:false, tension:0.2 },
-            { label: 'Structure', data: structure, borderColor: '#003399', fill:false, tension:0.2 },
-            { label: 'Confidence', data: confidence, borderColor: '#6699ff', fill:false, tension:0.2 }
+            { label: 'Clarity', data: clarity, borderColor: '#1a73e8', fill:false, tension:0.25 },
+            { label: 'Structure', data: structure, borderColor: '#ff8c00', fill:false, tension:0.25 },
+            { label: 'Confidence', data: confidence, borderColor: '#28a745', fill:false, tension:0.25 }
           ]
         },
-        options: { responsive:true, scales:{ y:{ min:1, max:5 } } }
+        options: {
+          responsive:true,
+          plugins: { legend: { position:'bottom' } },
+          scales:{ y:{ min:1, max:5, ticks:{ stepSize:1 } } }
+        }
       });
     }
 
