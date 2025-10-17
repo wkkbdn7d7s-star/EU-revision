@@ -12,17 +12,16 @@
   <meta name="mobile-web-app-capable" content="yes" />
 
   <style>
-    /* General Colors and Font */
     body {
       font-family: "Segoe UI", Arial, sans-serif;
-      background-color: #f8f4f0; /* Soft cream */
+      background-color: #f8f4f0;
       margin: 0;
       padding: 0;
-      color: #2c2a28; /* Darker text */
+      color: #2c2a28;
     }
 
     header {
-      background: linear-gradient(90deg, #3b3a36 0%, #5c5b56 100%); /* Darker header */
+      background: linear-gradient(90deg, #3b3a36 0%, #5c5b56 100%);
       padding: 20px 30px;
       display: flex;
       justify-content: space-between;
@@ -32,66 +31,18 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+    .header-left { display: flex; align-items: center; gap: 20px; }
+    .header-left .logo { width: 80px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .header-left .text h1 { margin: 0; font-size: 2em; font-weight: bold; color: #f8f4f0; }
+    .header-left .text p { margin-top: 5px; font-size: 1em; color: #ddd7d0; }
 
-    .header-left .logo {
-      width: 80px;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
+    .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .header-right input { padding: 5px 8px; border-radius: 4px; border: none; font-size: 0.9em; }
+    .header-right button { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em; background-color: #d4af7f; color: #2c2a28; font-weight: bold; }
 
-    .header-left .text h1 {
-      margin: 0;
-      font-size: 2em;
-      font-weight: bold;
-      color: #f8f4f0;
-    }
+    main { padding: 50px 20px; background-color: #f3ede6; }
 
-    .header-left .text p {
-      margin-top: 5px;
-      font-size: 1em;
-      color: #ddd7d0;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .header-right input {
-      padding: 5px 8px;
-      border-radius: 4px;
-      border: none;
-      font-size: 0.9em;
-    }
-
-    .header-right button {
-      padding: 5px 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.9em;
-      background-color: #d4af7f; /* Soft gold */
-      color: #2c2a28;
-      font-weight: bold;
-    }
-
-    main {
-      padding: 50px 20px;
-      background-color: #f3ede6; /* Slightly darker cream */
-    }
-
-    section {
-      margin-bottom: 60px;
-    }
-
+    section { margin-bottom: 60px; }
     section h2 {
       text-align: center;
       font-size: 1.8em;
@@ -102,13 +53,7 @@
       padding-bottom: 5px;
     }
 
-    .card-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 30px;
-    }
+    .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 30px; }
 
     .card {
       background-color: #ece7e1;
@@ -122,73 +67,24 @@
       border-top: 5px solid #a89f92;
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+    .card a { text-decoration: none; color: #5c5b56; font-weight: bold; display: inline-block; margin-top: 15px; transition: color 0.3s; }
+    .card a:hover { color: #d4af7f; }
 
-    .card a {
-      text-decoration: none;
-      color: #5c5b56;
-      font-weight: bold;
-      display: inline-block;
-      margin-top: 15px;
-      transition: color 0.3s;
-    }
+    .mock-card { background: linear-gradient(135deg, #5c5b56, #3b3a36); color: #f8f4f0; border-top: 5px solid #d4af7f; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+    .mock-card h3 { color: #d4af7f; }
+    .mock-card a { color: #d4af7f; }
+    .mock-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.3); }
 
-    .card a:hover {
-      color: #d4af7f;
-    }
+    footer { text-align: center; padding: 20px; background-color: #3b3a36; color: #ddd7d0; font-size: 0.9em; }
 
-    .mock-card {
-      background: linear-gradient(135deg, #5c5b56, #3b3a36);
-      color: #f8f4f0;
-      border-top: 5px solid #d4af7f;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-    }
+    .auth-status { color: #d4af7f; font-weight: bold; font-size: 0.9em; margin-left: 10px; }
 
-    .mock-card h3 {
-      color: #d4af7f;
-    }
+    #performance-section { background-color: #ece7e1; padding: 20px; border-radius: 16px; max-width: 700px; margin: 40px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    #performance-section p { font-size: 1em; margin: 8px 0; }
 
-    .mock-card a {
-      color: #d4af7f;
-    }
-
-    .mock-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.3);
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #3b3a36;
-      color: #ddd7d0;
-      font-size: 0.9em;
-    }
-
-    .auth-status {
-      color: #d4af7f;
-      font-weight: bold;
-      font-size: 0.9em;
-      margin-left: 10px;
-    }
-
-    #performance-section {
-      background-color: #ece7e1;
-      padding: 20px;
-      border-radius: 16px;
-      max-width: 600px;
-      margin: 40px auto;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    #performance-section p {
-      font-size: 1em;
-      margin: 8px 0;
-    }
-
+    #section-filter { margin: 10px 0 20px 0; padding: 5px; font-size: 1em; }
+    #performance-chart { max-width: 100%; }
   </style>
 
   <!-- Firebase SDK -->
@@ -196,7 +92,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
@@ -215,16 +111,11 @@
 
     window.auth = auth;
     window.db = db;
-    window.firebaseFns = {
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      signOut,
-      onAuthStateChanged,
-      doc,
-      setDoc,
-      getDoc
-    };
+    window.firebaseFns = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, doc, setDoc, getDoc, updateDoc, arrayUnion };
   </script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -257,19 +148,16 @@
           <p>Practice questions on EU policies, priorities, and institutions.</p>
           <a href="EUknowledge.html">Start Exercise →</a>
         </div>
-
         <div class="card">
           <h3>EU Competencies</h3>
           <p>Practice behavioral and competency-based questions for EU roles.</p>
           <a href="CBQ.html">Start Exercise →</a>
         </div>
-
         <div class="card">
           <h3>EU Motivation</h3>
           <p>Reflect on your motivation and suitability for a career in the EU institutions.</p>
           <a href="EUmotivation.html">Start Exercise →</a>
         </div>
-
         <div class="card mock-card">
           <h3>Mock Exam</h3>
           <p>Simulate a complete EU interview with timed questions and self-assessment.</p>
@@ -278,30 +166,16 @@
       </div>
     </section>
 
-    <!-- EXAM PREPARATION MATERIALS -->
-    <section>
-      <h2>Exam Preparation Materials</h2>
-      <div class="card-grid">
-        <div class="card">
-          <h3>Preparation Modules</h3>
-          <p>Access key EU resources, fact sheets, and legal bases for study.</p>
-          <a href="Preparation.html">Open Modules →</a>
-        </div>
-
-        <div class="card">
-          <h3>Useful Links</h3>
-          <p>Find trusted news outlets, statistics, and EU-focused training tools.</p>
-          <a href="UsefulLinks.html">Explore Links →</a>
-        </div>
-      </div>
-    </section>
-
     <!-- PERFORMANCE SECTION -->
     <section id="performance-section" style="display:none;">
       <h2>Your Performance</h2>
-      <div id="performance-data">
-        <p>Loading your data...</p>
-      </div>
+      <select id="section-filter">
+        <option value="EUknowledge">EU Knowledge</option>
+        <option value="EUcompetencies">EU Competencies</option>
+        <option value="EUmotivation">EU Motivation</option>
+        <option value="average">Average</option>
+      </select>
+      <canvas id="performance-chart"></canvas>
     </section>
   </main>
 
@@ -309,72 +183,121 @@
     &copy; 2025 EUreka! | Empowering EU candidates for success
   </footer>
 
-  <!-- Firebase Auth + Performance Logic -->
   <script type="module">
     const status = document.getElementById("status");
     const perfSection = document.getElementById("performance-section");
-    const perfData = document.getElementById("performance-data");
+    const sectionFilter = document.getElementById("section-filter");
+    const ctx = document.getElementById("performance-chart").getContext("2d");
+    let performanceChart;
 
-    // Signup
+    // Signup/Login/Logout
     document.getElementById("signup-btn").addEventListener("click", async () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       try {
         const userCred = await firebaseFns.createUserWithEmailAndPassword(auth, email, password);
-        // Initialize empty performance
         await firebaseFns.setDoc(firebaseFns.doc(db, "users", userCred.user.uid), {
-          scores: { EUknowledge: 0, CBQ: 0, MockExam: 0 }
+          selfAssessment: { EUknowledge: [], EUcompetencies: [], EUmotivation: [] }
         });
         status.textContent = "Registered & logged in!";
-      } catch (err) {
-        status.textContent = err.message;
-      }
+      } catch(err) { status.textContent = err.message; }
     });
 
-    // Login
     document.getElementById("login-btn").addEventListener("click", async () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
-      try {
-        await firebaseFns.signInWithEmailAndPassword(auth, email, password);
-        status.textContent = "Logged in!";
-      } catch (err) {
-        status.textContent = err.message;
-      }
+      try { await firebaseFns.signInWithEmailAndPassword(auth, email, password); status.textContent = "Logged in!"; }
+      catch(err){ status.textContent = err.message; }
     });
 
-    // Logout
     document.getElementById("logout-btn").addEventListener("click", async () => {
       await firebaseFns.signOut(auth);
       status.textContent = "Logged out!";
     });
 
-    // Auth State Changes
+    // Utility: group submissions by day
+    function groupByDay(submissions) {
+      const grouped = {};
+      submissions.forEach(s => {
+        const day = new Date(s.timestamp).toISOString().split("T")[0];
+        if(!grouped[day]) grouped[day] = [];
+        grouped[day].push(s);
+      });
+      return Object.entries(grouped).map(([day, arr]) => {
+        const avg = { timestamp: day, clarity:0, structure:0, confidence:0 };
+        arr.forEach(s => { avg.clarity += s.clarity; avg.structure += s.structure; avg.confidence += s.confidence; });
+        const n = arr.length;
+        avg.clarity /= n; avg.structure /= n; avg.confidence /= n;
+        return avg;
+      }).sort((a,b) => new Date(a.timestamp)-new Date(b.timestamp));
+    }
+
+    // Fetch and draw chart
+    async function updateChart(user) {
+      const docSnap = await firebaseFns.getDoc(firebaseFns.doc(db, "users", user.uid));
+      if(!docSnap.exists()) return;
+
+      const data = docSnap.data();
+      let section = sectionFilter.value;
+      let submissions = [];
+
+      if(section === "average") {
+        const allSections = ["EUknowledge","EUcompetencies","EUmotivation"];
+        const merged = {};
+        allSections.forEach(sec => {
+          (data.selfAssessment[sec] || []).forEach(s => {
+            const day = new Date(s.timestamp).toISOString().split("T")[0];
+            if(!merged[day]) merged[day] = [];
+            merged[day].push(s);
+          });
+        });
+        submissions = Object.entries(merged).map(([day, arr]) => {
+          const avg = { timestamp: day, clarity:0, structure:0, confidence:0 };
+          arr.forEach(s => { avg.clarity += s.clarity; avg.structure += s.structure; avg.confidence += s.confidence; });
+          const n = arr.length;
+          avg.clarity /= n; avg.structure /= n; avg.confidence /= n;
+          return avg;
+        }).sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+      } else {
+        submissions = groupByDay(data.selfAssessment[section] || []);
+      }
+
+      const labels = submissions.map(s => s.timestamp);
+      const clarity = submissions.map(s=>s.clarity);
+      const structure = submissions.map(s=>s.structure);
+      const confidence = submissions.map(s=>s.confidence);
+
+      if(performanceChart) performanceChart.destroy();
+      performanceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            { label: 'Clarity', data: clarity, borderColor: '#d4af7f', fill:false, tension:0.2 },
+            { label: 'Structure', data: structure, borderColor: '#5c5b56', fill:false, tension:0.2 },
+            { label: 'Confidence', data: confidence, borderColor: '#3b3a36', fill:false, tension:0.2 }
+          ]
+        },
+        options: { responsive:true, scales:{ y:{ min:1, max:5 } } }
+      });
+    }
+
+    // Auth state listener
     firebaseFns.onAuthStateChanged(auth, async user => {
-      if (user) {
+      if(user) {
         status.textContent = `Logged in as: ${user.email}`;
         perfSection.style.display = "block";
-
-        try {
-          const docSnap = await firebaseFns.getDoc(firebaseFns.doc(db, "users", user.uid));
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            perfData.innerHTML = `
-              <p>EU Knowledge: ${data.scores?.EUknowledge || 0}</p>
-              <p>CBQ: ${data.scores?.CBQ || 0}</p>
-              <p>Mock Exam: ${data.scores?.MockExam || 0}</p>
-            `;
-          } else {
-            perfData.innerHTML = "<p>No performance data yet.</p>";
-          }
-        } catch (err) {
-          perfData.innerHTML = `<p>Error loading data: ${err.message}</p>`;
-        }
-
+        await updateChart(user);
       } else {
         status.textContent = "Not logged in";
         perfSection.style.display = "none";
       }
+    });
+
+    // Dropdown change
+    sectionFilter.addEventListener("change", async () => {
+      const user = auth.currentUser;
+      if(user) await updateChart(user);
     });
   </script>
 </body>
