@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const content = document.getElementById("content");
   const timerEl = document.getElementById("timer");
   const startBtn = document.getElementById("startBtn");
+  const finishBtn = document.getElementById("finishBtn");
 
   let timerInterval;
   let remainingSeconds;
@@ -181,7 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showNextQuestion() {
       if (index >= randomQs.length) {
-        showSelfAssessmentForm();
+        finishBtn.style.display = "inline-block"; // Reveal Finish button
+        content.innerHTML = `<h2>All questions completed!</h2><p>Click "Finish Exam" to submit your self-assessment.</p>`;
         return;
       }
 
@@ -205,67 +207,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     showNextQuestion();
-  }
-
-  // --- Timer ---
-  function startTimer(seconds, callback) {
-    clearInterval(timerInterval);
-    remainingSeconds = seconds;
-    updateTimerDisplay();
-
-    timerInterval = setInterval(() => {
-      remainingSeconds--;
-      updateTimerDisplay();
-      if (remainingSeconds <= 0) {
-        clearInterval(timerInterval);
-        callback();
-      }
-    }, 1000);
-  }
-
-  function updateTimerDisplay() {
-    const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, "0");
-    const seconds = String(remainingSeconds % 60).padStart(2, "0");
-    timerEl.textContent = `${minutes}:${seconds}`;
-
-    if (remainingSeconds <= 30) timerEl.style.color = "red";
-    else if (remainingSeconds <= 90) timerEl.style.color = "orange";
-    else if (remainingSeconds <= 180) timerEl.style.color = "yellow";
-    else timerEl.style.color = "#ffffff";
-  }
-
-  // --- Self-assessment (local only, no Firebase) ---
-  function showSelfAssessmentForm() {
-    content.innerHTML = `
-      <h2>Mock Exam Complete 🎉</h2>
-      <p>Great job! Please rate your overall performance (1–10):</p>
-      <div style="margin: 20px 0;">
-        <input id="scoreInput" type="number" min="1" max="10" placeholder="Enter score (1–10)" style="padding: 10px; border-radius: 8px; width: 120px; text-align: center; font-size: 1.1em;">
-      </div>
-      <div class="controls">
-        <button id="submitScoreBtn">Submit</button>
-      </div>
-      <p id="feedbackMsg" style="margin-top: 20px; font-weight: bold;"></p>
-    `;
-
-    timerEl.textContent = "";
-
-    const submitBtn = document.getElementById("submitScoreBtn");
-    const scoreInput = document.getElementById("scoreInput");
-    const feedbackMsg = document.getElementById("feedbackMsg");
-
-    submitBtn.addEventListener("click", () => {
-      const score = parseInt(scoreInput.value.trim());
-      if (isNaN(score) || score < 1 || score > 10) {
-        feedbackMsg.textContent = "⚠️ Please enter a valid score between 1 and 10.";
-        feedbackMsg.style.color = "orange";
-        return;
-      }
-
-      feedbackMsg.textContent = `✅ Thank you! Your self-assessed score is ${score}/10.`;
-      feedbackMsg.style.color = "lightgreen";
-      scoreInput.disabled = true;
-      submitBtn.disabled = true;
-    });
   }
 });
