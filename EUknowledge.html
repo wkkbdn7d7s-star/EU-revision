@@ -1,248 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EU Knowledge — EUreka!</title>
+<script type="module">
+  const { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged } = window.firebaseFns;
+  const form = document.getElementById("assessment-form");
+  const status = document.getElementById("form-status");
 
-  <!-- Merged CSS -->
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+  let currentUser = null;
 
-    :root{
-      --bg: #f3ede6;
-      --card-bg: #ece7e1;
-      --accent: #0052cc;
-      --accent-hover: #003399;
-      --text-dark: #2c2a28;
-      --muted: #4a453f;
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      currentUser = user;
+      status.textContent = "";
+    } else {
+      currentUser = null;
+      status.textContent = "Please log in on the main page to submit scores.";
+    }
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!currentUser) {
+      status.textContent = "You must be logged in!";
+      return;
     }
 
-    * { box-sizing: border-box; }
+    const clarity = parseInt(document.getElementById("clarity").value);
+    const structure = parseInt(document.getElementById("structure").value);
+    const confidence = parseInt(document.getElementById("confidence").value);
 
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family: 'Merriweather', serif;
-      background: var(--bg);
-      color: var(--text-dark);
-      padding: 24px;
-    }
-
-    a.back-arrow{
-      display:inline-block;
-      margin-bottom:20px;
-      font-size:1.5rem;
-      color: var(--accent);
-      text-decoration:none;
-      font-weight:bold;
-    }
-    a.back-arrow:hover{ color: var(--accent-hover); }
-
-    .container{
-      width:100%;
-      max-width:900px;
-      margin: 0 auto;
-    }
-
-    .page-header {
-      text-align:center;
-      margin-bottom:18px;
-    }
-
-    .page-header h1{
-      margin:0;
-      font-size:2rem;
-      color: var(--accent);
-    }
-
-    .page-header p{
-      margin-top:8px;
-      color: var(--muted);
-    }
-
-    .card{
-      background: var(--card-bg);
-      border-radius:16px;
-      padding:28px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-      color: var(--text-dark);
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
-
-    .question{
-      min-height:120px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      background: rgba(0,82,204,0.05);
-      border-radius:10px;
-      text-align:center;
-      font-size:1.15rem;
-      color: var(--text-dark);
-      transition: opacity .28s ease, transform .28s ease;
-    }
-
-    .question.fade {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-
-    .controls{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    button{
-      background: var(--accent);
-      color:#fff;
-      border:none;
-      padding:10px 18px;
-      border-radius:10px;
-      font-size:1rem;
-      cursor:pointer;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
-      transition: transform .15s ease, background .15s ease;
-    }
-    button:hover{ transform: translateY(-3px); background: var(--accent-hover); }
-
-    .status{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      font-weight:700;
-      color: var(--muted);
-    }
-
-    #counter, #timer{
-      background: rgba(0,82,204,0.08);
-      padding:6px 10px;
-      border-radius:8px;
-      font-weight:bold;
-    }
-
-    /* Self-assessment form */
-    #self-assessment{
-      margin-top:20px;
-    }
-
-    #self-assessment h2{
-      text-align:center;
-      color: var(--accent);
-      margin-bottom:12px;
-    }
-
-    #assessment-form{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:center;
-    }
-
-    #assessment-form label{
-      display:flex;
-      justify-content: space-between;
-      width:220px;
-      font-weight:bold;
-    }
-
-    #assessment-form input{
-      width:50px;
-      text-align:center;
-      border-radius:6px;
-      border:1px solid #ccc;
-      padding:4px;
-    }
-
-    #assessment-form button{
-      margin-top:10px;
-      width:150px;
-    }
-
-    #form-status{
-      margin-top:8px;
-      text-align:center;
-      color: var(--accent);
-      font-weight:bold;
-    }
-
-    @media (max-width:520px){
-      .question{ font-size:1rem; min-height:110px; padding:16px; }
-      button{ padding:10px 14px; font-size:0.95rem; }
-      #assessment-form label{ width:180px; flex-direction:column; gap:4px; }
-      #assessment-form input{ width:100%; }
-    }
-  </style>
-
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-    import { getFirestore, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
-      authDomain: "eureka-63b47.firebaseapp.com",
-      projectId: "eureka-63b47",
-      storageBucket: "eureka-63b47.firebasestorage.app",
-      messagingSenderId: "655168214317",
-      appId: "1:655168214317:web:3d3ffc07706ba39efa6fa4",
-      measurementId: "G-KFTB45DCFZ"
+    // Include timestamp to make each submission unique
+    const submission = {
+      clarity,
+      structure,
+      confidence,
+      submittedAt: new Date().toISOString() // <-- ensures uniqueness
     };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    window.firebaseFns = { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged };
-  </script>
-</head>
-<body>
-  <!-- Back arrow -->
-  <a href="index.html" class="back-arrow" title="Back to homepage">←</a>
-
-  <div class="container">
-    <header class="page-header">
-      <h1>EU Knowledge</h1>
-      <p>Test your knowledge on EU policy, priorities, and institutional questions.</p>
-    </header>
-
-    <main class="card">
-      <div id="question" class="question">Click "Next Question" to start</div>
-
-      <div class="controls">
-        <button id="nextBtn">Next Question</button>
-        <button id="shuffleBtn">Shuffle</button>
-        <button id="copyBtn">Copy</button>
-      </div>
-
-      <div class="status">
-        <span id="counter">0 / 0</span>
-        <span id="timer">00:00</span>
-      </div>
-
-      <!-- Self-Assessment Form (without engagement) -->
-      <section id="self-assessment">
-        <h2>Submit Your Self-Assessment</h2>
-        <form id="assessment-form">
-          <label>Clarity (1–5): <input type="number" id="clarity" min="1" max="5" required></label>
-          <label>Structure (1–5): <input type="number" id="structure" min="1" max="5" required></label>
-          <label>Confidence (1–5): <input type="number" id="confidence" min="1" max="5" required></label>
-          <button type="submit">Submit Score</button>
-        </form>
-        <p id="form-status"></p>
-      </section>
-    </main>
-  </div>
-
-  <!-- External JS -->
-  <script src="EUreka-base.js"></script>
-  <script src="EUknowledge.js"></script>
-</body>
-</html>
+    try {
+      const userDoc = doc(db, "users", currentUser.uid);
+      await updateDoc(userDoc, {
+        "selfAssessment.EUKnowledge": arrayUnion(submission)
+      });
+      status.textContent = "Score submitted successfully!";
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      status.textContent = "Error submitting score: " + err.message;
+    }
+  });
+</script>
