@@ -81,11 +81,25 @@
     .auth-status { color: #d4af7f; font-weight: bold; font-size: 0.9em; margin-left: 10px; }
 
     #performance-section { background-color: #ece7e1; padding: 20px; border-radius: 16px; max-width: 700px; margin: 40px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    #section-filter { margin: 10px 0 20px 0; padding: 5px; font-size: 1em; }
+    
+    /* Styled dropdown */
+    #section-filter {
+      margin: 10px 0 20px 0;
+      padding: 8px 12px;
+      font-size: 1em;
+      border-radius: 10px;
+      border: none;
+      background-color: #ece7e1;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      color: #2c2a28;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    #section-filter:hover { background-color: #f3ede6; }
+
     #performance-chart { max-width: 100%; }
   </style>
 
-  <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
@@ -111,7 +125,6 @@
     window.db = db;
     window.firebaseFns = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, doc, setDoc, getDoc, updateDoc, arrayUnion };
   </script>
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -136,7 +149,6 @@
   </header>
 
   <main>
-    <!-- ORAL EXAM PRACTICE -->
     <section>
       <h2>Oral Exam Practice</h2>
       <div class="card-grid">
@@ -163,7 +175,6 @@
       </div>
     </section>
 
-    <!-- PERFORMANCE SECTION -->
     <section id="performance-section" style="display:none;">
       <h2>Your Performance</h2>
       <select id="section-filter">
@@ -175,7 +186,6 @@
       <canvas id="performance-chart"></canvas>
     </section>
 
-    <!-- EXAM PREPARATION MATERIALS -->
     <section>
       <h2>Exam Preparation Materials</h2>
       <div class="card-grid">
@@ -184,7 +194,6 @@
           <p>Access key EU resources, fact sheets, and legal bases for study.</p>
           <a href="Preparation.html">Open Modules →</a>
         </div>
-
         <div class="card">
           <h3>Useful Links</h3>
           <p>Find trusted news outlets, statistics, and EU-focused training tools.</p>
