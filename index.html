@@ -21,7 +21,7 @@
     }
 
     header {
-      background: linear-gradient(90deg, #3b3a36 0%, #5c5b56 100%);
+      background: linear-gradient(90deg, #003399 0%, #0052cc 100%);
       padding: 20px 30px;
       display: flex;
       justify-content: space-between;
@@ -34,7 +34,7 @@
     .header-left { display: flex; align-items: center; gap: 20px; }
     .header-left .logo { width: 80px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     .header-left .text h1 { margin: 0; font-size: 2em; font-weight: bold; color: #f8f4f0; }
-    .header-left .text p { margin-top: 5px; font-size: 1em; color: #ddd7d0; }
+    .header-left .text p { margin-top: 5px; font-size: 1em; color: #dde2f0; }
 
     .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .header-right input { padding: 5px 8px; border-radius: 4px; border: none; font-size: 0.9em; }
@@ -47,8 +47,8 @@
       text-align: center;
       font-size: 1.8em;
       margin-bottom: 30px;
-      color: #4a453f;
-      border-bottom: 3px solid #a89f92;
+      color: #003399;
+      border-bottom: 3px solid #0052cc;
       display: inline-block;
       padding-bottom: 5px;
     }
@@ -64,25 +64,23 @@
       text-align: center;
       padding: 25px 20px;
       transition: transform 0.3s, box-shadow 0.3s;
-      border-top: 5px solid #a89f92;
+      border-top: 5px solid #0052cc;
     }
 
     .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
-    .card a { text-decoration: none; color: #5c5b56; font-weight: bold; display: inline-block; margin-top: 15px; transition: color 0.3s; }
+    .card a { text-decoration: none; color: #003399; font-weight: bold; display: inline-block; margin-top: 15px; transition: color 0.3s; }
     .card a:hover { color: #d4af7f; }
 
-    .mock-card { background: linear-gradient(135deg, #5c5b56, #3b3a36); color: #f8f4f0; border-top: 5px solid #d4af7f; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+    .mock-card { background: linear-gradient(135deg, #0052cc, #003399); color: #f8f4f0; border-top: 5px solid #d4af7f; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
     .mock-card h3 { color: #d4af7f; }
     .mock-card a { color: #d4af7f; }
     .mock-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.3); }
 
-    footer { text-align: center; padding: 20px; background-color: #3b3a36; color: #ddd7d0; font-size: 0.9em; }
+    footer { text-align: center; padding: 20px; background-color: #003399; color: #dde2f0; font-size: 0.9em; }
 
     .auth-status { color: #d4af7f; font-weight: bold; font-size: 0.9em; margin-left: 10px; }
 
     #performance-section { background-color: #ece7e1; padding: 20px; border-radius: 16px; max-width: 700px; margin: 40px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    #performance-section p { font-size: 1em; margin: 8px 0; }
-
     #section-filter { margin: 10px 0 20px 0; padding: 5px; font-size: 1em; }
     #performance-chart { max-width: 100%; }
   </style>
@@ -114,7 +112,6 @@
     window.firebaseFns = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, doc, setDoc, getDoc, updateDoc, arrayUnion };
   </script>
 
-  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -177,6 +174,24 @@
       </select>
       <canvas id="performance-chart"></canvas>
     </section>
+
+    <!-- EXAM PREPARATION MATERIALS -->
+    <section>
+      <h2>Exam Preparation Materials</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Preparation Modules</h3>
+          <p>Access key EU resources, fact sheets, and legal bases for study.</p>
+          <a href="Preparation.html">Open Modules →</a>
+        </div>
+
+        <div class="card">
+          <h3>Useful Links</h3>
+          <p>Find trusted news outlets, statistics, and EU-focused training tools.</p>
+          <a href="UsefulLinks.html">Explore Links →</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -190,7 +205,6 @@
     const ctx = document.getElementById("performance-chart").getContext("2d");
     let performanceChart;
 
-    // Signup/Login/Logout
     document.getElementById("signup-btn").addEventListener("click", async () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
@@ -215,7 +229,6 @@
       status.textContent = "Logged out!";
     });
 
-    // Utility: group submissions by day
     function groupByDay(submissions) {
       const grouped = {};
       submissions.forEach(s => {
@@ -232,7 +245,6 @@
       }).sort((a,b) => new Date(a.timestamp)-new Date(b.timestamp));
     }
 
-    // Fetch and draw chart
     async function updateChart(user) {
       const docSnap = await firebaseFns.getDoc(firebaseFns.doc(db, "users", user.uid));
       if(!docSnap.exists()) return;
@@ -273,16 +285,15 @@
         data: {
           labels,
           datasets: [
-            { label: 'Clarity', data: clarity, borderColor: '#d4af7f', fill:false, tension:0.2 },
-            { label: 'Structure', data: structure, borderColor: '#5c5b56', fill:false, tension:0.2 },
-            { label: 'Confidence', data: confidence, borderColor: '#3b3a36', fill:false, tension:0.2 }
+            { label: 'Clarity', data: clarity, borderColor: '#0052cc', fill:false, tension:0.2 },
+            { label: 'Structure', data: structure, borderColor: '#003399', fill:false, tension:0.2 },
+            { label: 'Confidence', data: confidence, borderColor: '#6699ff', fill:false, tension:0.2 }
           ]
         },
         options: { responsive:true, scales:{ y:{ min:1, max:5 } } }
       });
     }
 
-    // Auth state listener
     firebaseFns.onAuthStateChanged(auth, async user => {
       if(user) {
         status.textContent = `Logged in as: ${user.email}`;
@@ -294,7 +305,6 @@
       }
     });
 
-    // Dropdown change
     sectionFilter.addEventListener("change", async () => {
       const user = auth.currentUser;
       if(user) await updateChart(user);
