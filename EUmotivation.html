@@ -5,21 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EU Motivation — EUreka!</title>
 
-  <!-- Combined CSS -->
+  <!-- Merged CSS -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
     :root{
-      --bg: #002080;
-      --panel: #f5f7fa;
-      --card-bg: #1a2a66;
-      --accent: #4d6fcc;
-      --text-dark: #003399;
-      --muted: #bfc8e6;
-      --timer-white: #ffffff;
-      --timer-yellow: #fff100;
-      --timer-orange: #ff9900;
-      --timer-red: #ff3333;
+      --bg: #f3ede6;
+      --card-bg: #ece7e1;
+      --accent: #0052cc;
+      --accent-hover: #003399;
+      --text-dark: #2c2a28;
+      --muted: #4a453f;
     }
 
     * { box-sizing: border-box; }
@@ -27,18 +23,26 @@
     body{
       margin:0;
       min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: var(--bg);
       font-family: 'Merriweather', serif;
-      color: #f5f5f5;
+      background: var(--bg);
+      color: var(--text-dark);
       padding: 24px;
     }
+
+    a.back-arrow{
+      display:inline-block;
+      margin-bottom:20px;
+      font-size:1.5rem;
+      color: var(--accent);
+      text-decoration:none;
+      font-weight:bold;
+    }
+    a.back-arrow:hover{ color: var(--accent-hover); }
 
     .container{
       width:100%;
       max-width:900px;
+      margin: 0 auto;
     }
 
     .page-header {
@@ -49,7 +53,7 @@
     .page-header h1{
       margin:0;
       font-size:2rem;
-      color:#fff;
+      color: var(--accent);
     }
 
     .page-header p{
@@ -58,11 +62,11 @@
     }
 
     .card{
-      background: linear-gradient(180deg, #1a2a66 0%, #16305f 100%);
-      border-radius:14px;
+      background: var(--card-bg);
+      border-radius:16px;
       padding:28px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-      color: #eef3ff;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      color: var(--text-dark);
       display:flex;
       flex-direction:column;
       gap:18px;
@@ -74,11 +78,11 @@
       align-items:center;
       justify-content:center;
       padding:20px;
-      background: rgba(255,255,255,0.03);
+      background: rgba(0,82,204,0.05);
       border-radius:10px;
       text-align:center;
       font-size:1.15rem;
-      color: #f8fbff;
+      color: var(--text-dark);
       transition: opacity .28s ease, transform .28s ease;
     }
 
@@ -102,11 +106,10 @@
       border-radius:10px;
       font-size:1rem;
       cursor:pointer;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.22);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
       transition: transform .15s ease, background .15s ease;
     }
-
-    button:hover{ transform: translateY(-3px); background:#637fd6; }
+    button:hover{ transform: translateY(-3px); background: var(--accent-hover); }
 
     .status{
       display:flex;
@@ -114,69 +117,66 @@
       align-items:center;
       gap:12px;
       font-weight:700;
-      color:#dfe8ff;
+      color: var(--muted);
     }
 
-    #counter{
-      background: rgba(255,255,255,0.05);
+    #counter, #timer{
+      background: rgba(0,82,204,0.08);
       padding:6px 10px;
       border-radius:8px;
-      color:#ffffff;
+      font-weight:bold;
     }
 
-    #timer{
-      font-size:1.6rem;
-      background: rgba(255,255,255,0.06);
-      padding:6px 10px;
-      border-radius:8px;
-      color: var(--timer-white);
-      transition: color 0.3s ease;
+    /* Self-assessment form */
+    #self-assessment{
+      margin-top:20px;
     }
 
-    section#self-assessment h2{
+    #self-assessment h2{
       text-align:center;
+      color: var(--accent);
       margin-bottom:12px;
     }
 
-    #self-assessment form{
+    #assessment-form{
       display:flex;
       flex-direction:column;
       gap:10px;
       align-items:center;
     }
 
-    #self-assessment input{
-      width:60px;
-      padding:6px 8px;
-      border-radius:6px;
-      border:none;
-      text-align:center;
+    #assessment-form label{
+      display:flex;
+      justify-content: space-between;
+      width:220px;
+      font-weight:bold;
     }
 
-    #self-assessment button{
+    #assessment-form input{
+      width:50px;
+      text-align:center;
+      border-radius:6px;
+      border:1px solid #ccc;
+      padding:4px;
+    }
+
+    #assessment-form button{
       margin-top:10px;
+      width:150px;
     }
 
     #form-status{
-      margin-top:6px;
+      margin-top:8px;
       text-align:center;
-      font-weight:600;
-      color: #fff;
+      color: var(--accent);
+      font-weight:bold;
     }
 
     @media (max-width:520px){
       .question{ font-size:1rem; min-height:110px; padding:16px; }
       button{ padding:10px 14px; font-size:0.95rem; }
-      #timer{ font-size:1.4rem; }
-    }
-
-    .back-arrow{
-      position: fixed;
-      top:16px;
-      left:16px;
-      font-size:1.6rem;
-      color:#fff;
-      text-decoration:none;
+      #assessment-form label{ width:180px; flex-direction:column; gap:4px; }
+      #assessment-form input{ width:100%; }
     }
   </style>
 
@@ -226,13 +226,12 @@
         <span id="timer">00:00</span>
       </div>
 
-      <!-- Self-Assessment Form without engagement -->
       <section id="self-assessment">
         <h2>Submit Your Self-Assessment</h2>
         <form id="assessment-form">
-          <label>Clarity (1–5): <input type="number" id="clarity" min="1" max="5" required></label><br>
-          <label>Structure (1–5): <input type="number" id="structure" min="1" max="5" required></label><br>
-          <label>Confidence (1–5): <input type="number" id="confidence" min="1" max="5" required></label><br>
+          <label>Clarity (1–5): <input type="number" id="clarity" min="1" max="5" required></label>
+          <label>Structure (1–5): <input type="number" id="structure" min="1" max="5" required></label>
+          <label>Confidence (1–5): <input type="number" id="confidence" min="1" max="5" required></label>
           <button type="submit">Submit Score</button>
         </form>
         <p id="form-status"></p>
@@ -240,11 +239,9 @@
     </main>
   </div>
 
-  <!-- Optional global JS -->
   <script src="EUreka-base.js"></script>
   <script src="EUmotivation.js"></script>
 
-  <!-- Self-Assessment JS -->
   <script type="module">
     const { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged } = window.firebaseFns;
     const form = document.getElementById("assessment-form");
