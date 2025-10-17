@@ -280,7 +280,7 @@
       try {
         const userDoc = doc(db, "users", currentUser.uid);
         await updateDoc(userDoc, {
-          "selfAssessment.EUKnowledge": arrayUnion(submission)
+          "selfAssessment.EUknowledge": arrayUnion(submission)
         });
         status.textContent = "Score submitted successfully!";
         form.reset();
