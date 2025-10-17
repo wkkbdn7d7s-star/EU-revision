@@ -5,11 +5,180 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EU Competencies — EUreka!</title>
 
-  <!-- Shared global styles -->
-  <link rel="stylesheet" href="EUreka-base.css">
+  <!-- Combined CSS -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
-  <!-- Module-specific styles -->
-  <link rel="stylesheet" href="CBQ.css">
+    :root{
+      --bg: #002080;
+      --panel: #f5f7fa;
+      --card-bg: #1a2a66;
+      --accent: #4d6fcc;
+      --text-dark: #003399;
+      --muted: #bfc8e6;
+      --timer-white: #ffffff;
+      --timer-yellow: #fff100;
+      --timer-orange: #ff9900;
+      --timer-red: #ff3333;
+    }
+
+    * { box-sizing: border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: var(--bg);
+      font-family: 'Merriweather', serif;
+      color: #f5f5f5;
+      padding: 24px;
+    }
+
+    .container{
+      width:100%;
+      max-width:900px;
+    }
+
+    .page-header {
+      text-align:center;
+      margin-bottom:18px;
+    }
+
+    .page-header h1{
+      margin:0;
+      font-size:2rem;
+      color:#fff;
+    }
+
+    .page-header p{
+      margin-top:8px;
+      color:var(--muted);
+    }
+
+    .card{
+      background: linear-gradient(180deg, #1a2a66 0%, #16305f 100%);
+      border-radius:14px;
+      padding:28px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      color: #eef3ff;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .question{
+      min-height:120px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background: rgba(255,255,255,0.03);
+      border-radius:10px;
+      text-align:center;
+      font-size:1.15rem;
+      color: #f8fbff;
+      transition: opacity .28s ease, transform .28s ease;
+    }
+
+    .question.fade {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .controls{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    button{
+      background: var(--accent);
+      color:#fff;
+      border:none;
+      padding:10px 18px;
+      border-radius:10px;
+      font-size:1rem;
+      cursor:pointer;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.22);
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    button:hover{ transform: translateY(-3px); background:#637fd6; }
+
+    .status{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      color:#dfe8ff;
+    }
+
+    #counter{
+      background: rgba(255,255,255,0.05);
+      padding:6px 10px;
+      border-radius:8px;
+      color:#ffffff;
+    }
+
+    #timer{
+      font-size:1.6rem;
+      background: rgba(255,255,255,0.06);
+      padding:6px 10px;
+      border-radius:8px;
+      color: var(--timer-white);
+      transition: color 0.3s ease;
+    }
+
+    section#self-assessment h2{
+      text-align:center;
+      margin-bottom:12px;
+    }
+
+    #self-assessment form{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:center;
+    }
+
+    #self-assessment input{
+      width:60px;
+      padding:6px 8px;
+      border-radius:6px;
+      border:none;
+      text-align:center;
+    }
+
+    #self-assessment button{
+      margin-top:10px;
+    }
+
+    #form-status{
+      margin-top:6px;
+      text-align:center;
+      font-weight:600;
+      color: #fff;
+    }
+
+    @media (max-width:520px){
+      .question{ font-size:1rem; min-height:110px; padding:16px; }
+      button{ padding:10px 14px; font-size:0.95rem; }
+      #timer{ font-size:1.4rem; }
+    }
+
+    .back-arrow{
+      position: fixed;
+      top:16px;
+      left:16px;
+      font-size:1.6rem;
+      color:#fff;
+      text-decoration:none;
+    }
+  </style>
 
   <!-- Firebase SDK -->
   <script type="module">
@@ -35,7 +204,6 @@
   </script>
 </head>
 <body>
-  <!-- Back arrow -->
   <a href="index.html" class="back-arrow" title="Back to homepage">←</a>
 
   <div class="container">
@@ -58,14 +226,13 @@
         <span id="timer">00:00</span>
       </div>
 
-      <!-- Self-Assessment Form -->
+      <!-- Self-Assessment Form without engagement -->
       <section id="self-assessment">
         <h2>Submit Your Self-Assessment</h2>
         <form id="assessment-form">
           <label>Clarity (1–5): <input type="number" id="clarity" min="1" max="5" required></label><br>
           <label>Structure (1–5): <input type="number" id="structure" min="1" max="5" required></label><br>
           <label>Confidence (1–5): <input type="number" id="confidence" min="1" max="5" required></label><br>
-          <label>Engagement (1–5): <input type="number" id="engagement" min="1" max="5"></label><br>
           <button type="submit">Submit Score</button>
         </form>
         <p id="form-status"></p>
@@ -105,13 +272,11 @@
       const clarity = parseInt(document.getElementById("clarity").value);
       const structure = parseInt(document.getElementById("structure").value);
       const confidence = parseInt(document.getElementById("confidence").value);
-      const engagement = parseInt(document.getElementById("engagement").value) || null;
 
       const submission = {
         clarity,
         structure,
         confidence,
-        engagement,
         timestamp: new Date().toISOString()
       };
 
