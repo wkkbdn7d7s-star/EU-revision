@@ -34,22 +34,22 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     // EU Knowledge
     const knowledgeSnap = await getDocs(collection(db, "EUknowledge"));
-    euKnowledge = knowledgeSnap.docs.map(doc => doc.data().text);
+    euKnowledge = knowledgeSnap.docs.map(doc => doc.data().text || doc.data().question || "Missing question");
 
     // Competencies
     const competencySnap = await getDocs(collection(db, "EUcompetencies"));
-    competencies = competencySnap.docs.map(doc => doc.data().text);
+    competencies = competencySnap.docs.map(doc => doc.data().text || doc.data().question || "Missing question");
 
     // Motivation
     const motivationSnap = await getDocs(collection(db, "EUmotivation"));
-    motivation = motivationSnap.docs.map(doc => doc.data().text);
+    motivation = motivationSnap.docs.map(doc => doc.data().text || doc.data().question || "Missing question");
 
-    if (!euKnowledge.length && !competencies.length && !motivation.length) {
-      content.innerHTML = "<p>No questions found in Firestore. Please check the database.</p>";
+    if (!euKnowledge.length || !competencies.length || !motivation.length) {
+      content.innerHTML = "<p>No questions found in one or more collections. Please check Firestore.</p>";
       return;
     }
 
-    console.log("Loaded questions from Firestore:");
+    console.log("✅ Loaded questions from Firestore:");
     console.log("EU Knowledge:", euKnowledge.length);
     console.log("Competencies:", competencies.length);
     console.log("Motivation:", motivation.length);
