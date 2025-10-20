@@ -335,8 +335,8 @@
         status.textContent = `Logged in as: ${user.email}`;
         perfSection.style.display = "block";
         await updateChart(user);
-        // Show admin module for Giuseppe only
-        if(user.email === "giuseppe@hotmail.com") {
+        // Show admin module for Admin only
+        if(user.email === "Admin@admin.com") {
           document.getElementById("admin-module").style.display = "block";
         } else {
           document.getElementById("admin-module").style.display = "none";
