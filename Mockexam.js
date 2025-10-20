@@ -47,40 +47,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const competencies = [
     "Tell me about a time you dealt with a difficult colleague?",
-    "Tell me about a time you developed a new skill or competency",
-    "Tell me about a time you disagreed with your hierarchy",
-    "Tell me about a time you did not deliver on time",
-    "Tell me about a time you did not deliver up to the quality required",
-    "Tell me about a time you delivered above expectations but were disappointed",
-    "Tell me about a time you had to improve your interpersonal skills in a new job",
-    "Tell me about a time you managed low-intensity work periods",
-    "Tell me about a time you led a team",
-    "Tell me about a time you changed your mind",
-    "Tell me about a time you received feedback you disagreed with",
-    "Tell me about a time you implemented a new idea",
-    "Tell me about a time when you valued diversity and inclusion",
-    "Tell me about a time you delivered above expectations",
-    "Tell me about a time you showed adaptive behaviours",
-    "Tell me about a time you faced a challenge",
-    "Tell me about a time you represented the European Commission",
-    "Tell me about a time you questioned procedures",
-    "Tell me about a time you delegated a task",
-    "Tell me about a time you could not agree with a colleague",
-    "Tell me about a time you motivated others to achieve a goal",
-    "Tell me about a time you had to adapt quickly to a new policy or procedure",
-    "Tell me about a time you influenced a decision through collaboration",
-    "Tell me about a time you resolved a conflict between team members",
-    "Tell me about a time you handled a sensitive situation with discretion",
-    "Tell me about a time you prioritized competing tasks under pressure",
-    "Tell me about a time you implemented a process improvement",
-    "Tell me about a time you took initiative beyond your assigned role",
-    "Tell me about a time you managed a project from start to finish",
-    "Tell me about a time you built consensus among stakeholders",
-    "Tell me about a time you had to make a difficult ethical decision",
-    "Tell me about a time you innovated to solve a problem",
-    "Tell me about a time you had to work with limited resources",
-    "Tell me about a time you handled constructive criticism positively",
-    "Tell me about a time you mentored or coached someone"
+    "Tell me about a time you developed a new skill or competency.",
+    "Tell me about a time you disagreed with your hierarchy.",
+    "Tell me about a time you did not deliver on time.",
+    "Tell me about a time you did not deliver up to the quality required.",
+    "Tell me about a time you delivered above expectations but were disappointed.",
+    "Tell me about a time you had to improve your interpersonal skills in a new job.",
+    "Tell me about a time you managed low-intensity work periods.",
+    "Tell me about a time you led a team.",
+    "Tell me about a time you changed your mind.",
+    "Tell me about a time you received feedback you disagreed with.",
+    "Tell me about a time you implemented a new idea.",
+    "Tell me about a time when you valued diversity and inclusion.",
+    "Tell me about a time you delivered above expectations.",
+    "Tell me about a time you showed adaptive behaviours.",
+    "Tell me about a time you faced a challenge.",
+    "Tell me about a time you represented the European Commission.",
+    "Tell me about a time you questioned procedures.",
+    "Tell me about a time you delegated a task.",
+    "Tell me about a time you could not agree with a colleague.",
+    "Tell me about a time you motivated others to achieve a goal.",
+    "Tell me about a time you had to adapt quickly to a new policy or procedure.",
+    "Tell me about a time you influenced a decision through collaboration.",
+    "Tell me about a time you resolved a conflict between team members.",
+    "Tell me about a time you handled a sensitive situation with discretion.",
+    "Tell me about a time you prioritized competing tasks under pressure.",
+    "Tell me about a time you implemented a process improvement.",
+    "Tell me about a time you took initiative beyond your assigned role.",
+    "Tell me about a time you managed a project from start to finish.",
+    "Tell me about a time you built consensus among stakeholders.",
+    "Tell me about a time you had to make a difficult ethical decision.",
+    "Tell me about a time you innovated to solve a problem.",
+    "Tell me about a time you had to work with limited resources.",
+    "Tell me about a time you handled constructive criticism positively.",
+    "Tell me about a time you mentored or coached someone."
   ];
 
   const motivation = [
@@ -113,16 +113,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const finishBtn = document.getElementById("finishBtn");
 
   let timerInterval;
-  let remainingSeconds;
+  let remainingSeconds = 0;
 
   if (startBtn) startBtn.addEventListener("click", startKnowledgeStage);
 
-  // --- Stage Functions ---
+  // --- Stage 1: EU Knowledge (Preparation) ---
   function startKnowledgeStage() {
     const randomQs = euKnowledge.sort(() => 0.5 - Math.random()).slice(0, 3);
     content.innerHTML = `
       <h2>Preparation Stage</h2>
-      <p>You have 10 minutes to prepare a presentation on <strong>one</strong> of the following three EU Knowledge questions:</p>
+      <p>You have <strong>10 minutes</strong> to prepare a presentation on <strong>one</strong> of the following EU Knowledge questions:</p>
       <ol>${randomQs.map(q => `<li>${q}</li>`).join("")}</ol>
       <div class="button-group">
         <button id="skipBtn">Skip</button>
@@ -132,10 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
     startTimer(10 * 60, startPresentationStage);
   }
 
+  // --- Stage 2: Presentation ---
   function startPresentationStage() {
     content.innerHTML = `
       <h2>Presentation Stage</h2>
-      <p>Now, present your answer to the question you selected. You have 5 minutes.</p>
+      <p>You now have <strong>5 minutes</strong> to present your prepared answer.</p>
       <div class="button-group">
         <button id="skipBtn">Skip</button>
       </div>
@@ -144,19 +145,16 @@ document.addEventListener("DOMContentLoaded", () => {
     startTimer(5 * 60, startCompetencyStage);
   }
 
+  // --- Stage 3: Competency ---
   function startCompetencyStage() {
     const randomQs = competencies.sort(() => 0.5 - Math.random()).slice(0, 5);
     let index = 0;
 
-    function showNextQuestion() {
-      if (index >= randomQs.length) {
-        startMotivationStage();
-        return;
-      }
-
+    const showNext = () => {
+      if (index >= randomQs.length) return startMotivationStage();
       content.innerHTML = `
         <h2>Competency Question ${index + 1}</h2>
-        <p class="question">${randomQs[index]}</p>
+        <p>${randomQs[index]}</p>
         <div class="button-group">
           <button id="skipBtn">Skip</button>
         </div>
@@ -164,32 +162,33 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("skipBtn").addEventListener("click", () => {
         clearInterval(timerInterval);
         index++;
-        showNextQuestion();
+        showNext();
       });
-
-      startTimer(3 * 60, () => {
-        index++;
-        showNextQuestion();
-      });
-    }
-
-    showNextQuestion();
+      startTimer(3 * 60, () => { index++; showNext(); });
+    };
+    showNext();
   }
 
+  // --- Stage 4: Motivation ---
   function startMotivationStage() {
     const randomQs = motivation.sort(() => 0.5 - Math.random()).slice(0, 3);
     let index = 0;
 
-    function showNextQuestion() {
+    const showNext = () => {
       if (index >= randomQs.length) {
-        finishBtn.style.display = "inline-block"; // Reveal Finish button
-        content.innerHTML = `<h2>All questions completed!</h2><p>Click "Finish Exam" to submit your self-assessment.</p>`;
+        content.innerHTML = `
+          <h2>All questions completed!</h2>
+          <p>Click "Finish Exam" below to submit your self-assessment.</p>
+        `;
+        if (finishBtn) finishBtn.style.display = "inline-block";
+        clearInterval(timerInterval);
+        timerEl.textContent = "00:00";
         return;
       }
 
       content.innerHTML = `
         <h2>Motivation Question ${index + 1}</h2>
-        <p class="question">${randomQs[index]}</p>
+        <p>${randomQs[index]}</p>
         <div class="button-group">
           <button id="skipBtn">Skip</button>
         </div>
@@ -197,15 +196,33 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("skipBtn").addEventListener("click", () => {
         clearInterval(timerInterval);
         index++;
-        showNextQuestion();
+        showNext();
       });
+      startTimer(3 * 60, () => { index++; showNext(); });
+    };
+    showNext();
+  }
 
-      startTimer(3 * 60, () => {
-        index++;
-        showNextQuestion();
-      });
-    }
+  // --- Timer system ---
+  function startTimer(duration, callback) {
+    clearInterval(timerInterval);
+    remainingSeconds = duration;
+    updateTimerDisplay();
 
-    showNextQuestion();
+    timerInterval = setInterval(() => {
+      remainingSeconds--;
+      updateTimerDisplay();
+
+      if (remainingSeconds <= 0) {
+        clearInterval(timerInterval);
+        if (typeof callback === "function") callback();
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    const minutes = Math.floor(remainingSeconds / 60);
+    const seconds = remainingSeconds % 60;
+    timerEl.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
 });
