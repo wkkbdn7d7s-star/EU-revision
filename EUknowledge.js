@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // --- FIREBASE CONFIG (replace with yours) ---
 const firebaseConfig = {
@@ -30,20 +30,30 @@ document.addEventListener("DOMContentLoaded", async () => {
   const copyBtn = document.getElementById("copyBtn");
 
   questionEl.textContent = "Loading EU Knowledge questions...";
-  
-  // ✅ Load questions dynamically from Firestore
+
+  // --- Load questions dynamically from Firestore ---
   try {
-    const colRef = collection(db, "questions", "masterQuestions", "EUknowledge");
+    // Correctly reference subcollection
+    const masterDocRef = doc(db, "questions", "masterQuestions");
+    const colRef = collection(masterDocRef, "EUknowledge");
+
     const snapshot = await getDocs(colRef);
     questions = snapshot.docs.map(doc => doc.data().text);
+
+    if (!questions.length) {
+      questionEl.textContent = "No questions found in Firestore.";
+      return;
+    }
+
     console.log(`Loaded ${questions.length} EU Knowledge questions.`);
     shuffleQuestions();
   } catch (error) {
     console.error("Error loading questions:", error);
     questionEl.textContent = "Failed to load questions. Please try again later.";
+    return;
   }
 
-  // --- Functions ---
+  // --- FUNCTIONS ---
   function shuffleQuestions() {
     remaining = [...questions].sort(() => Math.random() - 0.5);
     shownCount = 0;
@@ -115,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }).catch(() => alert("Copy failed — try selecting text manually."));
   }
 
-  // --- Event listeners ---
+  // --- EVENT LISTENERS ---
   nextBtn.addEventListener('click', nextQuestion);
   shuffleBtn.addEventListener('click', shuffleQuestions);
   copyBtn.addEventListener('click', copyQuestion);
