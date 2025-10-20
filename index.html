@@ -98,13 +98,32 @@
     #section-filter:hover { background-color: #fff9f0; border-color: #0052cc; }
 
     #performance-chart { max-width: 100%; }
+
+    /* Admin Module */
+    #admin-module {
+      margin-top: 50px;
+      padding: 20px;
+      border: 2px dashed #0052cc;
+      border-radius: 12px;
+      display: none;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #f0f8ff;
+    }
+    #admin-module h2 { color: #003399; text-align: center; }
+    #admin-module form { display: flex; flex-direction: column; gap: 12px; }
+    #admin-module input { padding: 8px; border-radius: 6px; border: 1px solid #0052cc; font-size: 1em; }
+    #admin-module button { padding: 10px; background-color: #0052cc; color: #f8f4f0; border:none; border-radius:6px; font-weight:bold; cursor:pointer; }
+    #admin-module button:hover { background-color: #003399; }
+    #admin-status { text-align: center; font-weight: bold; margin-top: 10px; color: #0052cc; }
   </style>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
@@ -123,7 +142,7 @@
 
     window.auth = auth;
     window.db = db;
-    window.firebaseFns = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, doc, setDoc, getDoc, updateDoc, arrayUnion };
+    window.firebaseFns = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, doc, setDoc, getDoc, updateDoc, arrayUnion, collection, addDoc };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -202,6 +221,21 @@
         </div>
       </div>
     </section>
+
+    <!-- Admin Question Entry Module -->
+    <section id="admin-module">
+      <h2>Question Entry (Admin)</h2>
+      <p>Enter new questions for EU Knowledge, EU Competencies, or EU Motivation.</p>
+
+      <form id="question-form">
+        <label>EU Knowledge: <input type="text" id="knowledge-input"></label>
+        <label>EU Competencies: <input type="text" id="competency-input"></label>
+        <label>EU Motivation: <input type="text" id="motivation-input"></label>
+        <button type="submit">Add Questions to Firestore</button>
+      </form>
+
+      <p id="admin-status"></p>
+    </section>
   </main>
 
   <footer>
@@ -215,6 +249,8 @@
     const ctx = document.getElementById("performance-chart").getContext("2d");
     let performanceChart;
 
+    const { auth, db, firebaseFns } = window;
+    
     document.getElementById("signup-btn").addEventListener("click", async () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
@@ -299,15 +335,46 @@
         status.textContent = `Logged in as: ${user.email}`;
         perfSection.style.display = "block";
         await updateChart(user);
+        // Show admin module for Giuseppe only
+        if(user.email === "giuseppe@hotmail.com") {
+          document.getElementById("admin-module").style.display = "block";
+        } else {
+          document.getElementById("admin-module").style.display = "none";
+        }
       } else {
         status.textContent = "Not logged in";
         perfSection.style.display = "none";
+        document.getElementById("admin-module").style.display = "none";
       }
     });
 
     sectionFilter.addEventListener("change", async () => {
       const user = auth.currentUser;
       if(user) await updateChart(user);
+    });
+
+    // --- Admin question module ---
+    const adminForm = document.getElementById("question-form");
+    const adminStatus = document.getElementById("admin-status");
+
+    adminForm.addEventListener("submit", async e => {
+      e.preventDefault();
+      const knowledge = document.getElementById("knowledge-input").value.trim();
+      const competency = document.getElementById("competency-input").value.trim();
+      const motivation = document.getElementById("motivation-input").value.trim();
+
+      try {
+        const masterDocRef = firebaseFns.doc(db, "questions", "masterQuestions");
+        if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUknowledge"), { text: knowledge });
+        if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUcompetencies"), { text: competency });
+        if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUmotivation"), { text: motivation });
+
+        adminStatus.textContent = "Questions added successfully!";
+        adminForm.reset();
+      } catch(err) {
+        console.error(err);
+        adminStatus.textContent = "Error adding questions: " + err.message;
+      }
     });
   </script>
 </body>
