@@ -1,6 +1,6 @@
 import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-// Firestore instance from window
+// Get Firestore instance from window
 const db = window.firebaseFns.db;
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -8,14 +8,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const content = document.getElementById("content");
   const timerEl = document.getElementById("timer");
+  const startBtn = document.getElementById("startBtn");
   const finishBtn = document.getElementById("finishBtn");
+  const formSection = document.getElementById("self-assessment");
+  const form = document.getElementById("assessment-form");
+  const status = document.getElementById("form-status");
 
+  let currentUser = null;
   let euKnowledge = [];
   let competencies = [];
   let motivation = [];
   let timerInterval;
   let remainingSeconds = 0;
 
+  // Show loading message
   content.textContent = "Loading questions from Firestore...";
 
   // --- Load Firestore data ---
@@ -41,15 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log(`💼 Loaded ${competencies.length} EU Competency questions.`);
     console.log(`💬 Loaded ${motivation.length} EU Motivation questions.`);
 
-    // ✅ Show Start button
-    showStartButton();
-  } catch (err) {
-    console.error("❌ Failed to load Firestore questions:", err);
-    content.textContent = "Failed to load questions from Firestore.";
-  }
-
-  // --- Function to show Start button ---
-  function showStartButton() {
+    // ✅ Recreate the Start button
     content.innerHTML = `
       <p>Questions loaded. Click <strong>"Start Mock Exam"</strong> to begin.</p>
       <div class="controls">
@@ -57,9 +55,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
     `;
     document.getElementById("startBtn").addEventListener("click", startKnowledgeStage);
+  } catch (err) {
+    console.error("❌ Failed to load Firestore questions:", err);
+    content.textContent = "Failed to load questions from Firestore.";
   }
 
-  // --- Stage 1: EU Knowledge ---
+  // --- Stage 1: EU Knowledge (Preparation) ---
   function startKnowledgeStage() {
     const randomQs = euKnowledge.sort(() => 0.5 - Math.random()).slice(0, 3);
     if (!randomQs.length) return (content.textContent = "No EU Knowledge questions available.");
@@ -172,4 +173,47 @@ document.addEventListener("DOMContentLoaded", async () => {
     const seconds = remainingSeconds % 60;
     timerEl.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
   }
+
+  // --- Self-assessment redirect logic ---
+  finishBtn.addEventListener("click", () => {
+    content.style.display = "none";
+    formSection.style.display = "block";
+
+    // After submitting the form, redirect back to homepage
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      if (!currentUser) {
+        status.textContent = "You must be logged in!";
+        return;
+      }
+
+      const clarity = parseInt(document.getElementById("clarity").value);
+      const structure = parseInt(document.getElementById("structure").value);
+      const confidence = parseInt(document.getElementById("confidence").value);
+
+      const submission = {
+        clarity,
+        structure,
+        confidence,
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const userDoc = doc(db, "users", currentUser.uid);
+        await updateDoc(userDoc, {
+          "selfAssessment.Mockexam": arrayUnion(submission)
+        });
+        status.textContent = "Score submitted successfully!";
+        form.reset();
+
+        // Redirect to homepage after submission
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1000);
+      } catch (err) {
+        console.error(err);
+        status.textContent = "Error submitting score: " + err.message;
+      }
+    });
+  });
 });
