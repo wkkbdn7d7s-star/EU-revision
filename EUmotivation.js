@@ -1,28 +1,10 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Full set of motivation/fit questions (sample + common).
-  const questions = [
-    "Why do you want to work for the European Commission?",
-    "What attracts you specifically to this department or policy area?",
-    "Where do you see yourself in five years within the European institutions?",
-    "What are your main professional strengths and how will they help here?",
-    "What is one area for improvement (weakness) and how are you addressing it?",
-    "Why the European Commission and not another international organisation or national public service?",
-    "What might be a downside of working at the Commission and how would you handle it?",
-    "How does your personal profile (values/interests) match the Commission's mission?",
-    "Which parts of your professional experience prepare you for work at the Commission?",
-    "How does your educational background support a role in EU policy-making?",
-    "Tell us about a time your values aligned with an organisational mission.",
-    "How would you adapt to working in a multicultural, multilingual environment?",
-    "What motivates you to work on public policy versus private sector tasks?",
-    "Describe a moment when your communication skills made a difference.",
-    "How do you handle long bureaucratic processes and stay productive?",
-    "What unique perspective would you bring to the Commission?",
-    "How do you keep up-to-date with EU policy and current affairs?",
-    "How would you explain a complex policy to a non-specialist audience?",
-    "Why is public service important to you personally?",
-    "How does mobility (relocation/rotation) fit into your career plans?"
-  ];
+import { collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
+// Use the already initialized Firestore from your HTML
+const db = window.firebaseFns.db;
+
+document.addEventListener("DOMContentLoaded", async () => {
+  let questions = [];
   let remaining = [];
   let shownCount = 0;
   let timerInterval;
@@ -35,9 +17,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const shuffleBtn = document.getElementById("shuffleBtn");
   const copyBtn = document.getElementById("copyBtn");
 
-  // Initialize by shuffling
-  shuffleQuestions();
+  questionEl.textContent = "Loading EU Motivation questions...";
 
+  // --- Load questions dynamically from Firestore ---
+  try {
+    const masterDocRef = doc(db, "questions", "masterQuestions");
+    const colRef = collection(masterDocRef, "EUmotivation");
+
+    const snapshot = await getDocs(colRef);
+    questions = snapshot.docs.map(d => d.data().text).filter(Boolean); // remove undefined if text missing
+
+    if (!questions.length) {
+      questionEl.textContent = "No questions found in Firestore.";
+      return;
+    }
+
+    console.log(`Loaded ${questions.length} EU Motivation questions.`);
+    shuffleQuestions();
+  } catch (error) {
+    console.error("Error loading questions:", error);
+    questionEl.textContent = "Failed to load questions. Please try again later.";
+    return;
+  }
+
+  // --- FUNCTIONS ---
   function shuffleQuestions() {
     remaining = [...questions].sort(() => Math.random() - 0.5);
     shownCount = 0;
@@ -53,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     const q = remaining.shift();
-    // fade effect
     questionEl.classList.add("fade");
     setTimeout(() => {
       questionEl.textContent = q;
@@ -79,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
       const s = String(elapsed % 60).padStart(2, '0');
       timerEl.textContent = `${m}:${s}`;
-      // subtle pulse
       timerEl.classList.add('pulse');
       setTimeout(() => timerEl.classList.remove('pulse'), 250);
     }, 1000);
@@ -94,14 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function copyQuestion() {
     const text = questionEl.textContent;
     navigator.clipboard.writeText(text).then(() => {
-      // small visual confirmation
       const prev = copyBtn.textContent;
       copyBtn.textContent = "Copied!";
-      setTimeout(()=> copyBtn.textContent = prev, 900);
-    }).catch(()=> alert("Copy failed — try selecting text manually."));
+      setTimeout(() => copyBtn.textContent = prev, 900);
+    }).catch(() => alert("Copy failed — try selecting text manually."));
   }
 
-  // Event listeners
+  // --- EVENT LISTENERS ---
   nextBtn.addEventListener('click', nextQuestion);
   shuffleBtn.addEventListener('click', shuffleQuestions);
   copyBtn.addEventListener('click', copyQuestion);
