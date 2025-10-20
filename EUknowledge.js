@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   const shuffleBtn = document.getElementById("shuffleBtn");
   const copyBtn = document.getElementById("copyBtn");
 
-  questionEl.textContent = "Loading EU Motivation questions...";
+  questionEl.textContent = "Loading EU Knowledge questions...";
 
   // --- Load questions dynamically from Firestore ---
   try {
     const masterDocRef = doc(db, "questions", "masterQuestions");
-    const colRef = collection(masterDocRef, "EUmotivation"); // your subcollection name
+    const colRef = collection(masterDocRef, "EUknowledge"); // your subcollection name
     const snapshot = await getDocs(colRef);
 
     questions = snapshot.docs.map(doc => doc.data().text);
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    console.log(`Loaded ${questions.length} EU Motivation questions.`);
+    console.log(`Loaded ${questions.length} EU Knowledge questions.`);
     shuffleQuestions();
   } catch (error) {
     console.error("Error loading questions:", error);
