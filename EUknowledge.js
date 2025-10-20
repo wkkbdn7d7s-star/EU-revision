@@ -1,47 +1,23 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const questions = [
-    "What are the main goals of the European Green Deal?",
-    "How does the EU plan to achieve climate neutrality by 2050?",
-    "What is the role of the 'Fit for 55' package in EU climate policy?",
-    "How does the EU balance environmental goals with economic competitiveness?",
-    "What measures has the EU adopted to promote a circular economy?",
-    "What are the objectives of the EU’s Digital Decade strategy?",
-    "How does the EU regulate artificial intelligence and emerging technologies?",
-    "What role does Horizon Europe play in supporting research and innovation?",
-    "How does the EU address cybersecurity challenges across member states?",
-    "What are the key priorities for the EU’s digital single market?",
-    "What is the purpose of the EU’s cohesion policy?",
-    "How does the EU aim to reduce disparities between regions?",
-    "What is the role of the European Social Fund Plus (ESF+)?",
-    "How does the EU promote youth employment and mobility (e.g., Erasmus+)?",
-    "How does the Recovery and Resilience Facility support post-pandemic recovery?",
-    "How is the EU working to reduce dependence on fossil fuels?",
-    "What are the main goals of the REPowerEU plan?",
-    "How does the EU ensure energy security across member states?",
-    "How is the EU promoting renewable energy and energy efficiency?",
-    "How does the EU integrate climate and energy security into foreign policy?",
-    "How does the EU monitor rule of law in member states?",
-    "What tools does the EU have to address breaches of democratic values?",
-    "How does the EU promote gender equality and inclusion?",
-    "How does the Charter of Fundamental Rights influence EU policymaking?",
-    "What is the role of the EU Agency for Fundamental Rights?",
-    "What are the EU’s enlargement priorities for the next decade?",
-    "How does the EU support its neighbourhood policy?",
-    "What role does the EU play in global climate negotiations?",
-    "How does the EU coordinate its foreign and security policy (CFSP)?",
-    "What are the EU’s priorities in international trade agreements?",
-    "How does the EU integrate sustainability into all policies?",
-    "How does the EU address migration in a fair and effective way?",
-    "What role does the EU play in global health policy (e.g., pandemic response)?",
-    "How does the EU ensure strategic autonomy in key sectors (e.g., energy, tech)?",
-    "How does the Multiannual Financial Framework (MFF) reflect EU priorities?",
-    "How does the EU balance solidarity and responsibility in asylum policy?",
-    "What are the EU’s priorities in tackling disinformation and protecting media freedom?",
-    "How is the EU promoting resilience in supply chains and critical raw materials?",
-    "How does the EU mainstream climate and digital priorities into its budget?",
-    "How does the EU coordinate with international organisations (UN, NATO, WTO) on global challenges?"
-  ];
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
+// --- FIREBASE CONFIG (replace with yours if needed) ---
+const firebaseConfig = {
+  apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
+  authDomain: "eureka-63b47.firebaseapp.com",
+  projectId: "eureka-63b47",
+  storageBucket: "eureka-63b47.firebasestorage.app",
+  messagingSenderId: "655168214317",
+  appId: "1:655168214317:web:3d3ffc07706ba39efa6fa4",
+  measurementId: "G-KFTB45DCFZ"
+};
+
+// --- Initialize Firebase ---
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+document.addEventListener("DOMContentLoaded", async () => {
+  let questions = [];
   let remaining = [];
   let shownCount = 0;
   let timerInterval;
@@ -54,8 +30,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const shuffleBtn = document.getElementById("shuffleBtn");
   const copyBtn = document.getElementById("copyBtn");
 
-  shuffleQuestions();
+  questionEl.textContent = "Loading EU Motivation questions...";
 
+  // --- Load questions dynamically from Firestore ---
+  try {
+    const masterDocRef = doc(db, "questions", "masterQuestions");
+    const colRef = collection(masterDocRef, "EUmotivation"); // your subcollection name
+    const snapshot = await getDocs(colRef);
+
+    questions = snapshot.docs.map(doc => doc.data().text);
+
+    if (!questions.length) {
+      questionEl.textContent = "No questions found in Firestore.";
+      return;
+    }
+
+    console.log(`Loaded ${questions.length} EU Motivation questions.`);
+    shuffleQuestions();
+  } catch (error) {
+    console.error("Error loading questions:", error);
+    questionEl.textContent = "Failed to load questions. Please try again later.";
+    return;
+  }
+
+  // --- FUNCTIONS ---
   function shuffleQuestions() {
     remaining = [...questions].sort(() => Math.random() - 0.5);
     shownCount = 0;
@@ -95,21 +93,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     timerInterval = setInterval(() => {
       elapsed++;
-      const m = String(Math.floor(elapsed / 60)).padStart(2,'0');
-      const s = String(elapsed % 60).padStart(2,'0');
+      const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
+      const s = String(elapsed % 60).padStart(2, '0');
       timerEl.textContent = `${m}:${s}`;
 
-      // change color at milestones
-      if (elapsed >= 270) { // 4:30
+      if (elapsed >= 270) {
         timerEl.style.color = "var(--timer-red)";
-      } else if (elapsed >= 240) { // 4:00
+      } else if (elapsed >= 240) {
         timerEl.style.color = "var(--timer-orange)";
-      } else if (elapsed >= 180) { // 3:00
+      } else if (elapsed >= 180) {
         timerEl.style.color = "var(--timer-yellow)";
       } else {
         timerEl.style.color = "var(--timer-white)";
       }
-
     }, 1000);
   }
 
@@ -125,10 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
     navigator.clipboard.writeText(text).then(() => {
       const prev = copyBtn.textContent;
       copyBtn.textContent = "Copied!";
-      setTimeout(()=> copyBtn.textContent = prev, 900);
-    }).catch(()=> alert("Copy failed — try selecting text manually."));
+      setTimeout(() => copyBtn.textContent = prev, 900);
+    }).catch(() => alert("Copy failed — try selecting text manually."));
   }
 
+  // --- EVENT LISTENERS ---
   nextBtn.addEventListener('click', nextQuestion);
   shuffleBtn.addEventListener('click', shuffleQuestions);
   copyBtn.addEventListener('click', copyQuestion);
