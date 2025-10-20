@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mock Exam — EUreka!</title>
 
-  <!-- Embedded design (aligned with other tabs) -->
+  <!-- Design -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
 
@@ -21,159 +21,158 @@
     * { box-sizing: border-box; }
 
     body {
-      margin:0;
-      min-height:100vh;
-      font-family:'Merriweather',serif;
-      background:var(--bg);
-      color:var(--text-dark);
-      padding:24px;
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Merriweather', serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      padding: 24px;
     }
 
     a.back-arrow {
-      display:inline-block;
-      margin-bottom:20px;
-      font-size:1.5rem;
-      color:var(--accent);
-      text-decoration:none;
-      font-weight:bold;
+      display: inline-block;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
     }
-    a.back-arrow:hover { color:var(--accent-hover); }
+    a.back-arrow:hover { color: var(--accent-hover); }
 
     .container {
-      width:100%;
-      max-width:900px;
-      margin:0 auto;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .page-header {
-      text-align:center;
-      margin-bottom:18px;
+      text-align: center;
+      margin-bottom: 18px;
     }
     .page-header h1 {
-      margin:0;
-      font-size:2rem;
-      color:var(--accent);
+      margin: 0;
+      font-size: 2rem;
+      color: var(--accent);
     }
     .page-header p {
-      margin-top:8px;
-      color:var(--muted);
+      margin-top: 8px;
+      color: var(--muted);
     }
 
     .card {
-      background:var(--card-bg);
-      border-radius:16px;
-      padding:28px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.15);
-      display:flex;
-      flex-direction:column;
-      gap:18px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
     #content {
-      min-height:120px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      gap:15px;
-      padding:20px;
-      background:rgba(0,82,204,0.05);
-      border-radius:10px;
-      text-align:center;
-      font-size:1.15rem;
-      transition:opacity .28s ease,transform .28s ease;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px;
+      background: rgba(0,82,204,0.05);
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.15rem;
+      transition: opacity .28s ease, transform .28s ease;
     }
-    #content.fade { opacity:0; transform:translateY(6px); }
 
     .controls {
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     button {
-      background:var(--accent);
-      color:#fff;
-      border:none;
-      padding:10px 18px;
-      border-radius:10px;
-      font-size:1rem;
-      cursor:pointer;
-      box-shadow:0 6px 14px rgba(0,0,0,0.2);
-      transition:transform .15s ease,background .15s ease;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+      transition: transform .15s ease, background .15s ease;
     }
-    button:hover { transform:translateY(-3px); background:var(--accent-hover); }
+    button:hover { transform: translateY(-3px); background: var(--accent-hover); }
 
     .status {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      font-weight:700;
-      color:var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      color: var(--muted);
     }
 
     #timer {
-      background:rgba(0,82,204,0.08);
-      padding:6px 10px;
-      border-radius:8px;
-      font-weight:bold;
-      min-width:80px;
-      text-align:center;
+      background: rgba(0,82,204,0.08);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      min-width: 80px;
+      text-align: center;
     }
 
     /* Self-assessment form */
     #self-assessment {
-      display:none;
-      margin-top:20px;
+      display: none;
+      margin-top: 20px;
     }
 
     #self-assessment h2 {
-      text-align:center;
-      color:var(--accent);
-      margin-bottom:12px;
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 12px;
     }
 
     #assessment-form {
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
     }
 
     #assessment-form label {
-      display:flex;
-      justify-content:space-between;
-      width:220px;
-      font-weight:bold;
+      display: flex;
+      justify-content: space-between;
+      width: 220px;
+      font-weight: bold;
     }
 
     #assessment-form input {
-      width:50px;
-      text-align:center;
-      border-radius:6px;
-      border:1px solid #ccc;
-      padding:4px;
+      width: 50px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      padding: 4px;
     }
 
     #assessment-form button {
-      margin-top:10px;
-      width:150px;
+      margin-top: 10px;
+      width: 150px;
     }
 
     #form-status {
-      margin-top:8px;
-      text-align:center;
-      color:var(--accent);
-      font-weight:bold;
+      margin-top: 8px;
+      text-align: center;
+      color: var(--accent);
+      font-weight: bold;
     }
 
     @media (max-width:520px){
-      #content{ font-size:1rem; min-height:110px; padding:16px; }
-      button{ padding:10px 14px; font-size:0.95rem; }
-      #assessment-form label{ width:180px; flex-direction:column; gap:4px; }
-      #assessment-form input{ width:100%; }
+      #content { font-size: 1rem; min-height: 110px; padding: 16px; }
+      button { padding: 10px 14px; font-size: 0.95rem; }
+      #assessment-form label { width: 180px; flex-direction: column; gap: 4px; }
+      #assessment-form input { width: 100%; }
     }
   </style>
 
@@ -196,6 +195,8 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+
+    // Make Firebase accessible globally to other modules
     window.firebaseFns = { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged };
   </script>
 </head>
@@ -236,10 +237,10 @@
     </main>
   </div>
 
-  <!-- Mock Exam logic -->
-  <script type="module" src="Mockexam.js"></script>
+  <!-- ✅ Main Exam Logic -->
+  <script type="module" src="./Mockexam.js"></script>
 
-  <!-- Firebase self-assessment logic -->
+  <!-- ✅ Self-assessment Firestore Logic -->
   <script type="module">
     const { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged } = window.firebaseFns;
     const finishBtn = document.getElementById("finishBtn");
@@ -254,13 +255,11 @@
       status.textContent = user ? "" : "Please log in on the main page to submit scores.";
     });
 
-    // Reveal self-assessment when "Finish Exam" is clicked
     finishBtn.addEventListener("click", () => {
       content.style.display = "none";
       formSection.style.display = "block";
     });
 
-    // Save assessment to Firestore
     form.addEventListener("submit", async e => {
       e.preventDefault();
       if (!currentUser) {
