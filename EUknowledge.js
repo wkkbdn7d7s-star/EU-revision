@@ -1,19 +1,8 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+// EUknowledge.js
+import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-// --- FIREBASE CONFIG (replace with yours) ---
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "XXXXXXX",
-  appId: "XXXXXXX"
-};
-
-// --- Initialize Firebase ---
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Use the Firestore instance from your HTML
+const db = window.firebaseFns.db;
 
 document.addEventListener("DOMContentLoaded", async () => {
   let questions = [];
@@ -31,14 +20,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   questionEl.textContent = "Loading EU Knowledge questions...";
 
-  // --- Load questions dynamically from Firestore ---
+  // --- Load questions from Firestore ---
   try {
-    // Correctly reference subcollection
     const masterDocRef = doc(db, "questions", "masterQuestions");
     const colRef = collection(masterDocRef, "EUknowledge");
 
     const snapshot = await getDocs(colRef);
-    questions = snapshot.docs.map(doc => doc.data().text);
+    questions = snapshot.docs.map(d => d.data().text);
 
     if (!questions.length) {
       questionEl.textContent = "No questions found in Firestore.";
@@ -47,8 +35,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     console.log(`Loaded ${questions.length} EU Knowledge questions.`);
     shuffleQuestions();
-  } catch (error) {
-    console.error("Error loading questions:", error);
+  } catch (err) {
+    console.error("Error loading questions:", err);
     questionEl.textContent = "Failed to load questions. Please try again later.";
     return;
   }
@@ -68,6 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       resetTimer();
       return;
     }
+
     const q = remaining.shift();
     questionEl.classList.add("fade");
     setTimeout(() => {
@@ -93,19 +82,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     timerInterval = setInterval(() => {
       elapsed++;
-      const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
-      const s = String(elapsed % 60).padStart(2, '0');
+      const m = String(Math.floor(elapsed / 60)).padStart(2, "0");
+      const s = String(elapsed % 60).padStart(2, "0");
       timerEl.textContent = `${m}:${s}`;
 
-      if (elapsed >= 270) {
-        timerEl.style.color = "var(--timer-red)";
-      } else if (elapsed >= 240) {
-        timerEl.style.color = "var(--timer-orange)";
-      } else if (elapsed >= 180) {
-        timerEl.style.color = "var(--timer-yellow)";
-      } else {
-        timerEl.style.color = "var(--timer-white)";
-      }
+      if (elapsed >= 270) timerEl.style.color = "var(--timer-red)";
+      else if (elapsed >= 240) timerEl.style.color = "var(--timer-orange)";
+      else if (elapsed >= 180) timerEl.style.color = "var(--timer-yellow)";
+      else timerEl.style.color = "var(--timer-white)";
     }, 1000);
   }
 
@@ -121,12 +105,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     navigator.clipboard.writeText(text).then(() => {
       const prev = copyBtn.textContent;
       copyBtn.textContent = "Copied!";
-      setTimeout(() => copyBtn.textContent = prev, 900);
+      setTimeout(() => (copyBtn.textContent = prev), 900);
     }).catch(() => alert("Copy failed — try selecting text manually."));
   }
 
   // --- EVENT LISTENERS ---
-  nextBtn.addEventListener('click', nextQuestion);
-  shuffleBtn.addEventListener('click', shuffleQuestions);
-  copyBtn.addEventListener('click', copyQuestion);
+  nextBtn.addEventListener("click", nextQuestion);
+  shuffleBtn.addEventListener("click", shuffleQuestions);
+  copyBtn.addEventListener("click", copyQuestion);
 });
