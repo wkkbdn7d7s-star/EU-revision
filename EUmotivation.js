@@ -1,6 +1,6 @@
-import { collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-// Use the already initialized Firestore from your HTML
+// Get Firestore instance from window
 const db = window.firebaseFns.db;
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   questionEl.textContent = "Loading EU Motivation questions...";
 
-  // --- Load questions dynamically from Firestore ---
+  // --- Load questions from Firestore ---
   try {
     const masterDocRef = doc(db, "questions", "masterQuestions");
     const colRef = collection(masterDocRef, "EUmotivation");
-
     const snapshot = await getDocs(colRef);
-    questions = snapshot.docs.map(d => d.data().text).filter(Boolean); // remove undefined if text missing
+
+    questions = snapshot.docs.map(d => d.data().text);
 
     if (!questions.length) {
       questionEl.textContent = "No questions found in Firestore.";
@@ -33,11 +33,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     console.log(`Loaded ${questions.length} EU Motivation questions.`);
+
+    // Initialize after questions are loaded
     shuffleQuestions();
-  } catch (error) {
-    console.error("Error loading questions:", error);
-    questionEl.textContent = "Failed to load questions. Please try again later.";
-    return;
+    attachEventListeners();
+  } catch (err) {
+    console.error(err);
+    questionEl.textContent = "Failed to load questions from Firestore.";
   }
 
   // --- FUNCTIONS ---
@@ -76,13 +78,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     clearInterval(timerInterval);
     elapsed = 0;
     timerEl.textContent = "00:00";
+
     timerInterval = setInterval(() => {
       elapsed++;
       const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
       const s = String(elapsed % 60).padStart(2, '0');
       timerEl.textContent = `${m}:${s}`;
-      timerEl.classList.add('pulse');
-      setTimeout(() => timerEl.classList.remove('pulse'), 250);
     }, 1000);
   }
 
@@ -94,15 +95,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function copyQuestion() {
     const text = questionEl.textContent;
-    navigator.clipboard.writeText(text).then(() => {
-      const prev = copyBtn.textContent;
-      copyBtn.textContent = "Copied!";
-      setTimeout(() => copyBtn.textContent = prev, 900);
-    }).catch(() => alert("Copy failed — try selecting text manually."));
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        const prev = copyBtn.textContent;
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => copyBtn.textContent = prev, 900);
+      })
+      .catch(() => alert("Copy failed — try selecting text manually."));
   }
 
-  // --- EVENT LISTENERS ---
-  nextBtn.addEventListener('click', nextQuestion);
-  shuffleBtn.addEventListener('click', shuffleQuestions);
-  copyBtn.addEventListener('click', copyQuestion);
+  function attachEventListeners() {
+    nextBtn.addEventListener("click", nextQuestion);
+    shuffleBtn.addEventListener("click", shuffleQuestions);
+    copyBtn.addEventListener("click", copyQuestion);
+  }
 });
