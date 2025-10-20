@@ -42,8 +42,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log(`💼 Loaded ${competencies.length} EU Competency questions.`);
     console.log(`💬 Loaded ${motivation.length} EU Motivation questions.`);
 
-    content.innerHTML = `<p>Questions loaded. Click <strong>"Start Mock Exam"</strong> to begin.</p>`;
-    if (startBtn) startBtn.addEventListener("click", startKnowledgeStage);
+    // ✅ Recreate the Start button
+    content.innerHTML = `
+      <p>Questions loaded. Click <strong>"Start Mock Exam"</strong> to begin.</p>
+      <div class="controls">
+        <button id="startBtn">Start Mock Exam</button>
+      </div>
+    `;
+
+    // Rebind event listener because old button was replaced
+    document.getElementById("startBtn").addEventListener("click", startKnowledgeStage);
   } catch (err) {
     console.error("❌ Failed to load Firestore questions:", err);
     content.textContent = "Failed to load questions from Firestore.";
@@ -52,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // --- Stage 1: EU Knowledge (Preparation) ---
   function startKnowledgeStage() {
     const randomQs = euKnowledge.sort(() => 0.5 - Math.random()).slice(0, 3);
-    if (!randomQs.length) return content.textContent = "No EU Knowledge questions available.";
+    if (!randomQs.length) return (content.textContent = "No EU Knowledge questions available.");
 
     content.innerHTML = `
       <h2>Preparation Stage</h2>
@@ -82,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // --- Stage 3: Competency ---
   function startCompetencyStage() {
     const randomQs = competencies.sort(() => 0.5 - Math.random()).slice(0, 5);
-    if (!randomQs.length) return content.textContent = "No competency questions available.";
+    if (!randomQs.length) return (content.textContent = "No competency questions available.");
     let index = 0;
 
     const showNext = () => {
@@ -92,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <h2>Competency Question ${index + 1}</h2>
         <p>${randomQs[index]}</p>
         <div class="button-group">
-          <button id="skipBtn">Skip</button>
+          <button id="skipBtn">Next</button>
         </div>
       `;
       document.getElementById("skipBtn").addEventListener("click", () => {
@@ -108,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // --- Stage 4: Motivation ---
   function startMotivationStage() {
     const randomQs = motivation.sort(() => 0.5 - Math.random()).slice(0, 3);
-    if (!randomQs.length) return content.textContent = "No motivation questions available.";
+    if (!randomQs.length) return (content.textContent = "No motivation questions available.");
     let index = 0;
 
     const showNext = () => {
@@ -127,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         <h2>Motivation Question ${index + 1}</h2>
         <p>${randomQs[index]}</p>
         <div class="button-group">
-          <button id="skipBtn">Skip</button>
+          <button id="skipBtn">Next</button>
         </div>
       `;
       document.getElementById("skipBtn").addEventListener("click", () => {
