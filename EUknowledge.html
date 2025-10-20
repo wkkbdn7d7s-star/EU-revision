@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EU Knowledge — EUreka!</title>
 
-  <!-- Merged CSS -->
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
+  <!-- CSS -->
+  <style>
     :root{
       --bg: #f3ede6;
       --card-bg: #ece7e1;
@@ -16,160 +17,74 @@
       --accent-hover: #003399;
       --text-dark: #2c2a28;
       --muted: #4a453f;
+      --timer-white: #2c2a28;
+      --timer-yellow: #f5a623;
+      --timer-orange: #f39c12;
+      --timer-red: #e74c3c;
     }
-
     * { box-sizing: border-box; }
-
     body{
-      margin:0;
-      min-height:100vh;
+      margin:0; min-height:100vh;
       font-family: 'Merriweather', serif;
-      background: var(--bg);
-      color: var(--text-dark);
+      background: var(--bg); color: var(--text-dark);
       padding: 24px;
     }
-
     a.back-arrow{
-      display:inline-block;
-      margin-bottom:20px;
-      font-size:1.5rem;
-      color: var(--accent);
-      text-decoration:none;
-      font-weight:bold;
+      display:inline-block; margin-bottom:20px;
+      font-size:1.5rem; color: var(--accent);
+      text-decoration:none; font-weight:bold;
     }
     a.back-arrow:hover{ color: var(--accent-hover); }
 
-    .container{
-      width:100%;
-      max-width:900px;
-      margin: 0 auto;
-    }
+    .container{ width:100%; max-width:900px; margin:0 auto; }
 
-    .page-header {
-      text-align:center;
-      margin-bottom:18px;
-    }
-
-    .page-header h1{
-      margin:0;
-      font-size:2rem;
-      color: var(--accent);
-    }
-
-    .page-header p{
-      margin-top:8px;
-      color: var(--muted);
-    }
+    .page-header{text-align:center; margin-bottom:18px;}
+    .page-header h1{margin:0; font-size:2rem; color: var(--accent);}
+    .page-header p{margin-top:8px; color: var(--muted);}
 
     .card{
       background: var(--card-bg);
-      border-radius:16px;
-      padding:28px;
+      border-radius:16px; padding:28px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-      color: var(--text-dark);
-      display:flex;
-      flex-direction:column;
-      gap:18px;
+      display:flex; flex-direction:column; gap:18px;
     }
 
     .question{
-      min-height:120px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-      background: rgba(0,82,204,0.05);
-      border-radius:10px;
-      text-align:center;
-      font-size:1.15rem;
+      min-height:120px; display:flex;
+      align-items:center; justify-content:center;
+      padding:20px; background: rgba(0,82,204,0.05);
+      border-radius:10px; text-align:center; font-size:1.15rem;
       color: var(--text-dark);
       transition: opacity .28s ease, transform .28s ease;
     }
+    .question.fade { opacity:0; transform: translateY(6px); }
 
-    .question.fade {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-
-    .controls{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
+    .controls{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
     button{
-      background: var(--accent);
-      color:#fff;
-      border:none;
-      padding:10px 18px;
-      border-radius:10px;
-      font-size:1rem;
-      cursor:pointer;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+      background: var(--accent); color:#fff; border:none;
+      padding:10px 18px; border-radius:10px; font-size:1rem;
+      cursor:pointer; box-shadow:0 6px 14px rgba(0,0,0,0.2);
       transition: transform .15s ease, background .15s ease;
     }
     button:hover{ transform: translateY(-3px); background: var(--accent-hover); }
 
     .status{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      font-weight:700;
-      color: var(--muted);
+      display:flex; justify-content:space-between;
+      align-items:center; gap:12px; font-weight:700; color: var(--muted);
     }
-
     #counter, #timer{
-      background: rgba(0,82,204,0.08);
-      padding:6px 10px;
-      border-radius:8px;
-      font-weight:bold;
+      background: rgba(0,82,204,0.08); padding:6px 10px;
+      border-radius:8px; font-weight:bold;
     }
 
-    #self-assessment{
-      margin-top:20px;
-    }
+    #self-assessment{ margin-top:20px; }
+    #self-assessment h2{ text-align:center; color: var(--accent); margin-bottom:12px; }
 
-    #self-assessment h2{
-      text-align:center;
-      color: var(--accent);
-      margin-bottom:12px;
-    }
-
-    #assessment-form{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      align-items:center;
-    }
-
-    #assessment-form label{
-      display:flex;
-      justify-content: space-between;
-      width:220px;
-      font-weight:bold;
-    }
-
-    #assessment-form input{
-      width:50px;
-      text-align:center;
-      border-radius:6px;
-      border:1px solid #ccc;
-      padding:4px;
-    }
-
-    #assessment-form button{
-      margin-top:10px;
-      width:150px;
-    }
-
-    #form-status{
-      margin-top:8px;
-      text-align:center;
-      color: var(--accent);
-      font-weight:bold;
-    }
+    #assessment-form{ display:flex; flex-direction:column; gap:10px; align-items:center; }
+    #assessment-form label{ display:flex; justify-content: space-between; width:220px; font-weight:bold; }
+    #assessment-form input{ width:50px; text-align:center; border-radius:6px; border:1px solid #ccc; padding:4px; }
+    #assessment-form button{ margin-top:10px; width:150px; }
+    #form-status{ margin-top:8px; text-align:center; color: var(--accent); font-weight:bold; }
 
     @media (max-width:520px){
       .question{ font-size:1rem; min-height:110px; padding:16px; }
@@ -179,7 +94,7 @@
     }
   </style>
 
-  <!-- Firebase SDK -->
+  <!-- Firebase v12 Modular SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
@@ -202,6 +117,7 @@
     window.firebaseFns = { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged };
   </script>
 </head>
+
 <body>
   <a href="index.html" class="back-arrow" title="Back to homepage">←</a>
 
@@ -238,10 +154,13 @@
     </main>
   </div>
 
-  <script src="EUreka-base.js"></script>
-  <script src="EUknowledge.js"></script>
+  <!-- Base JS -->
+  <script type="module" src="EUreka-base.js"></script>
 
-  <!-- Self-assessment JS aligned with CBQ -->
+  <!-- EU Knowledge JS -->
+  <script type="module" src="EUknowledge.js"></script>
+
+  <!-- Self-assessment logic -->
   <script type="module">
     const { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged } = window.firebaseFns;
     const form = document.getElementById("assessment-form");
@@ -250,31 +169,21 @@
     let currentUser = null;
 
     onAuthStateChanged(auth, user => {
-      if (user) {
-        currentUser = user;
-        status.textContent = "";
-      } else {
-        currentUser = null;
-        status.textContent = "Please log in on the main page to submit scores.";
-      }
+      if (user) currentUser = user;
+      else currentUser = null;
     });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (!currentUser) {
-        status.textContent = "You must be logged in!";
-        return;
-      }
+      if (!currentUser) { status.textContent = "You must be logged in!"; return; }
 
       const clarity = parseInt(document.getElementById("clarity").value);
       const structure = parseInt(document.getElementById("structure").value);
       const confidence = parseInt(document.getElementById("confidence").value);
 
       const submission = {
-        clarity,
-        structure,
-        confidence,
-        timestamp: new Date().toISOString() // aligns with CBQ
+        clarity, structure, confidence,
+        timestamp: new Date().toISOString()
       };
 
       try {
