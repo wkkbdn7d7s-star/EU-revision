@@ -275,7 +275,6 @@
       status.textContent = "Logged out!";
     });
 
-    // Fine-grained timestamped submissions
     function formatSubmissions(submissions) {
       return submissions
         .map(s => ( {
@@ -295,39 +294,62 @@
       const docSnap = await firebaseFns.getDoc(firebaseFns.doc(db, "users", user.uid));
       if(!docSnap.exists()) return;
       const data = docSnap.data();
-      let section = sectionFilter.value;
-      let submissions = [];
+      const section = sectionFilter.value;
 
       if(section === "average") {
         const allSections = ["EUknowledge","EUcompetencies","EUmotivation","Mockexam"];
         const merged = allSections.flatMap(sec => data.selfAssessment[sec] || []);
-        submissions = formatSubmissions(merged);
+        if(!merged.length) return;
+
+        const total = merged.length;
+        const avgClarity = merged.reduce((sum,s)=>sum+(s.clarity||0),0)/total;
+        const avgStructure = merged.reduce((sum,s)=>sum+(s.structure||0),0)/total;
+        const avgConfidence = merged.reduce((sum,s)=>sum+(s.confidence||0),0)/total;
+
+        const averages = [
+          { metric: "Clarity", value: avgClarity },
+          { metric: "Structure", value: avgStructure },
+          { metric: "Confidence", value: avgConfidence }
+        ];
+
+        if(performanceChart) performanceChart.destroy();
+        performanceChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: averages.map(s=>s.metric),
+            datasets: [{ label: 'Average Score', data: averages.map(s=>s.value), backgroundColor: ['#1a73e8','#ff8c00','#28a745'] }]
+          },
+          options: {
+            responsive:true,
+            plugins:{ legend:{ display:false } },
+            scales:{ y:{ min:0, max:5, ticks:{ stepSize:1 }, title:{ display:true, text:'Score (1-5)' } } }
+          }
+        });
+
       } else {
-        submissions = formatSubmissions(data.selfAssessment[section] || []);
+        const submissions = (data.selfAssessment[section] || []).map(s => ({
+          timestamp: new Date(s.timestamp || s.submittedAt).toLocaleString('en-GB', {hour12:false, day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', second:'2-digit'}),
+          clarity: s.clarity,
+          structure: s.structure,
+          confidence: s.confidence
+        })).sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+
+        const labels = submissions.map(s=>s.timestamp);
+        const clarity = submissions.map(s=>s.clarity);
+        const structure = submissions.map(s=>s.structure);
+        const confidence = submissions.map(s=>s.confidence);
+
+        if(performanceChart) performanceChart.destroy();
+        performanceChart = new Chart(ctx, {
+          type: 'line',
+          data: { labels, datasets:[
+            { label:'Clarity', data:clarity, borderColor:'#1a73e8', fill:false, tension:0.25 },
+            { label:'Structure', data:structure, borderColor:'#ff8c00', fill:false, tension:0.25 },
+            { label:'Confidence', data:confidence, borderColor:'#28a745', fill:false, tension:0.25 }
+          ]},
+          options: { responsive:true, plugins:{ legend:{ position:'bottom' } }, scales:{ y:{ min:1, max:5, ticks:{ stepSize:1 }, title:{ display:true, text:'Score (1-5)' } } } }
+        });
       }
-
-      const labels = submissions.map(s => s.timestamp);
-      const clarity = submissions.map(s=>s.clarity);
-      const structure = submissions.map(s=>s.structure);
-      const confidence = submissions.map(s=>s.confidence);
-
-      if(performanceChart) performanceChart.destroy();
-      performanceChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels,
-          datasets: [
-            { label: 'Clarity', data: clarity, borderColor: '#1a73e8', fill:false, tension:0.25 },
-            { label: 'Structure', data: structure, borderColor: '#ff8c00', fill:false, tension:0.25 },
-            { label: 'Confidence', data: confidence, borderColor: '#28a745', fill:false, tension:0.25 }
-          ]
-        },
-        options: {
-          responsive:true,
-          plugins: { legend: { position:'bottom' } },
-          scales:{ y:{ min:1, max:5, ticks:{ stepSize:1 } } }
-        }
-      });
     }
 
     firebaseFns.onAuthStateChanged(auth, async user => {
@@ -335,8 +357,7 @@
         status.textContent = `Logged in as: ${user.email}`;
         perfSection.style.display = "block";
         await updateChart(user);
-        // Show admin module for Admin only
-        if(user.email === "admin@admin.com") {
+        if(user.email.toLowerCase() === "admin@admin.com") {
           document.getElementById("admin-module").style.display = "block";
         } else {
           document.getElementById("admin-module").style.display = "none";
@@ -353,7 +374,6 @@
       if(user) await updateChart(user);
     });
 
-    // --- Admin question module ---
     const adminForm = document.getElementById("question-form");
     const adminStatus = document.getElementById("admin-status");
 
