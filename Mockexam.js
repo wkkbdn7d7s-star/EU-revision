@@ -1,6 +1,6 @@
 import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-// Get Firestore instance from window
+// Firestore instance from window
 const db = window.firebaseFns.db;
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const content = document.getElementById("content");
   const timerEl = document.getElementById("timer");
-  const startBtn = document.getElementById("startBtn");
   const finishBtn = document.getElementById("finishBtn");
 
   let euKnowledge = [];
@@ -42,22 +41,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log(`💼 Loaded ${competencies.length} EU Competency questions.`);
     console.log(`💬 Loaded ${motivation.length} EU Motivation questions.`);
 
-    // ✅ Recreate the Start button
+    // ✅ Show Start button
+    showStartButton();
+  } catch (err) {
+    console.error("❌ Failed to load Firestore questions:", err);
+    content.textContent = "Failed to load questions from Firestore.";
+  }
+
+  // --- Function to show Start button ---
+  function showStartButton() {
     content.innerHTML = `
       <p>Questions loaded. Click <strong>"Start Mock Exam"</strong> to begin.</p>
       <div class="controls">
         <button id="startBtn">Start Mock Exam</button>
       </div>
     `;
-
-    // Rebind event listener because old button was replaced
     document.getElementById("startBtn").addEventListener("click", startKnowledgeStage);
-  } catch (err) {
-    console.error("❌ Failed to load Firestore questions:", err);
-    content.textContent = "Failed to load questions from Firestore.";
   }
 
-  // --- Stage 1: EU Knowledge (Preparation) ---
+  // --- Stage 1: EU Knowledge ---
   function startKnowledgeStage() {
     const randomQs = euKnowledge.sort(() => 0.5 - Math.random()).slice(0, 3);
     if (!randomQs.length) return (content.textContent = "No EU Knowledge questions available.");
