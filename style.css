@@ -1,19 +1,23 @@
+/* --- Global Layout --- */
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f7fa;
-  color: #003399;
+  font-family: "Segoe UI", "Arial", sans-serif;
+  background-color: #f8f4f0; /* soft beige background */
+  color: #1b1f3b; /* deep navy text */
 }
 
+/* --- Header --- */
 header {
-  background-color: #003399;
-  padding: 15px;
+  background: linear-gradient(90deg, #1b1f3b 0%, #003399 100%);
+  padding: 18px 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* --- Navigation Menu --- */
 .menu {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 22px;
   margin: 0;
   padding: 0;
 }
@@ -24,44 +28,162 @@ header {
 
 .menu a {
   text-decoration: none;
-  color: white;
+  color: #f8f4f0;
   font-weight: bold;
-  padding: 5px 10px;
+  padding: 8px 12px;
   display: block;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .menu a:hover {
-  background-color: #4455aa;
-  border-radius: 5px;
+  background-color: #d4af7f;
+  color: #1b1f3b;
 }
 
+/* --- Dropdown --- */
 .dropdown-menu {
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #003399;
+  background-color: #1b1f3b;
   list-style: none;
   padding: 0;
   margin: 0;
-  border-radius: 5px;
-  min-width: 150px;
+  border-radius: 6px;
+  min-width: 160px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .dropdown-menu li a {
   padding: 10px;
+  color: #f8f4f0;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #003399;
+  color: #d4af7f;
 }
 
 .dropdown:hover .dropdown-menu {
   display: block;
 }
 
+/* --- Main Content --- */
 main {
   text-align: center;
-  padding: 50px 20px;
+  padding: 60px 20px;
+  background-color: #f3ede6;
 }
 
 h1 {
   font-size: 2.5rem;
+  color: #1b1f3b;
   margin-bottom: 20px;
+  border-bottom: 3px solid #d4af7f;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* --- Footer --- */
+footer {
+  background-color: #1b1f3b;
+  color: #dde2f0;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Buttons --- */
+button {
+  background-color: #1b1f3b;
+  color: #f8f4f0;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+  background-color: #003399;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Cards and Modules --- */
+.card {
+  background-color: #ece7e1;
+  color: #1b1f3b;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-top: 4px solid #1b1f3b;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.mock-card {
+  background: linear-gradient(135deg, #1b1f3b, #003399);
+  color: #f8f4f0;
+  border-top: 4px solid #d4af7f;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.mock-card h3 {
+  color: #d4af7f;
+}
+
+/* --- Admin Module --- */
+#admin-module {
+  margin-top: 40px;
+  padding: 20px;
+  border: 2px dashed #1b1f3b;
+  border-radius: 12px;
+  background-color: #f0f8ff;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#admin-module h2 {
+  color: #1b1f3b;
+}
+
+#admin-module input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #1b1f3b;
+}
+
+#admin-module button {
+  background-color: #1b1f3b;
+  color: #f8f4f0;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#admin-module button:hover {
+  background-color: #003399;
+}
+
+#admin-status {
+  text-align: center;
+  color: #1b1f3b;
+  font-weight: bold;
+  margin-top: 10px;
 }
