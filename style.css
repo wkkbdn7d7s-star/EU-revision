@@ -120,12 +120,13 @@ section h2 {
   box-sizing: border-box;
 }
 
-/* ====== Header ====== */
+/* ====== Page Header ====== */
 #eu-knowledge-page header.page-header {
+  position: relative; /* required for absolute-positioned back button */
   width: 100%;
   max-width: 1200px;
   background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
-  padding: 20px 30px;
+  padding: 40px 30px 30px 30px; /* extra top padding to make room for button */
   color: #f8f4f0;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   border-radius: 12px;
@@ -133,9 +134,11 @@ section h2 {
   text-align: center;
 }
 
+/* ====== Header Title & Subtitle ====== */
 #eu-knowledge-page header.page-header h1 {
   font-size: 2rem;
   margin: 0;
+  margin-top: 20px; /* push down from top/back button */
 }
 
 #eu-knowledge-page header.page-header p {
