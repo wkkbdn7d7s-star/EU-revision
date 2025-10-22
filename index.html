@@ -11,114 +11,6 @@
   <link rel="apple-touch-icon" href="eci-icon.png" />
   <meta name="mobile-web-app-capable" content="yes" />
 
-  <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background-color: #f8f4f0;
-      margin: 0;
-      padding: 0;
-      color: #2c2a28;
-    }
-
-    header {
-      background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
-      padding: 20px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      color: #f8f4f0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-
-    .header-left { display: flex; align-items: center; gap: 20px; }
-    .header-left .logo { width: 80px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-    .header-left .text h1 { margin: 0; font-size: 2em; font-weight: bold; color: #f8f4f0; }
-    .header-left .text p { margin-top: 5px; font-size: 1em; color: #dde2f0; }
-
-    .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .header-right input { padding: 5px 8px; border-radius: 4px; border: none; font-size: 0.9em; }
-    .header-right button { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em; background-color: #d4af7f; color: #2c2a28; font-weight: bold; }
-
-    main { padding: 50px 20px; background-color: #f3ede6; }
-
-    section { margin-bottom: 60px; }
-    section h2 {
-      text-align: center;
-      font-size: 1.8em;
-      margin-bottom: 30px;
-      color: #003399;
-      border-bottom: 3px solid #0052cc;
-      display: inline-block;
-      padding-bottom: 5px;
-    }
-
-    .card-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 30px; }
-
-    .card {
-      background-color: #ece7e1;
-      color: #2c2a28;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 280px;
-      text-align: center;
-      padding: 25px 20px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      border-top: 5px solid #0052cc;
-    }
-
-    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
-    .card a { text-decoration: none; color: #003399; font-weight: bold; display: inline-block; margin-top: 15px; transition: color 0.3s; }
-    .card a:hover { color: #d4af7f; }
-
-    .mock-card { background: linear-gradient(135deg, #0052cc, #003399); color: #f8f4f0; border-top: 5px solid #d4af7f; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
-    .mock-card h3 { color: #d4af7f; }
-    .mock-card a { color: #d4af7f; }
-    .mock-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.3); }
-
-    footer { text-align: center; padding: 20px; background-color: #003399; color: #dde2f0; font-size: 0.9em; }
-
-    .auth-status { color: #d4af7f; font-weight: bold; font-size: 0.9em; margin-left: 10px; }
-
-    #performance-section { background-color: #ece7e1; padding: 20px; border-radius: 16px; max-width: 700px; margin: 40px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    
-    /* Styled dropdown */
-    #section-filter {
-      margin: 10px 0 20px 0;
-      padding: 10px 14px;
-      font-size: 1em;
-      border-radius: 12px;
-      border: 2px solid #d4af7f;
-      background-color: #f8f4f0;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      color: #2c2a28;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
-    #section-filter:hover { background-color: #fff9f0; border-color: #0052cc; }
-
-    #performance-chart { max-width: 100%; }
-
-    /* Admin Module */
-    #admin-module {
-      margin-top: 50px;
-      padding: 20px;
-      border: 2px dashed #0052cc;
-      border-radius: 12px;
-      display: none;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-      background-color: #f0f8ff;
-    }
-    #admin-module h2 { color: #003399; text-align: center; }
-    #admin-module form { display: flex; flex-direction: column; gap: 12px; }
-    #admin-module input { padding: 8px; border-radius: 6px; border: 1px solid #0052cc; font-size: 1em; }
-    #admin-module button { padding: 10px; background-color: #0052cc; color: #f8f4f0; border:none; border-radius:6px; font-weight:bold; cursor:pointer; }
-    #admin-module button:hover { background-color: #003399; }
-    #admin-status { text-align: center; font-weight: bold; margin-top: 10px; color: #0052cc; }
-  </style>
-
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
@@ -274,21 +166,6 @@
       await firebaseFns.signOut(auth);
       status.textContent = "Logged out!";
     });
-
-    function formatSubmissions(submissions) {
-      return submissions
-        .map(s => ( {
-          timestamp: new Date(s.timestamp || s.submittedAt).toLocaleString('en-GB', {
-            hour12: false,
-            day: '2-digit', month: 'short',
-            hour: '2-digit', minute: '2-digit', second: '2-digit'
-          }),
-          clarity: s.clarity,
-          structure: s.structure,
-          confidence: s.confidence
-        }))
-        .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-    }
 
     async function updateChart(user) {
       const docSnap = await firebaseFns.getDoc(firebaseFns.doc(db, "users", user.uid));
