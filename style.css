@@ -110,18 +110,27 @@ section h2 {
 #admin-module button:hover { background-color: #003399; }
 #admin-status { text-align: center; font-weight: bold; margin-top: 10px; color: #0052cc; }
 
-/* ====== EU Knowledge Module (Scoped to preserve original look) ====== */
+/* ====== EU Knowledge Module (Scoped & Centered) ====== */
+#eu-knowledge-page .container {
+  display: flex;
+  justify-content: center;  /* horizontal centering */
+  align-items: flex-start;  /* align top */
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+}
 
-/* Center main card and expand width */
 #eu-knowledge-page main.card {
   width: 90%;
   max-width: 700px;
-  margin: 20px auto 40px auto; /* center horizontally with vertical spacing */
+  margin: 20px 0 40px 0;
   padding: 30px 20px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  border-radius: 12px;
+  background-color: #f8f4f0;
 }
 
-/* Back arrow */
+/* ====== Back Arrow ====== */
 #eu-knowledge-page .back-arrow {
   display: inline-block;
   margin: 20px;
@@ -132,10 +141,10 @@ section h2 {
 }
 #eu-knowledge-page .back-arrow:hover { color: #003399; }
 
-/* Header */
+/* ====== Page Header ====== */
 #eu-knowledge-page .page-header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 #eu-knowledge-page .page-header h1 {
   color: #003399;
@@ -147,7 +156,7 @@ section h2 {
   margin-top: 8px;
 }
 
-/* Question box */
+/* ====== Question Box ====== */
 #eu-knowledge-page .question {
   min-height: 120px;
   display: flex;
@@ -161,9 +170,12 @@ section h2 {
   color: #2c2a28;
   transition: opacity .28s ease, transform .28s ease;
 }
-#eu-knowledge-page .question.fade { opacity: 0; transform: translateY(6px); }
+#eu-knowledge-page .question.fade {
+  opacity: 0;
+  transform: translateY(6px);
+}
 
-/* Controls */
+/* ====== Controls ====== */
 #eu-knowledge-page .controls {
   display: flex;
   gap: 12px;
@@ -182,9 +194,12 @@ section h2 {
   box-shadow: 0 6px 14px rgba(0,0,0,0.2);
   transition: transform .15s ease, background .15s ease;
 }
-#eu-knowledge-page .controls button:hover { transform: translateY(-3px); background: #003399; }
+#eu-knowledge-page .controls button:hover {
+  transform: translateY(-3px);
+  background: #003399;
+}
 
-/* Status */
+/* ====== Status ====== */
 #eu-knowledge-page .status {
   display: flex;
   justify-content: space-between;
@@ -202,7 +217,7 @@ section h2 {
   font-weight: bold;
 }
 
-/* Self-assessment form */
+/* ====== Self-Assessment ====== */
 #eu-knowledge-page #self-assessment { margin-top: 25px; }
 #eu-knowledge-page #self-assessment h2 {
   text-align: center;
@@ -246,12 +261,8 @@ section h2 {
   font-weight: bold;
 }
 
-/* ====== Responsive adjustments ====== */
+/* ====== Responsive ====== */
 @media (max-width: 520px) {
-  #eu-knowledge-page main.card {
-    width: 95%;
-    padding: 20px 15px;
-  }
   #eu-knowledge-page .question {
     font-size: 1rem;
     min-height: 110px;
@@ -262,7 +273,7 @@ section h2 {
     font-size: 0.95rem;
   }
   #eu-knowledge-page #assessment-form label {
-    width: 100%;
+    width: 180px;
     flex-direction: column;
     gap: 4px;
   }
