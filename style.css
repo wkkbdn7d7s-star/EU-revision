@@ -111,6 +111,17 @@ section h2 {
 #admin-status { text-align: center; font-weight: bold; margin-top: 10px; color: #0052cc; }
 
 /* ====== EU Knowledge Module (Scoped to preserve original look) ====== */
+
+/* Center main card and expand width */
+#eu-knowledge-page main.card {
+  width: 90%;
+  max-width: 700px;
+  margin: 20px auto 40px auto; /* center horizontally with vertical spacing */
+  padding: 30px 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* Back arrow */
 #eu-knowledge-page .back-arrow {
   display: inline-block;
   margin: 20px;
@@ -121,10 +132,22 @@ section h2 {
 }
 #eu-knowledge-page .back-arrow:hover { color: #003399; }
 
-#eu-knowledge-page .page-header { text-align: center; margin-bottom: 20px; }
-#eu-knowledge-page .page-header h1 { color: #003399; font-size: 2rem; margin: 0; }
-#eu-knowledge-page .page-header p { color: #4a453f; margin-top: 8px; }
+/* Header */
+#eu-knowledge-page .page-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+#eu-knowledge-page .page-header h1 {
+  color: #003399;
+  font-size: 2rem;
+  margin: 0;
+}
+#eu-knowledge-page .page-header p {
+  color: #4a453f;
+  margin-top: 8px;
+}
 
+/* Question box */
 #eu-knowledge-page .question {
   min-height: 120px;
   display: flex;
@@ -140,6 +163,7 @@ section h2 {
 }
 #eu-knowledge-page .question.fade { opacity: 0; transform: translateY(6px); }
 
+/* Controls */
 #eu-knowledge-page .controls {
   display: flex;
   gap: 12px;
@@ -160,6 +184,7 @@ section h2 {
 }
 #eu-knowledge-page .controls button:hover { transform: translateY(-3px); background: #003399; }
 
+/* Status */
 #eu-knowledge-page .status {
   display: flex;
   justify-content: space-between;
@@ -177,11 +202,32 @@ section h2 {
   font-weight: bold;
 }
 
+/* Self-assessment form */
 #eu-knowledge-page #self-assessment { margin-top: 25px; }
-#eu-knowledge-page #self-assessment h2 { text-align: center; color: #003399; margin-bottom: 12px; }
-#eu-knowledge-page #assessment-form { display: flex; flex-direction: column; gap: 10px; align-items: center; }
-#eu-knowledge-page #assessment-form label { display: flex; justify-content: space-between; width: 220px; font-weight: bold; }
-#eu-knowledge-page #assessment-form input { width: 50px; text-align: center; border-radius: 6px; border: 1px solid #ccc; padding: 4px; }
+#eu-knowledge-page #self-assessment h2 {
+  text-align: center;
+  color: #003399;
+  margin-bottom: 12px;
+}
+#eu-knowledge-page #assessment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+#eu-knowledge-page #assessment-form label {
+  display: flex;
+  justify-content: space-between;
+  width: 220px;
+  font-weight: bold;
+}
+#eu-knowledge-page #assessment-form input {
+  width: 50px;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 4px;
+}
 #eu-knowledge-page #assessment-form button {
   margin-top: 10px;
   width: 150px;
@@ -193,14 +239,34 @@ section h2 {
   cursor: pointer;
 }
 #eu-knowledge-page #assessment-form button:hover { background-color: #003399; }
-#eu-knowledge-page #form-status { margin-top: 8px; text-align: center; color: #0052cc; font-weight: bold; }
+#eu-knowledge-page #form-status {
+  margin-top: 8px;
+  text-align: center;
+  color: #0052cc;
+  font-weight: bold;
+}
 
-/* ====== Responsive ====== */
-@media (max-width:520px){
-  #eu-knowledge-page .question{ font-size:1rem; min-height:110px; padding:16px; }
-  #eu-knowledge-page .controls button{ padding:10px 14px; font-size:0.95rem; }
-  #eu-knowledge-page #assessment-form label{ width:180px; flex-direction:column; gap:4px; }
-  #eu-knowledge-page #assessment-form input{ width:100%; }
+/* ====== Responsive adjustments ====== */
+@media (max-width: 520px) {
+  #eu-knowledge-page main.card {
+    width: 95%;
+    padding: 20px 15px;
+  }
+  #eu-knowledge-page .question {
+    font-size: 1rem;
+    min-height: 110px;
+    padding: 16px;
+  }
+  #eu-knowledge-page .controls button {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+  #eu-knowledge-page #assessment-form label {
+    width: 100%;
+    flex-direction: column;
+    gap: 4px;
+  }
+  #eu-knowledge-page #assessment-form input { width: 100%; }
 }
 
 /* ====== Footer ====== */
