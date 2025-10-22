@@ -124,7 +124,7 @@ section h2 {
 #eu-knowledge-page header.page-header {
   display: flex;
   align-items: center;
-  gap: 20px; /* space between back button and title */
+  gap: 10px; /* space between back button and title */
   width: 100%;
   max-width: 1200px;
   padding: 20px 30px;
