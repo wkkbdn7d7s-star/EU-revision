@@ -1,13 +1,16 @@
-/* === EUreka! Global Style (from index.html) === */
+/* === Global Styles === */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f8f4f0;
+  background-color: #f8f4f0; /* index.html cream */
   margin: 0;
   padding: 0;
   color: #2c2a28;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* --- Header --- */
+/* === Header === */
 header {
   background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
   padding: 20px 30px;
@@ -17,69 +20,40 @@ header {
   flex-wrap: wrap;
   color: #f8f4f0;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  position: relative;
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
+.header-left { display: flex; align-items: center; gap: 20px; }
+.header-left .logo { width: 80px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.header-left .text h1 { margin: 0; font-size: 2em; font-weight: bold; color: #f8f4f0; }
+.header-left .text p { margin-top: 5px; font-size: 1em; color: #dde2f0; }
 
-.header-left .logo {
-  width: 80px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
+.header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.header-right input { padding: 5px 8px; border-radius: 4px; border: none; font-size: 0.9em; }
+.header-right button { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em; background-color: #d4af7f; color: #2c2a28; font-weight: bold; }
 
-.header-left .text h1 {
-  margin: 0;
-  font-size: 2em;
-  font-weight: bold;
+/* === Back Arrow for Subpages === */
+.back-arrow {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  font-size: 1.8rem;
   color: #f8f4f0;
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.back-arrow:hover {
+  transform: translateX(-5px);
+  color: #d4af7f;
 }
 
-.header-left .text p {
-  margin-top: 5px;
-  font-size: 1em;
-  color: #dde2f0;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.header-right input {
-  padding: 5px 8px;
-  border-radius: 4px;
-  border: none;
-  font-size: 0.9em;
-}
-
-.header-right button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9em;
-  background-color: #d4af7f;
-  color: #2c2a28;
-  font-weight: bold;
-}
-
-/* --- Main Layout --- */
+/* === Main Section === */
 main {
   padding: 50px 20px;
-  background-color: #f3ede6;
+  flex: 1;
 }
 
-/* --- Sections --- */
-section {
-  margin-bottom: 60px;
-}
-
+/* Section Headings */
 section h2 {
   text-align: center;
   font-size: 1.8em;
@@ -90,8 +64,8 @@ section h2 {
   padding-bottom: 5px;
 }
 
-/* --- Card Grid --- */
-.card-grid {
+/* === Card Grid Layout === */
+.card-grid, .links-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -99,8 +73,9 @@ section h2 {
   margin-top: 30px;
 }
 
-.card {
-  background-color: #ece7e1;
+/* === Card Styles === */
+.card, .module-card {
+  background-color: #ece7e1; /* index.html cream */
   color: #2c2a28;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -111,25 +86,38 @@ section h2 {
   border-top: 5px solid #0052cc;
 }
 
-.card:hover {
+.card:hover, .module-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-.card a {
-  text-decoration: none;
+.card h3, .module-card h2 {
+  font-size: 1.3em;
+  margin-bottom: 10px;
   color: #003399;
+}
+
+.card p, .module-card p {
+  font-size: 1em;
+  color: #2c2a28;
+  margin-bottom: 18px;
+  min-height: 60px;
+}
+
+.card a, .module-card a {
+  text-decoration: none;
   font-weight: bold;
   display: inline-block;
   margin-top: 15px;
   transition: color 0.3s;
+  color: #003399;
 }
 
-.card a:hover {
+.card a:hover, .module-card a:hover {
   color: #d4af7f;
 }
 
-/* --- Mock Exam Special Card --- */
+/* Mock Card Variant */
 .mock-card {
   background: linear-gradient(135deg, #0052cc, #003399);
   color: #f8f4f0;
@@ -137,20 +125,14 @@ section h2 {
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
 
-.mock-card h3 {
-  color: #d4af7f;
-}
-
-.mock-card a {
-  color: #d4af7f;
-}
-
+.mock-card h3 { color: #d4af7f; }
+.mock-card a { color: #d4af7f; }
 .mock-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 28px rgba(0,0,0,0.3);
 }
 
-/* --- Footer --- */
+/* === Footer === */
 footer {
   text-align: center;
   padding: 20px;
@@ -159,25 +141,7 @@ footer {
   font-size: 0.9em;
 }
 
-/* --- Auth Status --- */
-.auth-status {
-  color: #d4af7f;
-  font-weight: bold;
-  font-size: 0.9em;
-  margin-left: 10px;
-}
-
-/* --- Performance Section (Homepage) --- */
-#performance-section {
-  background-color: #ece7e1;
-  padding: 20px;
-  border-radius: 16px;
-  max-width: 700px;
-  margin: 40px auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-/* --- Dropdown (Homepage) --- */
+/* === Dropdown / Admin Module (Optional) === */
 #section-filter {
   margin: 10px 0 20px 0;
   padding: 10px 14px;
@@ -185,18 +149,14 @@ footer {
   border-radius: 12px;
   border: 2px solid #d4af7f;
   background-color: #f8f4f0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   color: #2c2a28;
   font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   transition: all 0.3s ease;
 }
+#section-filter:hover { border-color: #0052cc; }
 
-#section-filter:hover {
-  background-color: #fff9f0;
-  border-color: #0052cc;
-}
-
-/* --- Admin Module --- */
+/* Admin Module */
 #admin-module {
   margin-top: 50px;
   padding: 20px;
@@ -208,54 +168,14 @@ footer {
   margin-right: auto;
   background-color: #f0f8ff;
 }
+#admin-module h2 { color: #003399; text-align: center; }
+#admin-module input, #admin-module button { border-radius: 6px; font-size: 1em; padding: 8px; }
+#admin-module button { background-color: #0052cc; color: #f8f4f0; border: none; font-weight: bold; cursor: pointer; }
+#admin-module button:hover { background-color: #003399; }
+#admin-status { text-align: center; font-weight: bold; margin-top: 10px; color: #0052cc; }
 
-#admin-module h2 {
-  color: #003399;
-  text-align: center;
-}
-
-#admin-module form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-#admin-module input {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #0052cc;
-  font-size: 1em;
-}
-
-#admin-module button {
-  padding: 10px;
-  background-color: #0052cc;
-  color: #f8f4f0;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#admin-module button:hover {
-  background-color: #003399;
-}
-
-#admin-status {
-  text-align: center;
-  font-weight: bold;
-  margin-top: 10px;
-  color: #0052cc;
-}
-
-/* --- Responsive --- */
+/* === Responsive === */
 @media (max-width: 600px) {
-  .card {
-    width: 90%;
-  }
-
-  header {
-    flex-direction: column;
-    text-align: center;
-  }
+  .card, .module-card { width: 90%; }
+  header h1 { font-size: 1.8rem; }
 }
