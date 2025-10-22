@@ -120,17 +120,18 @@ section h2 {
   box-sizing: border-box;
 }
 
-/* ====== Header ====== */
+/* ====== EU Knowledge Header (Useful Links style) ====== */
 #eu-knowledge-page header.page-header {
   width: 100%;
   max-width: 1200px;
-  background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
+  background-color: #f8f4f0; /* light background */
+  border: 2px solid #d4af7f; /* golden border accent */
   padding: 20px 30px;
-  color: #f8f4f0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   border-radius: 12px;
   margin-bottom: 30px;
   text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: #2c2a28;
 }
 
 #eu-knowledge-page header.page-header h1 {
@@ -141,15 +142,15 @@ section h2 {
 #eu-knowledge-page header.page-header p {
   margin-top: 8px;
   font-size: 1rem;
-  color: #dde2f0;
+  color: #4a453f;
 }
 
-/* ====== Back to Homepage Button ====== */
+/* ====== Back to homepage button (Useful Links style) ====== */
 #eu-knowledge-page .back-home {
   display: inline-block;
   margin-bottom: 20px;
   padding: 10px 20px;
-  background-color: #d4af7f;
+  background-color: #ffcc70;
   color: #2c2a28;
   text-decoration: none;
   font-weight: bold;
@@ -158,8 +159,9 @@ section h2 {
 }
 
 #eu-knowledge-page .back-home:hover {
-  background-color: #c69c5f;
+  background-color: #e6b85c;
 }
+
 
 /* ====== Main Card ====== */
 #eu-knowledge-page main.card {
