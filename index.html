@@ -95,7 +95,9 @@
         <option value="Mockexam">Mock Exam</option>
         <option value="average">Average</option>
       </select>
-      <canvas id="performance-chart"></canvas>
+      <div class="chart-container">
+        <canvas id="performance-chart"></canvas>
+      </div>
     </section>
 
     <section>
@@ -142,6 +144,64 @@
 
     const { auth, db, firebaseFns } = window;
 
+    function createChart(labels = [], datasets = []) {
+      if (performanceChart) performanceChart.destroy();
+      performanceChart = new Chart(ctx, {
+        type: 'bar',
+        data: { labels, datasets },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { min: 0, max: 5, ticks: { stepSize: 1 }, title: { display: true, text: 'Score (1-5)' } } } }
+      });
+    }
+
+    async function updateChart(user) {
+      const docSnap = await firebaseFns.getDoc(firebaseFns.doc(db, "users", user.uid));
+      if (!docSnap.exists()) return;
+      const data = docSnap.data();
+      const section = sectionFilter.value;
+
+      if (section === "average") {
+        const allSections = ["EUknowledge","EUcompetencies","EUmotivation","Mockexam"];
+        const merged = allSections.flatMap(sec => data.selfAssessment[sec] || []);
+        if (!merged.length) return;
+
+        const total = merged.length;
+        const avgClarity = merged.reduce((sum,s)=>sum+(s.clarity||0),0)/total;
+        const avgStructure = merged.reduce((sum,s)=>sum+(s.structure||0),0)/total;
+        const avgConfidence = merged.reduce((sum,s)=>sum+(s.confidence||0),0)/total;
+
+        createChart(
+          ["Clarity", "Structure", "Confidence"],
+          [{ label: 'Average Score', data: [avgClarity, avgStructure, avgConfidence], backgroundColor: ['#1a73e8','#ff8c00','#28a745'] }]
+        );
+      } else {
+        const submissions = (data.selfAssessment[section] || []).map(s => ({
+          timestamp: new Date(s.timestamp || s.submittedAt).toLocaleString('en-GB', {hour12:false, day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', second:'2-digit'}),
+          clarity: s.clarity,
+          structure: s.structure,
+          confidence: s.confidence
+        })).sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+
+        const labels = submissions.map(s=>s.timestamp);
+        const clarity = submissions.map(s=>s.clarity);
+        const structure = submissions.map(s=>s.structure);
+        const confidence = submissions.map(s=>s.confidence);
+
+        createChart(
+          labels,
+          [
+            { label:'Clarity', data:clarity, borderColor:'#1a73e8', fill:false, tension:0.25 },
+            { label:'Structure', data:structure, borderColor:'#ff8c00', fill:false, tension:0.25 },
+            { label:'Confidence', data:confidence, borderColor:'#28a745', fill:false, tension:0.25 }
+          ]
+        );
+      }
+    }
+
+    sectionFilter.addEventListener("change", async () => {
+      const user = auth.currentUser;
+      if (user) updateChart(user);
+    });
+
     document.getElementById("signup-btn").addEventListener("click", async () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
@@ -175,6 +235,7 @@
         } else {
           document.getElementById("admin-module").style.display = "none";
         }
+        await updateChart(user);
       } else {
         status.textContent = "Not logged in";
         perfSection.style.display = "none";
