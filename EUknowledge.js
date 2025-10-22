@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-// --- FIREBASE CONFIG (replace with yours if needed) ---
 const firebaseConfig = {
   apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
   authDomain: "eureka-63b47.firebaseapp.com",
@@ -12,32 +11,31 @@ const firebaseConfig = {
   measurementId: "G-KFTB45DCFZ"
 };
 
-// --- Initialize Firebase ---
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const container = document.getElementById("eu-knowledge-page");
+
   let questions = [];
   let remaining = [];
   let shownCount = 0;
   let timerInterval;
   let elapsed = 0;
 
-  const questionEl = document.getElementById("question");
-  const counterEl = document.getElementById("counter");
-  const timerEl = document.getElementById("timer");
-  const nextBtn = document.getElementById("nextBtn");
-  const shuffleBtn = document.getElementById("shuffleBtn");
-  const copyBtn = document.getElementById("copyBtn");
+  const questionEl = container.querySelector("#question");
+  const counterEl = container.querySelector("#counter");
+  const timerEl = container.querySelector("#timer");
+  const nextBtn = container.querySelector("#nextBtn");
+  const shuffleBtn = container.querySelector("#shuffleBtn");
+  const copyBtn = container.querySelector("#copyBtn");
 
   questionEl.textContent = "Loading EU Knowledge questions...";
 
-  // --- Load questions dynamically from Firestore ---
   try {
     const masterDocRef = doc(db, "questions", "masterQuestions");
-    const colRef = collection(masterDocRef, "EUknowledge"); // your subcollection name
+    const colRef = collection(masterDocRef, "EUknowledge");
     const snapshot = await getDocs(colRef);
-
     questions = snapshot.docs.map(doc => doc.data().text);
 
     if (!questions.length) {
@@ -53,7 +51,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // --- FUNCTIONS ---
   function shuffleQuestions() {
     remaining = [...questions].sort(() => Math.random() - 0.5);
     shownCount = 0;
@@ -97,15 +94,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       const s = String(elapsed % 60).padStart(2, '0');
       timerEl.textContent = `${m}:${s}`;
 
-      if (elapsed >= 270) {
-        timerEl.style.color = "var(--timer-red)";
-      } else if (elapsed >= 240) {
-        timerEl.style.color = "var(--timer-orange)";
-      } else if (elapsed >= 180) {
-        timerEl.style.color = "var(--timer-yellow)";
-      } else {
-        timerEl.style.color = "var(--timer-white)";
-      }
+      if (elapsed >= 270) timerEl.style.color = "var(--timer-red)";
+      else if (elapsed >= 240) timerEl.style.color = "var(--timer-orange)";
+      else if (elapsed >= 180) timerEl.style.color = "var(--timer-yellow)";
+      else timerEl.style.color = "var(--timer-white)";
     }, 1000);
   }
 
@@ -125,7 +117,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }).catch(() => alert("Copy failed — try selecting text manually."));
   }
 
-  // --- EVENT LISTENERS ---
   nextBtn.addEventListener('click', nextQuestion);
   shuffleBtn.addEventListener('click', shuffleQuestions);
   copyBtn.addEventListener('click', copyQuestion);
