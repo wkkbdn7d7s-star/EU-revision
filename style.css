@@ -1,4 +1,94 @@
-/* ====== EU Modules Shared Styles ====== */
+/* ====== EUreka! Global Styles ====== */
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f8f4f0;
+  margin: 0;
+  padding: 0;
+  color: #2c2a28;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #003399;
+  color: #dde2f0;
+  font-size: 0.9em;
+}
+
+/* ====== Global Card Styles (for shared cards outside EU pages) ====== */
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.card {
+  background-color: #ece7e1;
+  color: #2c2a28;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 280px;
+  text-align: center;
+  padding: 25px 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-top: 5px solid #0052cc;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.card a {
+  text-decoration: none;
+  color: #003399;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 15px;
+  transition: color 0.3s;
+}
+
+.card a:hover {
+  color: #d4af7f;
+}
+
+/* ====== Mock Card ====== */
+.mock-card {
+  background: linear-gradient(135deg, #005ce6, #003399);
+  color: #ffffff;
+  border-top: 5px solid #ffcc70;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+.mock-card h3 { color: #ffda8a; }
+.mock-card p { color: #f2f4ff; }
+.mock-card a { color: #ffda8a; font-weight: bold; }
+.mock-card a:hover { color: #ffffff; }
+.mock-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35); }
+
+/* ====== Admin Module ====== */
+#admin-module {
+  margin-top: 50px;
+  padding: 20px;
+  border: 2px dashed #0052cc;
+  border-radius: 12px;
+  display: none;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f0f8ff;
+}
+#admin-module h2 { color: #003399; text-align: center; }
+#admin-module form { display: flex; flex-direction: column; gap: 12px; }
+#admin-module input { padding: 8px; border-radius: 6px; border: 1px solid #0052cc; font-size: 1em; }
+#admin-module button { padding: 10px; background-color: #0052cc; color: #f8f4f0; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+#admin-module button:hover { background-color: #003399; }
+#admin-status { text-align: center; font-weight: bold; margin-top: 10px; color: #0052cc; }
+
+
+/* ====== EU Pages Styles (Scoped by Page ID) ====== */
+
 #eu-knowledge-page,
 #eu-motivation-page,
 #eu-competencies-page {
@@ -10,7 +100,6 @@
   box-sizing: border-box;
 }
 
-/* ====== Page Header ====== */
 #eu-knowledge-page header.page-header,
 #eu-motivation-page header.page-header,
 #eu-competencies-page header.page-header {
@@ -29,43 +118,36 @@
   box-sizing: border-box;
 }
 
-/* ====== Header Left: Title & Subtitle ====== */
-#eu-knowledge-page header.page-header .header-left,
-#eu-motivation-page header.page-header .header-left,
-#eu-competencies-page header.page-header .header-left {
+/* Header Left: Title & Subtitle */
+#eu-knowledge-page .header-left,
+#eu-motivation-page .header-left,
+#eu-competencies-page .header-left {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-#eu-knowledge-page header.page-header .header-left h1,
-#eu-motivation-page header.page-header .header-left h1,
-#eu-competencies-page header.page-header .header-left h1 {
+#eu-knowledge-page .header-left h1,
+#eu-motivation-page .header-left h1,
+#eu-competencies-page .header-left h1 {
   margin: 0;
   font-size: 2.2rem;
   font-weight: bold;
   color: #f8f4f0;
 }
 
-#eu-knowledge-page header.page-header .header-left p,
-#eu-motivation-page header.page-header .header-left p,
-#eu-competencies-page header.page-header .header-left p {
+#eu-knowledge-page .header-left p,
+#eu-motivation-page .header-left p,
+#eu-competencies-page .header-left p {
   margin: 0;
   font-size: 1.1rem;
   color: #dde2f0;
 }
 
-/* ====== Header Right: Back Button ====== */
-#eu-knowledge-page header.page-header .header-right,
-#eu-motivation-page header.page-header .header-right,
-#eu-competencies-page header.page-header .header-right {
-  display: flex;
-  align-items: center;
-}
-
-#eu-knowledge-page header.page-header .header-right .back-home,
-#eu-motivation-page header.page-header .header-right .back-home,
-#eu-competencies-page header.page-header .header-right .back-home {
+/* Header Right: Back Button */
+#eu-knowledge-page .header-right .back-home,
+#eu-motivation-page .header-right .back-home,
+#eu-competencies-page .header-right .back-home {
   padding: 10px 18px;
   background-color: #d4af7f;
   color: #2c2a28;
@@ -76,14 +158,14 @@
   transition: background 0.3s ease, transform 0.15s ease;
 }
 
-#eu-knowledge-page header.page-header .header-right .back-home:hover,
-#eu-motivation-page header.page-header .header-right .back-home:hover,
-#eu-competencies-page header.page-header .header-right .back-home:hover {
+#eu-knowledge-page .header-right .back-home:hover,
+#eu-motivation-page .header-right .back-home:hover,
+#eu-competencies-page .header-right .back-home:hover {
   background-color: #c69c5f;
   transform: translateY(-2px);
 }
 
-/* ====== Main Card ====== */
+/* Main Card */
 #eu-knowledge-page main.card,
 #eu-motivation-page main.card,
 #eu-competencies-page main.card {
@@ -102,7 +184,7 @@
   transform: translateY(-2px);
 }
 
-/* ====== Question Box ====== */
+/* Question Box */
 #eu-knowledge-page .question,
 #eu-motivation-page .question,
 #eu-competencies-page .question {
@@ -119,6 +201,7 @@
   transition: opacity .28s ease, transform .28s ease;
   margin-bottom: 20px;
 }
+
 #eu-knowledge-page .question.fade,
 #eu-motivation-page .question.fade,
 #eu-competencies-page .question.fade {
@@ -126,7 +209,7 @@
   transform: translateY(6px);
 }
 
-/* ====== Controls ====== */
+/* Controls */
 #eu-knowledge-page .controls,
 #eu-motivation-page .controls,
 #eu-competencies-page .controls {
@@ -158,7 +241,7 @@
   background: #003399;
 }
 
-/* ====== Status ====== */
+/* Status */
 #eu-knowledge-page .status,
 #eu-motivation-page .status,
 #eu-competencies-page .status {
@@ -183,7 +266,7 @@
   font-weight: bold;
 }
 
-/* ====== Self-Assessment ====== */
+/* Self-Assessment */
 #eu-knowledge-page #self-assessment,
 #eu-motivation-page #self-assessment,
 #eu-competencies-page #self-assessment {
@@ -245,7 +328,6 @@
   background-color: #003399;
 }
 
-/* ====== Form Status ====== */
 #eu-knowledge-page #form-status,
 #eu-motivation-page #form-status,
 #eu-competencies-page #form-status {
