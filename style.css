@@ -122,9 +122,7 @@ section h2 {
 
 /* ====== Page Header ====== */
 #eu-knowledge-page header.page-header {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* space between back button and title */
+  position: relative; /* for positioning back button */
   width: 100%;
   max-width: 1200px;
   padding: 20px 30px;
@@ -133,9 +131,14 @@ section h2 {
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   border-radius: 12px;
   margin-bottom: 30px;
+  text-align: center; /* center title */
 }
 
 /* ====== Header Title & Subtitle ====== */
+#eu-knowledge-page header.page-header .header-title {
+  display: inline-block; /* allow centering */
+}
+
 #eu-knowledge-page header.page-header .header-title h1 {
   font-size: 2rem;
   margin: 0;
@@ -147,8 +150,11 @@ section h2 {
   color: #dde2f0;
 }
 
-/* ====== Back to Homepage Button (Inside Header) ====== */
+/* ====== Back to Homepage Button ====== */
 #eu-knowledge-page header.page-header .back-home {
+  position: absolute;
+  top: 20px;
+  left: 20px;
   padding: 8px 16px;
   background-color: #d4af7f;
   color: #2c2a28;
@@ -157,12 +163,14 @@ section h2 {
   border-radius: 6px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.2);
   transition: background 0.3s ease, transform 0.15s ease;
+  z-index: 10;
 }
 
 #eu-knowledge-page header.page-header .back-home:hover {
   background-color: #c69c5f;
   transform: translateY(-2px);
 }
+
 
 /* ====== Main Card ====== */
 #eu-knowledge-page main.card {
