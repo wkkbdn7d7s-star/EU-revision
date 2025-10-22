@@ -1,8 +1,9 @@
-/* ===== EUreka! Global Style ===== */
+/* === EUreka! Global Style (from index.html) === */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   background-color: #f8f4f0;
+  margin: 0;
+  padding: 0;
   color: #2c2a28;
 }
 
@@ -43,12 +44,38 @@ header {
   color: #dde2f0;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.header-right input {
+  padding: 5px 8px;
+  border-radius: 4px;
+  border: none;
+  font-size: 0.9em;
+}
+
+.header-right button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  background-color: #d4af7f;
+  color: #2c2a28;
+  font-weight: bold;
+}
+
 /* --- Main Layout --- */
 main {
   padding: 50px 20px;
   background-color: #f3ede6;
 }
 
+/* --- Sections --- */
 section {
   margin-bottom: 60px;
 }
@@ -57,8 +84,8 @@ section h2 {
   text-align: center;
   font-size: 1.8em;
   margin-bottom: 30px;
-  color: #1b1f3b;
-  border-bottom: 3px solid #1b1f3b;
+  color: #003399;
+  border-bottom: 3px solid #0052cc;
   display: inline-block;
   padding-bottom: 5px;
 }
@@ -81,7 +108,7 @@ section h2 {
   text-align: center;
   padding: 25px 20px;
   transition: transform 0.3s, box-shadow 0.3s;
-  border-top: 5px solid #1b1f3b;
+  border-top: 5px solid #0052cc;
 }
 
 .card:hover {
@@ -91,7 +118,7 @@ section h2 {
 
 .card a {
   text-decoration: none;
-  color: #1b1f3b;
+  color: #003399;
   font-weight: bold;
   display: inline-block;
   margin-top: 15px;
@@ -102,9 +129,9 @@ section h2 {
   color: #d4af7f;
 }
 
-/* --- Mock Exam Card --- */
+/* --- Mock Exam Special Card --- */
 .mock-card {
-  background: linear-gradient(135deg, #1b1f3b, #003399);
+  background: linear-gradient(135deg, #0052cc, #003399);
   color: #f8f4f0;
   border-top: 5px solid #d4af7f;
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
@@ -127,78 +154,108 @@ section h2 {
 footer {
   text-align: center;
   padding: 20px;
-  background-color: #1b1f3b;
+  background-color: #003399;
   color: #dde2f0;
   font-size: 0.9em;
 }
 
-/* --- Reusable Card Section for Subpages --- */
-.module-card {
-  background-color: #ece7e1;
-  color: #2c2a28;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 280px;
-  text-align: center;
-  padding: 25px 20px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  border-top: 5px solid #1b1f3b;
-}
-
-.module-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-
-.module-card h2 {
-  font-size: 1.3rem;
-  color: #1b1f3b;
-  margin-bottom: 10px;
-}
-
-.module-card p {
-  font-size: 1rem;
-  color: #4a4744;
-  margin-bottom: 18px;
-  min-height: 60px;
-}
-
-.module-card a {
-  display: inline-block;
-  color: #f8f4f0;
-  background: #1b1f3b;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.module-card a:hover {
-  background: #d4af7f;
-  color: #2c2a28;
-  transform: translateY(-2px);
-}
-
-/* --- Back Arrow for Subpages --- */
-.back-arrow {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  font-size: 1.8rem;
-  color: #1b1f3b;
-  text-decoration: none;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.back-arrow:hover {
-  transform: translateX(-5px);
+/* --- Auth Status --- */
+.auth-status {
   color: #d4af7f;
+  font-weight: bold;
+  font-size: 0.9em;
+  margin-left: 10px;
+}
+
+/* --- Performance Section (Homepage) --- */
+#performance-section {
+  background-color: #ece7e1;
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 700px;
+  margin: 40px auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* --- Dropdown (Homepage) --- */
+#section-filter {
+  margin: 10px 0 20px 0;
+  padding: 10px 14px;
+  font-size: 1em;
+  border-radius: 12px;
+  border: 2px solid #d4af7f;
+  background-color: #f8f4f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  color: #2c2a28;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+#section-filter:hover {
+  background-color: #fff9f0;
+  border-color: #0052cc;
+}
+
+/* --- Admin Module --- */
+#admin-module {
+  margin-top: 50px;
+  padding: 20px;
+  border: 2px dashed #0052cc;
+  border-radius: 12px;
+  display: none;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f0f8ff;
+}
+
+#admin-module h2 {
+  color: #003399;
+  text-align: center;
+}
+
+#admin-module form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#admin-module input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #0052cc;
+  font-size: 1em;
+}
+
+#admin-module button {
+  padding: 10px;
+  background-color: #0052cc;
+  color: #f8f4f0;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#admin-module button:hover {
+  background-color: #003399;
+}
+
+#admin-status {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #0052cc;
 }
 
 /* --- Responsive --- */
 @media (max-width: 600px) {
-  .card, .module-card {
+  .card {
     width: 90%;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
   }
 }
