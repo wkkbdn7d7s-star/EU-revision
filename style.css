@@ -122,39 +122,48 @@ section h2 {
 
 /* ====== Page Header ====== */
 #eu-knowledge-page header.page-header {
-  position: relative; /* for positioning back button */
   width: 100%;
   max-width: 1200px;
-  padding: 20px 30px;
   background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between; /* title left, button right */
+  align-items: center;
+  flex-wrap: wrap;
   color: #f8f4f0;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   border-radius: 12px;
   margin-bottom: 30px;
-  text-align: center; /* center title */
+  box-sizing: border-box;
 }
 
-/* ====== Header Title & Subtitle ====== */
-#eu-knowledge-page header.page-header .header-title {
-  display: inline-block; /* allow centering */
+/* ====== Header Left: Title & Subtitle ====== */
+#eu-knowledge-page header.page-header .header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-#eu-knowledge-page header.page-header .header-title h1 {
-  font-size: 2rem;
+#eu-knowledge-page header.page-header .header-left h1 {
   margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #f8f4f0;
 }
 
-#eu-knowledge-page header.page-header .header-title p {
-  margin-top: 5px;
+#eu-knowledge-page header.page-header .header-left p {
+  margin: 0;
   font-size: 1rem;
   color: #dde2f0;
 }
 
-/* ====== Back to Homepage Button ====== */
-#eu-knowledge-page header.page-header .back-home {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+/* ====== Header Right: Back Button ====== */
+#eu-knowledge-page header.page-header .header-right {
+  display: flex;
+  align-items: center;
+}
+
+#eu-knowledge-page header.page-header .header-right .back-home {
   padding: 8px 16px;
   background-color: #d4af7f;
   color: #2c2a28;
@@ -163,14 +172,25 @@ section h2 {
   border-radius: 6px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.2);
   transition: background 0.3s ease, transform 0.15s ease;
-  z-index: 10;
 }
 
-#eu-knowledge-page header.page-header .back-home:hover {
+#eu-knowledge-page header.page-header .header-right .back-home:hover {
   background-color: #c69c5f;
   transform: translateY(-2px);
 }
 
+/* ====== Responsive ====== */
+@media (max-width: 520px) {
+  #eu-knowledge-page header.page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  #eu-knowledge-page header.page-header .header-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
 
 /* ====== Main Card ====== */
 #eu-knowledge-page main.card {
