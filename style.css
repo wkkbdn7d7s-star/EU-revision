@@ -110,7 +110,7 @@ section h2 {
 #admin-module button:hover { background-color: #003399; }
 #admin-status { text-align: center; font-weight: bold; margin-top: 10px; color: #0052cc; }
 
-/* ====== EU Knowledge Page (Full-width, centered card) ====== */
+/* ====== EU Knowledge Module (Normal Page Layout) ====== */
 #eu-knowledge-page {
   display: flex;
   flex-direction: column;
@@ -120,18 +120,17 @@ section h2 {
   box-sizing: border-box;
 }
 
-/* ====== EU Knowledge Header (Useful Links style) ====== */
+/* ====== Header ====== */
 #eu-knowledge-page header.page-header {
   width: 100%;
   max-width: 1200px;
-  background-color: #f8f4f0; /* light background */
-  border: 2px solid #d4af7f; /* golden border accent */
+  background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
   padding: 20px 30px;
+  color: #f8f4f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   border-radius: 12px;
   margin-bottom: 30px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  color: #2c2a28;
 }
 
 #eu-knowledge-page header.page-header h1 {
@@ -142,15 +141,15 @@ section h2 {
 #eu-knowledge-page header.page-header p {
   margin-top: 8px;
   font-size: 1rem;
-  color: #4a453f;
+  color: #dde2f0;
 }
 
-/* ====== Back to homepage button (Useful Links style) ====== */
+/* ====== Back to Homepage Button ====== */
 #eu-knowledge-page .back-home {
   display: inline-block;
   margin-bottom: 20px;
   padding: 10px 20px;
-  background-color: #ffcc70;
+  background-color: #d4af7f;
   color: #2c2a28;
   text-decoration: none;
   font-weight: bold;
@@ -159,9 +158,8 @@ section h2 {
 }
 
 #eu-knowledge-page .back-home:hover {
-  background-color: #e6b85c;
+  background-color: #c69c5f;
 }
-
 
 /* ====== Main Card ====== */
 #eu-knowledge-page main.card {
@@ -171,9 +169,6 @@ section h2 {
   background-color: #f8f4f0;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 /* ====== Question Box ====== */
@@ -190,7 +185,6 @@ section h2 {
   color: #2c2a28;
   transition: opacity .28s ease, transform .28s ease;
 }
-
 #eu-knowledge-page .question.fade {
   opacity: 0;
   transform: translateY(6px);
@@ -202,6 +196,7 @@ section h2 {
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 15px;
 }
 
 #eu-knowledge-page .controls button {
@@ -229,6 +224,7 @@ section h2 {
   gap: 12px;
   font-weight: 700;
   color: #4a453f;
+  margin-top: 15px;
 }
 
 #eu-knowledge-page #counter,
@@ -295,9 +291,9 @@ section h2 {
 }
 
 /* ====== Responsive ====== */
-@media (max-width: 800px) {
+@media (max-width: 520px) {
   #eu-knowledge-page main.card {
-    padding: 20px;
+    padding: 16px;
   }
 
   #eu-knowledge-page .question {
@@ -312,7 +308,7 @@ section h2 {
   }
 
   #eu-knowledge-page #assessment-form label {
-    width: 100%;
+    width: 180px;
     flex-direction: column;
     gap: 4px;
   }
