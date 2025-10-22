@@ -5,206 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Preparation Modules | EUreka!</title>
   <link rel="icon" type="image/png" href="eci-icon.png" />
-
-  <style>
-    /* --- Global Design (same as index.html and UsefulLinks.html) --- */
-    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
-
-    :root {
-      --bg: #1b1f3b;
-      --panel: #f5f2e8;
-      --card-bg: #2c3160;
-      --accent: #4d6fcc;
-      --text-light: #f5f5f5;
-      --muted: #c9c3b8;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Merriweather', serif;
-      background: var(--bg);
-      color: var(--text-light);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* --- Header --- */
-    header {
-      width: 100%;
-      background: linear-gradient(180deg, #222752 0%, #1b1f3b 100%);
-      text-align: center;
-      padding: 40px 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    header h1 {
-      font-size: 2.2rem;
-      color: var(--text-light);
-    }
-
-    header p {
-      color: var(--muted);
-      margin-top: 8px;
-      font-size: 1.1rem;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* --- Back Arrow --- */
-    .back-arrow {
-      position: absolute;
-      top: 25px;
-      left: 25px;
-      font-size: 1.8rem;
-      color: var(--text-light);
-      text-decoration: none;
-      transition: transform 0.2s ease, color 0.2s ease;
-    }
-
-    .back-arrow:hover {
-      transform: translateX(-5px);
-      color: var(--accent);
-    }
-
-    /* --- Main Section --- */
-    main {
-      width: 100%;
-      max-width: 1200px;
-      padding: 40px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-    }
-
-    /* --- Cards --- */
-    .module-card {
-      background: var(--card-bg);
-      color: var(--text-light);
-      border-radius: 18px;
-      width: 280px;
-      padding: 25px 22px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .module-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .module-card h2 {
-      font-size: 1.3rem;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .module-card p {
-      font-size: 1rem;
-      color: var(--muted);
-      margin-bottom: 18px;
-      min-height: 60px;
-    }
-
-    .module-card a {
-      display: inline-block;
-      color: var(--text-light);
-      background: var(--accent);
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-
-    .module-card a:hover {
-      background: #637fd6;
-      transform: translateY(-2px);
-    }
-
-    /* --- Footer --- */
-    footer {
-      width: 100%;
-      text-align: center;
-      padding: 20px 0;
-      color: var(--muted);
-      font-size: 0.9rem;
-      background: #1a1f3d;
-      margin-top: auto;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.8rem;
-      }
-      .module-card {
-        width: 90%;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <a href="index.html" class="back-arrow" title="Back to homepage">←</a>
 
   <header>
-    <h1>Preparation Modules</h1>
-    <p>Essential study materials and resources to help you prepare for your EU competition.</p>
+    <div class="header-left">
+      <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
+      <div class="text">
+        <h1>EUreka!</h1>
+        <p>Empowering your EU recruitment journey</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <a href="index.html">
+        <button>← Back to Homepage</button>
+      </a>
+    </div>
   </header>
 
   <main>
-    <div class="module-card">
-      <h2>Fact Sheets on the European Union</h2>
-      <p>Concise explanations on EU policies, institutions, and legislative processes prepared by the European Parliament.</p>
-      <a href="https://www.europarl.europa.eu/factsheets/en/home" target="_blank">Visit Website →</a>
-    </div>
+    <section>
+      <h2>Preparation Modules</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Fact Sheets on the European Union</h3>
+          <p>Concise explanations on EU policies, institutions, and legislative processes prepared by the European Parliament.</p>
+          <a href="https://www.europarl.europa.eu/factsheets/en/home" target="_blank">Visit Website →</a>
+        </div>
 
-    <div class="module-card">
-      <h2>European Commission Priorities 2024–2029</h2>
-      <p>Learn about the political and strategic priorities shaping the European Commission’s current agenda.</p>
-      <a href="https://commission.europa.eu/priorities-2024-2029_en" target="_blank">Visit Website →</a>
-    </div>
+        <div class="card">
+          <h3>European Commission Priorities 2024–2029</h3>
+          <p>Learn about the political and strategic priorities shaping the European Commission’s current agenda.</p>
+          <a href="https://commission.europa.eu/priorities-2024-2029_en" target="_blank">Visit Website →</a>
+        </div>
 
-    <div class="module-card">
-      <h2>European Commission Topics A–Z</h2>
-      <p>Browse EU policy areas and initiatives organized alphabetically by topic.</p>
-      <a href="https://commission.europa.eu/topics_en" target="_blank">Visit Website →</a>
-    </div>
+        <div class="card">
+          <h3>European Commission Topics A–Z</h3>
+          <p>Browse EU policy areas and initiatives organized alphabetically by topic.</p>
+          <a href="https://commission.europa.eu/topics_en" target="_blank">Visit Website →</a>
+        </div>
 
-    <div class="module-card">
-      <h2>The Ordinary Legislative Procedure (OLP)</h2>
-      <p>Understand the EU’s main law-making process involving the Parliament and the Council.</p>
-      <a href="https://www.consilium.europa.eu/en/council-eu/decision-making/ordinary-legislative-procedure/" target="_blank">Visit Website →</a>
-    </div>
+        <div class="card">
+          <h3>The Ordinary Legislative Procedure (OLP)</h3>
+          <p>Understand the EU’s main law-making process involving the Parliament and the Council.</p>
+          <a href="https://www.consilium.europa.eu/en/council-eu/decision-making/ordinary-legislative-procedure/" target="_blank">Visit Website →</a>
+        </div>
 
-    <div class="module-card">
-      <h2>Statistics on the European Union</h2>
-      <p>Access flagship publications and statistical data from Eurostat for in-depth insights on EU trends.</p>
-      <a href="https://ec.europa.eu/eurostat/publications/flagship-publications" target="_blank">Visit Website →</a>
-    </div>
+        <div class="card">
+          <h3>Statistics on the European Union</h3>
+          <p>Access flagship publications and statistical data from Eurostat for in-depth insights on EU trends.</p>
+          <a href="https://ec.europa.eu/eurostat/publications/flagship-publications" target="_blank">Visit Website →</a>
+        </div>
 
-    <div class="module-card">
-      <h2>State of the Union</h2>
-      <p>Read the European Commission’s annual State of the Union reports and strategic updates.</p>
-      <a href="https://commission.europa.eu/strategy-and-policy/state-union_en" target="_blank">Visit Website →</a>
-    </div>
+        <div class="card">
+          <h3>State of the Union</h3>
+          <p>Read the European Commission’s annual State of the Union reports and strategic updates.</p>
+          <a href="https://commission.europa.eu/strategy-and-policy/state-union_en" target="_blank">Visit Website →</a>
+        </div>
 
-    <div class="module-card">
-      <h2>The ABC of EU Law</h2>
-      <p>A user-friendly guide to EU law, published by the Official Publications of the European Union.</p>
-      <a href="https://op.europa.eu/en/publication-detail/-/publication/2c30cce5-3660-11ee-bbbf-01aa75ed71a1" target="_blank">Visit Website →</a>
-    </div>
+        <div class="card">
+          <h3>The ABC of EU Law</h3>
+          <p>A user-friendly guide to EU law, published by the Official Publications of the European Union.</p>
+          <a href="https://op.europa.eu/en/publication-detail/-/publication/2c30cce5-3660-11ee-bbbf-01aa75ed71a1" target="_blank">Visit Website →</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
