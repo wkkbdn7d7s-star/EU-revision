@@ -138,24 +138,34 @@ section h2 {
 
 /* ====== Mock Card ====== */
 .mock-card {
-  background: linear-gradient(135deg, #0052cc, #003399);
-  color: #f8f4f0;
-  border-top: 5px solid #d4af7f;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  background: linear-gradient(135deg, #005ce6, #003399);
+  color: #ffffff; /* brighter, clearer text */
+  border-top: 5px solid #ffcc70; /* softer gold accent */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
 .mock-card h3 {
-  color: #d4af7f;
+  color: #ffda8a; /* lighter golden heading for better contrast */
+}
+
+.mock-card p {
+  color: #f2f4ff; /* slightly off-white body text for less glare */
 }
 
 .mock-card a {
-  color: #d4af7f;
+  color: #ffda8a;
+  font-weight: bold;
+}
+
+.mock-card a:hover {
+  color: #ffffff; /* makes link stand out on hover */
 }
 
 .mock-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
 }
+
 
 /* ====== Performance Section ====== */
 #performance-section {
