@@ -36,44 +36,43 @@
 </head>
 <body id="eu-knowledge-page">
 
-  <!-- Back to homepage button (Useful Links style) -->
-  <a href="index.html" class="back-home">Back to Homepage</a>
-
-  <div class="container">
-
-    <!-- Page Header (Useful Links style) -->
-    <header class="page-header">
-      <h1>EU Knowledge</h1>
-      <p>Test your knowledge on EU policy, priorities, and institutional questions.</p>
-    </header>
-
-    <!-- Main Card -->
-    <main class="card">
-      <div id="question" class="question">Click "Next Question" to start</div>
-
-      <div class="controls">
-        <button id="nextBtn">Next Question</button>
-        <button id="shuffleBtn">Shuffle</button>
-        <button id="copyBtn">Copy</button>
-      </div>
-
-      <div class="status">
-        <span id="counter">0 / 0</span>
-        <span id="timer">00:00</span>
-      </div>
-
-      <section id="self-assessment">
-        <h2>Submit Your Self-Assessment</h2>
-        <form id="assessment-form">
-          <label>Clarity (1–5): <input type="number" id="clarity" min="1" max="5" required></label>
-          <label>Structure (1–5): <input type="number" id="structure" min="1" max="5" required></label>
-          <label>Confidence (1–5): <input type="number" id="confidence" min="1" max="5" required></label>
-          <button type="submit">Submit Score</button>
-        </form>
-        <p id="form-status"></p>
-      </section>
-    </main>
+  <!-- Back to homepage button -->
+  <div class="back-container">
+    <a href="index.html" class="back-home">← Back to Homepage</a>
   </div>
+
+  <!-- Page Header (full width, Useful Links style) -->
+  <header class="page-header">
+    <h1>EU Knowledge</h1>
+    <p>Test your knowledge on EU policy, priorities, and institutional questions.</p>
+  </header>
+
+  <!-- Main Card -->
+  <main class="card">
+    <div id="question" class="question">Click "Next Question" to start</div>
+
+    <div class="controls">
+      <button id="nextBtn">Next Question</button>
+      <button id="shuffleBtn">Shuffle</button>
+      <button id="copyBtn">Copy</button>
+    </div>
+
+    <div class="status">
+      <span id="counter">0 / 0</span>
+      <span id="timer">00:00</span>
+    </div>
+
+    <section id="self-assessment">
+      <h2>Submit Your Self-Assessment</h2>
+      <form id="assessment-form">
+        <label>Clarity (1–5): <input type="number" id="clarity" min="1" max="5" required></label>
+        <label>Structure (1–5): <input type="number" id="structure" min="1" max="5" required></label>
+        <label>Confidence (1–5): <input type="number" id="confidence" min="1" max="5" required></label>
+        <button type="submit">Submit Score</button>
+      </form>
+      <p id="form-status"></p>
+    </section>
+  </main>
 
   <!-- Scripts -->
   <script src="EUreka-base.js"></script>
