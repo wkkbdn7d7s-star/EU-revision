@@ -117,15 +117,6 @@ section h2 {
 #admin-module button:hover { background-color: #003399; }
 #admin-status { text-align: center; font-weight: bold; margin-top: 10px; color: #0052cc; }
 
-/* ====== Footer ====== */
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #003399;
-  color: #dde2f0;
-  font-size: 0.9em;
-}
-
 /* ====== EU Knowledge / Motivation / Competencies Scoped Styles ====== */
 #eu-knowledge-page,
 #eu-motivation-page,
