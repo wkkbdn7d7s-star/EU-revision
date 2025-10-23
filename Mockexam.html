@@ -92,6 +92,7 @@
     finishBtn.addEventListener("click", () => {
       content.style.display = "none";
       formSection.style.display = "block";
+      finishBtn.style.display = "none"; // hide it now that we're in assessment mode
     });
 
     form.addEventListener("submit", async e => {
