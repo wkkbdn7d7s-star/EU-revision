@@ -138,23 +138,25 @@ footer {
   box-sizing: border-box;
 }
 
+/* ====== Module Page Headers (Full Width Like Homepage) ====== */
 #eu-knowledge-page header.page-header,
 #eu-motivation-page header.page-header,
 #eu-competencies-page header.page-header {
-  max-width: 1200px;
+  width: 100%;
   background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
-  padding: 25px 30px;
+  padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   color: #f8f4f0;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  border-radius: 12px;
+  border-radius: 0; /* remove rounded corners */
   margin-bottom: 40px;
   box-sizing: border-box;
 }
 
+/* ====== Title & Subtitle ====== */
 #eu-knowledge-page header.page-header .header-left,
 #eu-motivation-page header.page-header .header-left,
 #eu-competencies-page header.page-header .header-left {
@@ -162,26 +164,29 @@ footer {
   flex-direction: column;
   gap: 6px;
 }
+
 #eu-knowledge-page header.page-header .header-left h1,
 #eu-motivation-page header.page-header .header-left h1,
 #eu-competencies-page header.page-header .header-left h1 {
   margin: 0;
-  font-size: 2.2rem;
+  font-size: 2em;
   font-weight: bold;
   color: #f8f4f0;
 }
+
 #eu-knowledge-page header.page-header .header-left p,
 #eu-motivation-page header.page-header .header-left p,
 #eu-competencies-page header.page-header .header-left p {
-  margin: 0;
-  font-size: 1.1rem;
+  margin-top: 5px;
+  font-size: 1em;
   color: #dde2f0;
 }
 
+/* ====== Back to Homepage Button ====== */
 #eu-knowledge-page header.page-header .header-right .back-home,
 #eu-motivation-page header.page-header .header-right .back-home,
 #eu-competencies-page header.page-header .header-right .back-home {
-  padding: 5px 8px;
+  padding: 5px 10px;
   background-color: #d4af7f;
   color: #2c2a28;
   text-decoration: none;
@@ -190,6 +195,7 @@ footer {
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
   transition: background 0.3s ease, transform 0.15s ease;
 }
+
 #eu-knowledge-page header.page-header .header-right .back-home:hover,
 #eu-motivation-page header.page-header .header-right .back-home:hover,
 #eu-competencies-page header.page-header .header-right .back-home:hover {
