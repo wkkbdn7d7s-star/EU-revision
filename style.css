@@ -395,3 +395,208 @@ footer {
   #eu-motivation-page #assessment-form input,
   #eu-competencies-page #assessment-form input { width: 100%; }
 }
+
+/* ====== Mock Exam Page (Matches EU Modules Design) ====== */
+#mockexam-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+
+/* ====== Header (Full Width Like Homepage) ====== */
+#mockexam-page header.page-header {
+  width: 100%;
+  background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #f8f4f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  border-radius: 0;
+  margin-bottom: 40px;
+  box-sizing: border-box;
+}
+
+#mockexam-page header.page-header .header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+#mockexam-page header.page-header .header-left h1 {
+  margin: 0;
+  font-size: 2em;
+  font-weight: bold;
+  color: #f8f4f0;
+}
+#mockexam-page header.page-header .header-left p {
+  margin-top: 5px;
+  font-size: 1em;
+  color: #dde2f0;
+}
+
+/* Back to Homepage Button */
+#mockexam-page header.page-header .header-right .back-home {
+  padding: 5px 10px;
+  background-color: #d4af7f;
+  color: #2c2a28;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: background 0.3s ease, transform 0.15s ease;
+}
+#mockexam-page header.page-header .header-right .back-home:hover {
+  background-color: #c69c5f;
+  transform: translateY(-2px);
+}
+
+/* ====== Main Card ====== */
+#mockexam-page main.card {
+  width: 100%;
+  max-width: 800px;
+  padding: 30px 25px;
+  background-color: #f8f4f0;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+#mockexam-page main.card:hover { transform: translateY(-2px); }
+
+/* ====== Content & Question Area ====== */
+#mockexam-page #content {
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background: rgba(0, 82, 204, 0.08);
+  border-radius: 14px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #2c2a28;
+  transition: opacity .28s ease, transform .28s ease;
+  margin-bottom: 20px;
+}
+
+/* ====== Buttons ====== */
+#mockexam-page .controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+#mockexam-page button {
+  background-color: #0052cc;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+  transition: transform .15s ease, background .15s ease;
+}
+#mockexam-page button:hover {
+  transform: translateY(-3px);
+  background: #003399;
+}
+
+/* ====== Status Bar ====== */
+#mockexam-page .status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  font-weight: 700;
+  color: #4a453f;
+  margin-bottom: 25px;
+}
+#mockexam-page #timer {
+  background: rgba(0,82,204,0.08);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+/* ====== Self-Assessment Section ====== */
+#mockexam-page #self-assessment {
+  margin-top: 30px;
+}
+#mockexam-page #self-assessment h2 {
+  text-align: center;
+  color: #003399;
+  margin-bottom: 15px;
+}
+#mockexam-page #assessment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+#mockexam-page #assessment-form label {
+  display: flex;
+  justify-content: space-between;
+  width: 240px;
+  font-weight: bold;
+}
+#mockexam-page #assessment-form input {
+  width: 55px;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+#mockexam-page #assessment-form button {
+  margin-top: 12px;
+  width: 160px;
+  background-color: #0052cc;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#mockexam-page #assessment-form button:hover { background-color: #003399; }
+#mockexam-page #form-status {
+  margin-top: 10px;
+  text-align: center;
+  color: #0052cc;
+  font-weight: bold;
+}
+
+/* ====== Responsive Mock Exam ====== */
+@media (max-width: 520px) {
+  #mockexam-page header.page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  #mockexam-page header.page-header .header-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  #mockexam-page main.card { padding: 20px; }
+  #mockexam-page #content {
+    font-size: 1rem;
+    min-height: 120px;
+    padding: 20px;
+  }
+  #mockexam-page button {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+  #mockexam-page #assessment-form label {
+    width: 100%;
+    flex-direction: column;
+    gap: 6px;
+  }
+  #mockexam-page #assessment-form input { width: 100%; }
+}
+
