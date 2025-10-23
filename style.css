@@ -1,7 +1,7 @@
 /* ====== EUreka! Global Styles (Homepage & Modules) ====== */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f8f4f0;
+  background-color: #f3ede6;
   margin: 0;
   padding: 0;
   color: #2c2a28;
@@ -15,13 +15,13 @@ header {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  color: #f8f4f0;
+  color: #f3ede6;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .header-left { display: flex; align-items: center; gap: 20px; }
 .header-left .logo { width: 80px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-.header-left .text h1 { margin: 0; font-size: 2em; font-weight: bold; color: #f8f4f0; }
+.header-left .text h1 { margin: 0; font-size: 2em; font-weight: bold; color: #f3ede6; }
 .header-left .text p { margin-top: 5px; font-size: 1em; color: #dde2f0; }
 
 .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -89,7 +89,7 @@ section h2 {
   font-size: 1em;
   border-radius: 12px;
   border: 2px solid #d4af7f;
-  background-color: #f8f4f0;
+  background-color: #f3ede6;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   color: #2c2a28;
   font-weight: bold;
@@ -149,7 +149,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  color: #f8f4f0;
+  color: #f3ede6;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   border-radius: 0; /* remove rounded corners */
   margin-bottom: 40px;
@@ -171,7 +171,7 @@ footer {
   margin: 0;
   font-size: 2em;
   font-weight: bold;
-  color: #f8f4f0;
+  color: #f3ede6;
 }
 
 #eu-knowledge-page header.page-header .header-left p,
@@ -209,7 +209,7 @@ footer {
   width: 100%;
   max-width: 800px;
   padding: 30px 25px;
-  background-color: #f8f4f0;
+  background-color: #f3ede6;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   transition: transform 0.3s ease;
@@ -415,7 +415,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  color: #f8f4f0;
+  color: #f3ede6;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   border-radius: 0;
   margin-bottom: 40px;
@@ -431,7 +431,7 @@ footer {
   margin: 0;
   font-size: 2em;
   font-weight: bold;
-  color: #f8f4f0;
+  color: #f3ede6;
 }
 #mockexam-page header.page-header .header-left p {
   margin-top: 5px;
@@ -460,7 +460,7 @@ footer {
   width: 100%;
   max-width: 800px;
   padding: 30px 25px;
-  background-color: #f8f4f0;
+  background-color: #f3ede6;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   transition: transform 0.3s ease;
