@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mock Exam — EUreka!</title>
+  <title>Mock Exam — EUreka! (AD5/6)</title>
 
-  <!-- ✅ Use global stylesheet (no inline styles) -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- ✅ Use global stylesheet -->
+  <link rel="stylesheet" href="../style.css" />
 
-  <!-- Firebase SDK -->
+  <!-- ✅ Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
@@ -28,24 +28,25 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Make Firebase accessible globally
+    // Make Firebase globally accessible
     window.firebaseFns = { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged };
   </script>
 </head>
 
 <body id="mockexam-page">
-  <!-- ✅ Unified page header (matches other modules) -->
+  <!-- ✅ Header consistent with EU Knowledge / Competencies / Motivation -->
   <header class="page-header">
     <div class="header-left">
-      <h1>Mock Exam</h1>
+      <h1>Mock Exam — AD5/6</h1>
       <p>Simulate a full EU interview practice with Knowledge, Competency, and Motivation questions.</p>
     </div>
     <div class="header-right">
-      <a href="index.html" class="back-home">Back to Homepage</a>
+      <a href="../index.html" class="back-home">Back to Homepage</a>
     </div>
   </header>
 
   <main class="card">
+    <!-- ✅ Exam content area -->
     <div id="content">
       <p>Click "Start Mock Exam" to begin the simulation.</p>
       <div class="controls">
@@ -53,12 +54,13 @@
       </div>
     </div>
 
+    <!-- ✅ Status bar -->
     <div class="status">
       <button id="finishBtn" style="display:none;">Finish Exam</button>
       <span id="timer">00:00</span>
     </div>
 
-    <!-- ✅ Self Assessment -->
+    <!-- ✅ Self-assessment form -->
     <section id="self-assessment">
       <h2>Submit Your Self-Assessment</h2>
       <form id="assessment-form">
@@ -71,10 +73,10 @@
     </section>
   </main>
 
-  <!-- ✅ Main Exam Logic -->
-  <script type="module" src="./Mockexam.js"></script>
+  <!-- ✅ Main exam logic -->
+  <script type="module" src="../Mockexam.js"></script>
 
-  <!-- ✅ Self-assessment Firestore Logic -->
+  <!-- ✅ Self-assessment Firestore logic -->
   <script type="module">
     const { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged } = window.firebaseFns;
     const finishBtn = document.getElementById("finishBtn");
@@ -84,17 +86,21 @@
     const status = document.getElementById("form-status");
 
     let currentUser = null;
+
+    // Listen for authentication
     onAuthStateChanged(auth, user => {
       currentUser = user;
       status.textContent = user ? "" : "Please log in on the main page to submit scores.";
     });
 
+    // When user finishes the mock
     finishBtn.addEventListener("click", () => {
       content.style.display = "none";
       formSection.style.display = "block";
-      finishBtn.style.display = "none"; // hide it now that we're in assessment mode
+      finishBtn.style.display = "none"; // hide after click
     });
 
+    // Handle self-assessment submission
     form.addEventListener("submit", async e => {
       e.preventDefault();
       if (!currentUser) {
@@ -116,13 +122,13 @@
       try {
         const userDoc = doc(db, "users", currentUser.uid);
         await updateDoc(userDoc, {
-          "selfAssessment.Mockexam": arrayUnion(submission)
+          "selfAssessment.AD.Mockexam": arrayUnion(submission)
         });
-        status.textContent = "Score submitted successfully!";
+        status.textContent = "✅ Score submitted successfully!";
         form.reset();
       } catch (err) {
         console.error(err);
-        status.textContent = "Error submitting score: " + err.message;
+        status.textContent = "❌ Error submitting score: " + err.message;
       }
     });
   </script>
