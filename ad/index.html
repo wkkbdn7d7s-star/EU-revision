@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EUreka!</title>
+  <title>EUreka! — AD Level</title>
 
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
@@ -45,7 +45,7 @@
       <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
       <div class="text">
         <h1>Welcome to EUreka!</h1>
-        <p>Prepare for your European Commission internal competition oral exam.</p>
+        <p>Prepare for your European Commission AD level oral exam.</p>
       </div>
     </div>
 
@@ -87,7 +87,7 @@
     </section>
 
     <section id="performance-section" style="display:none;">
-      <h2>Your Performance</h2>
+      <h2>Your AD Level Performance</h2>
       <select id="section-filter">
         <option value="EUknowledge">EU Knowledge</option>
         <option value="EUcompetencies">EU Competencies</option>
@@ -115,9 +115,9 @@
     </section>
 
     <!-- Admin Question Entry Module -->
-    <section id="admin-module">
+    <section id="admin-module" style="display:none;">
       <h2>Question Entry (Admin)</h2>
-      <p>Enter new questions for EU Knowledge, EU Competencies, or EU Motivation.</p>
+      <p>Enter new questions for EU Knowledge, EU Competencies, or EU Motivation (AD level).</p>
 
       <form id="question-form">
         <label>EU Knowledge: <input type="text" id="knowledge-input"></label>
@@ -142,14 +142,14 @@
     let performanceChart;
 
     const { auth, db, firebaseFns } = window;
-    
+
     document.getElementById("signup-btn").addEventListener("click", async () => {
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
       try {
         const userCred = await firebaseFns.createUserWithEmailAndPassword(auth, email, password);
         await firebaseFns.setDoc(firebaseFns.doc(db, "users", userCred.user.uid), {
-          selfAssessment: { EUknowledge: [], EUcompetencies: [], EUmotivation: [], Mockexam: [] }
+          selfAssessment: { AD: { EUknowledge: [], EUcompetencies: [], EUmotivation: [], Mockexam: [] } }
         });
         status.textContent = "Registered & logged in!";
       } catch(err) { status.textContent = err.message; }
@@ -173,9 +173,11 @@
       const data = docSnap.data();
       const section = sectionFilter.value;
 
+      const adData = data.selfAssessment.AD || {};
+
       if(section === "average") {
         const allSections = ["EUknowledge","EUcompetencies","EUmotivation","Mockexam"];
-        const merged = allSections.flatMap(sec => data.selfAssessment[sec] || []);
+        const merged = allSections.flatMap(sec => adData[sec] || []);
         if(!merged.length) return;
 
         const total = merged.length;
@@ -204,7 +206,7 @@
         });
 
       } else {
-        const submissions = (data.selfAssessment[section] || []).map(s => ({
+        const submissions = (adData[section] || []).map(s => ({
           timestamp: new Date(s.timestamp || s.submittedAt).toLocaleString('en-GB', {hour12:false, day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', second:'2-digit'}),
           clarity: s.clarity,
           structure: s.structure,
@@ -262,9 +264,9 @@
 
       try {
         const masterDocRef = firebaseFns.doc(db, "questions", "masterQuestions");
-        if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUknowledge"), { text: knowledge });
-        if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUcompetencies"), { text: competency });
-        if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUmotivation"), { text: motivation });
+        if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUknowledge"), { text: knowledge, level:"AD" });
+        if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUcompetencies"), { text: competency, level:"AD" });
+        if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUmotivation"), { text: motivation, level:"AD" });
 
         adminStatus.textContent = "Questions added successfully!";
         adminForm.reset();
