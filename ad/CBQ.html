@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EU Competencies — EUreka!</title>
+  <title>EU Competencies — EUreka! (AD5/6)</title>
 
-  <!-- External Styles -->
-  <link rel="stylesheet" href="style.css">
+  <!-- Global stylesheet -->
+  <link rel="stylesheet" href="../style.css" />
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
 
   <!-- Firebase SDK -->
   <script type="module">
@@ -34,16 +34,16 @@
     window.firebaseFns = { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged };
   </script>
 </head>
-<body id="eu-competencies-page">
 
-  <!-- Page Header -->
+<body id="eu-competencies-page">
+  <!-- Header -->
   <header class="page-header">
     <div class="header-left">
-      <h1>EU Competencies</h1>
-      <p>Practice expressing how your experience matched the EU competencies.</p>
+      <h1>EU Competencies — AD5/6</h1>
+      <p>Practice expressing how your experience matches the EU competencies.</p>
     </div>
     <div class="header-right">
-      <a href="index.html" class="back-home">Back to Homepage</a>
+      <a href="../index.html" class="back-home">Back to Homepage</a>
     </div>
   </header>
 
@@ -62,6 +62,7 @@
       <span id="timer">00:00</span>
     </div>
 
+    <!-- Self-assessment -->
     <section id="self-assessment">
       <h2>Submit Your Self-Assessment</h2>
       <form id="assessment-form">
@@ -75,9 +76,10 @@
   </main>
 
   <!-- Scripts -->
-  <script src="EUreka-base.js"></script>
-  <script type="module" src="CBQ.js"></script>
+  <script src="../EUreka-base.js"></script>
+  <script type="module" src="../CBQ.js"></script>
 
+  <!-- Self-assessment Firestore logic -->
   <script type="module">
     const { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged } = window.firebaseFns;
     const form = document.getElementById("assessment-form");
@@ -86,13 +88,8 @@
     let currentUser = null;
 
     onAuthStateChanged(auth, user => {
-      if (user) {
-        currentUser = user;
-        status.textContent = "";
-      } else {
-        currentUser = null;
-        status.textContent = "Please log in on the main page to submit scores.";
-      }
+      currentUser = user;
+      status.textContent = user ? "" : "Please log in on the main page to submit scores.";
     });
 
     form.addEventListener("submit", async (e) => {
@@ -116,13 +113,13 @@
       try {
         const userDoc = doc(db, "users", currentUser.uid);
         await updateDoc(userDoc, {
-          "selfAssessment.EUcompetencies": arrayUnion(submission)
+          "selfAssessment.AD.EUCompetencies": arrayUnion(submission)
         });
-        status.textContent = "Score submitted successfully!";
+        status.textContent = "✅ Self-assessment submitted successfully!";
         form.reset();
       } catch (err) {
         console.error(err);
-        status.textContent = "Error submitting score: " + err.message;
+        status.textContent = "❌ Error submitting self-assessment: " + err.message;
       }
     });
   </script>
