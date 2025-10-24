@@ -89,9 +89,9 @@
     <section id="performance-section" style="display:none;">
       <h2>Your AD Level Performance</h2>
       <select id="section-filter">
-        <option value="EUknowledge">EU Knowledge</option>
-        <option value="EUcompetencies">EU Competencies</option>
-        <option value="EUmotivation">EU Motivation</option>
+        <option value="EUKnowledge">EU Knowledge</option>
+        <option value="EUCompetencies">EU Competencies</option>
+        <option value="EUMotivation">EU Motivation</option>
         <option value="Mockexam">Mock Exam</option>
         <option value="average">Average</option>
       </select>
@@ -149,7 +149,7 @@
       try {
         const userCred = await firebaseFns.createUserWithEmailAndPassword(auth, email, password);
         await firebaseFns.setDoc(firebaseFns.doc(db, "users", userCred.user.uid), {
-          selfAssessment: { AD: { EUknowledge: [], EUcompetencies: [], EUmotivation: [], Mockexam: [] } }
+          selfAssessment: { AD: { EUKnowledge: [], EUCompetencies: [], EUMotivation: [], Mockexam: [] } }
         });
         status.textContent = "Registered & logged in!";
       } catch(err) { status.textContent = err.message; }
@@ -176,7 +176,7 @@
       const adData = data.selfAssessment.AD || {};
 
       if(section === "average") {
-        const allSections = ["EUknowledge","EUcompetencies","EUmotivation","Mockexam"];
+        const allSections = ["EUKnowledge","EUCompetencies","EUMotivation","Mockexam"];
         const merged = allSections.flatMap(sec => adData[sec] || []);
         if(!merged.length) return;
 
@@ -264,9 +264,9 @@
 
       try {
         const masterDocRef = firebaseFns.doc(db, "questions", "masterQuestions");
-        if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUknowledge"), { text: knowledge, level:"AD" });
-        if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUcompetencies"), { text: competency, level:"AD" });
-        if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUmotivation"), { text: motivation, level:"AD" });
+        if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUKnowledge"), { text: knowledge, level:"AD" });
+        if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUCompetencies"), { text: competency, level:"AD" });
+        if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef, "EUMotivation"), { text: motivation, level:"AD" });
 
         adminStatus.textContent = "Questions added successfully!";
         adminForm.reset();
