@@ -5,98 +5,64 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EUreka! — Welcome</title>
 
-  <!-- Global Styles (reuse your site stylesheet) -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Optional font (keeps consistency with modules) -->
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Small local adjustments to keep welcome page tidy */
-    .welcome-hero {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto 30px;
-      display: flex;
-      gap: 24px;
-      align-items: center;
-      justify-content: space-between;
-      padding: 26px;
-      box-sizing: border-box;
-      background: linear-gradient(90deg,#fff,#f7f6f4);
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    }
+    body { font-family: 'Merriweather', serif; background:#f7f6f4; margin:0; padding:0; }
+    header { display:flex; justify-content:space-between; align-items:center; padding:20px; background:#003399; color:#fff; }
+    .header-left { display:flex; align-items:center; gap:12px; }
+    .header-left .logo { height:50px; }
+    .header-left .text h1 { margin:0; font-size:1.8rem; }
+    .header-left .text p { margin:2px 0 0 0; font-size:1rem; color:#f0f0f0; }
+    .header-right .logo-top { height:50px; }
 
-    .welcome-left { flex: 1 1 60%; }
-    .welcome-left h2 { margin: 0 0 8px 0; font-size: 1.6rem; color: #003399; }
-    .welcome-left p { margin: 0; color: #4a453f; line-height:1.45; }
+    main { max-width:1200px; margin:0 auto; padding:20px; }
+    .hero-section { display:flex; flex-direction:column; align-items:center; gap:24px; margin-bottom:40px; text-align:center; }
 
-    .welcome-actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .hero-section h2 { font-size:2rem; color:#003399; margin:0; }
+    .hero-section p { max-width:700px; line-height:1.5; color:#4a453f; }
 
-    .nav-buttons { display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
-    .nav-buttons a {
-      display:inline-block;
-      padding: 10px 18px;
-      background: #0052cc;
-      color: #fff;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-    }
-    .nav-buttons a:hover { background: #003399; transform: translateY(-2px); }
-
-    /* Auth box */
-    .auth-box {
-      width: 320px;
-      min-width: 220px;
-      background: #ece7e1;
-      padding: 14px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .auth-box input {
-      padding:8px 10px;
-      border-radius:6px;
-      border:1px solid #cfc7bf;
-    }
-    .auth-row { display:flex; gap:8px; }
-    .auth-btn {
-      padding:8px 10px;
-      background:#0052cc;
-      color:#fff;
-      border:none;
-      border-radius:6px;
-      cursor:pointer;
+    .track-buttons { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:20px; }
+    .track-buttons a {
+      flex:1 1 200px;
+      padding:20px;
+      font-size:1.3rem;
       font-weight:bold;
+      text-decoration:none;
+      color:#fff;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:0 6px 18px rgba(0,0,0,0.15);
+      transition: transform 0.2s, background 0.2s;
     }
-    .auth-btn.secondary {
-      background:#d4af7f;
-      color:#2c2a28;
-    }
+    .track-buttons a:hover { transform: translateY(-3px); }
+    .ad-btn { background:#1a73e8; }
+    .ast-btn { background:#ff8c00; }
+    .jpp-btn { background:#28a745; }
 
-    .resource-list { display:grid; gap:10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top:20px; }
-    .resource-card {
-      background:#fff;
-      padding:12px;
-      border-radius:10px;
-      box-shadow:0 3px 10px rgba(0,0,0,0.06);
-      border-left:4px solid #0052cc;
-    }
+    .auth-box { background:#ece7e1; padding:16px; border-radius:12px; max-width:320px; margin:20px auto; box-shadow:0 4px 12px rgba(0,0,0,0.08); display:flex; flex-direction:column; gap:10px; }
+    .auth-box input { padding:8px 10px; border-radius:6px; border:1px solid #cfc7bf; width:100%; box-sizing:border-box; }
+    .auth-row { display:flex; gap:8px; }
+    .auth-btn { flex:1; padding:10px; font-weight:bold; border:none; border-radius:6px; cursor:pointer; background:#0052cc; color:#fff; }
+    .auth-btn.secondary { background:#d4af7f; color:#2c2a28; }
+    .auth-btn.signout { background:#d9534f; }
+
+    .resource-list { display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top:40px; }
+    .resource-card { background:#fff; padding:14px; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.06); border-left:4px solid #0052cc; }
     .resource-card h4 { margin:0 0 6px 0; color:#003399; }
-    .small-muted { color:#6b665f; font-size:0.95rem; }
+    .small-muted { font-size:0.95rem; color:#6b665f; }
+
+    footer { text-align:center; padding:12px 20px; color:#4a453f; font-size:0.9rem; }
 
     @media (max-width:920px) {
-      .welcome-hero { flex-direction:column; align-items:flex-start; }
-      .auth-box { width:100%; }
+      .hero-section { flex-direction:column; }
+      .track-buttons a { flex:1 1 100%; }
+      .header-left { flex-direction:column; align-items:flex-start; }
+      .header-right .logo-top { display:block; margin-top:12px; }
     }
   </style>
 
-  <!-- Firebase SDK initialization (same config as your other pages) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
@@ -112,129 +78,85 @@
       measurementId: "G-KFTB45DCFZ"
     };
 
-    // Initialize
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Expose firebase helpers to other pages if needed
     window.firebaseApp = app;
     window.firebaseAuth = auth;
     window.firebaseDb = db;
-
-    // Auth utilities for the welcome page (DOM interactions happen after DOMContentLoaded)
     window.welcomeAuth = { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged };
   </script>
 </head>
 <body>
 
-  <!-- Main header (reuses site header styles) -->
   <header>
     <div class="header-left">
-      <!-- optional small logo slot; remove or replace logo.png as needed -->
-      <img class="logo" src="logo.png" alt="EUreka logo" onerror="this.style.display='none'">
+      <img class="logo" src="logo.png" alt="EUreka logo">
       <div class="text">
         <h1>EUreka!</h1>
-        <p style="margin:0">Practice & prepare for EU competitions — AD5/6, AST, JPP</p>
+        <p>Practice & prepare for EU competitions — AD5/6, AST, JPP</p>
       </div>
     </div>
-
     <div class="header-right">
-      <div id="auth-status" class="auth-status">Not signed in</div>
+      <img class="logo-top" src="logo.png" alt="EUreka top logo">
+      <div id="auth-status" style="margin-left:10px;">Not signed in</div>
     </div>
   </header>
 
   <main>
-    <div class="welcome-hero">
+    <section class="hero-section">
+      <h2>Welcome to EUreka!</h2>
+      <p>Prepare for European Commission competitions with short practice modules (Knowledge, Competencies, Motivation) and a timed Mock Exam. Choose your competition track below to start practicing.</p>
 
-      <div class="welcome-left">
-        <h2>Welcome to EUreka!</h2>
-        <p>
-          EUreka! helps candidates prepare for European Commission competitions with short practice modules:
-          Knowledge, Competencies, Motivation and a timed Mock Exam. Choose your competition track below and
-          practise with realistic prompts — then submit a confidential self-assessment to track progress.
-        </p>
-
-        <div class="nav-buttons" style="margin-top:12px;">
-          <a id="btn-ad" href="ad/index.html">AD5/6</a>
-          <a id="btn-ast" href="ast/index.html">AST</a>
-          <a id="btn-jpp" href="jpp/index.html">JPP</a>
-        </div>
-
-        <div class="small-muted" style="margin-top:10px;">
-          Tip: sign in to save your self-assessments and view performance charts tied to each competition.
-        </div>
+      <div class="track-buttons">
+        <a class="ad-btn" href="ad/index.html">AD5/6</a>
+        <a class="ast-btn" href="ast/index.html">AST</a>
+        <a class="jpp-btn" href="jpp/index.html">JPP</a>
       </div>
 
-      <aside style="flex: 0 0 340px;">
-        <div class="auth-box" id="auth-box">
-          <div style="font-weight:700">Sign in / Register</div>
-          <input id="email" type="email" placeholder="Email" />
-          <input id="password" type="password" placeholder="Password" />
-          <div class="auth-row">
-            <button id="signInBtn" class="auth-btn">Sign in</button>
-            <button id="registerBtn" class="auth-btn secondary">Register</button>
-          </div>
-
-          <div style="display:flex; gap:8px; margin-top:8px;">
-            <button id="signOutBtn" class="auth-btn" style="background:#d9534f; display:none">Sign out</button>
-            <div id="user-email" style="align-self:center; color:#4a453f; font-weight:700"></div>
-          </div>
-
-          <div id="auth-message" class="small-muted" style="margin-top:6px"></div>
+      <div class="auth-box">
+        <input id="email" type="email" placeholder="Email" />
+        <input id="password" type="password" placeholder="Password" />
+        <div class="auth-row">
+          <button id="signInBtn" class="auth-btn">Sign in</button>
+          <button id="registerBtn" class="auth-btn secondary">Register</button>
         </div>
-      </aside>
-    </div>
-
-    <!-- Quick overview & resources -->
-    <section style="max-width:1200px; margin:0 auto 40px; padding:0 20px;">
-      <h3 style="margin-top:0; color:#003399">What EUreka! provides</h3>
-
-      <div class="resource-list">
-        <div class="resource-card">
-          <h4>Practice Modules</h4>
-          <div class="small-muted">Short, timed prompts for Knowledge, Competencies and Motivation — practice until you're confident.</div>
-        </div>
-
-        <div class="resource-card">
-          <h4>Mock Exam</h4>
-          <div class="small-muted">Simulated multi-stage exam with timers and a final self-assessment submission.</div>
-        </div>
-
-        <div class="resource-card">
-          <h4>Progress Tracking</h4>
-          <div class="small-muted">Logged-in users can submit self-assessments which are stored separately per competition (AD / AST / JPP).</div>
-        </div>
-
-        <div class="resource-card">
-          <h4>How to Use</h4>
-          <div class="small-muted">Sign up or sign in, pick the competition you're preparing for, and practise regularly. Use the Mock Exam to simulate real timing.</div>
-        </div>
+        <button id="signOutBtn" class="auth-btn signout" style="display:none">Sign out</button>
+        <div id="user-email" style="font-weight:bold; margin-top:6px;"></div>
+        <div id="auth-message" class="small-muted"></div>
       </div>
     </section>
 
-    <!-- Small footer note / quick links -->
-    <section style="max-width:1200px; margin:0 auto; padding:0 20px; margin-bottom:60px;">
-      <h3 style="color:#003399; margin:0 0 8px 0">Quick start</h3>
-      <ol style="margin-top:8px">
-        <li>Sign in or register (top-right of this page).</li>
-        <li>Click the AD5/6 (or AST / JPP) button to go to that competition's suite of modules.</li>
-        <li>Practice modules will allow you to submit self-assessment scores that will be stored per competition.</li>
-      </ol>
+    <section>
+      <h3 style="color:#003399;">What EUreka! Provides</h3>
+      <div class="resource-list">
+        <div class="resource-card">
+          <h4>Practice Modules</h4>
+          <div class="small-muted">Knowledge, Competencies, Motivation — short timed prompts for practice.</div>
+        </div>
+        <div class="resource-card">
+          <h4>Mock Exam</h4>
+          <div class="small-muted">Simulated multi-stage exam with timers and self-assessment submission.</div>
+        </div>
+        <div class="resource-card">
+          <h4>Progress Tracking</h4>
+          <div class="small-muted">Logged-in users can submit self-assessments, tracked per competition track.</div>
+        </div>
+        <div class="resource-card">
+          <h4>How to Use</h4>
+          <div class="small-muted">Sign in, pick a competition track, practice regularly, and use the Mock Exam to simulate real timing.</div>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer>
-    <div style="max-width:1200px; margin:0 auto; padding:12px 20px;">
-      <small>EUreka! — A practice toolkit for EU competitions • <span class="small-muted">Keep calibrating, keep improving.</span></small>
-    </div>
+    &copy; 2025 EUreka! — Keep calibrating, keep improving.
   </footer>
 
-  <!-- Inline client auth logic (keeps the page self-contained) -->
   <script type="module">
     const { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } = window.welcomeAuth;
-
-    // DOM nodes
     const emailEl = document.getElementById('email');
     const pwEl = document.getElementById('password');
     const signInBtn = document.getElementById('signInBtn');
@@ -244,70 +166,39 @@
     const authStatus = document.getElementById('auth-status');
     const userEmailEl = document.getElementById('user-email');
 
-    // Sign in
     signInBtn.addEventListener('click', async () => {
-      authMessage.textContent = '';
-      const email = emailEl.value.trim();
-      const password = pwEl.value;
-      if (!email || !password) { authMessage.textContent = 'Enter email and password.'; return; }
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        authMessage.textContent = 'Signed in.';
-        emailEl.value = ''; pwEl.value = '';
-      } catch (err) {
-        console.error(err);
-        authMessage.textContent = 'Sign in: ' + err.message;
-      }
+      authMessage.textContent='';
+      const email=emailEl.value.trim(), password=pwEl.value;
+      if(!email||!password){authMessage.textContent='Enter email and password.'; return;}
+      try { await signInWithEmailAndPassword(auth,email,password); authMessage.textContent='Signed in.'; emailEl.value=''; pwEl.value=''; }
+      catch(err){ console.error(err); authMessage.textContent='Sign in: '+err.message; }
     });
 
-    // Register
     registerBtn.addEventListener('click', async () => {
-      authMessage.textContent = '';
-      const email = emailEl.value.trim();
-      const password = pwEl.value;
-      if (!email || !password) { authMessage.textContent = 'Enter email and password.'; return; }
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        authMessage.textContent = 'Account created and signed in.';
-        emailEl.value = ''; pwEl.value = '';
-      } catch (err) {
-        console.error(err);
-        authMessage.textContent = 'Register: ' + err.message;
-      }
+      authMessage.textContent='';
+      const email=emailEl.value.trim(), password=pwEl.value;
+      if(!email||!password){authMessage.textContent='Enter email and password.'; return;}
+      try { await createUserWithEmailAndPassword(auth,email,password); authMessage.textContent='Account created and signed in.'; emailEl.value=''; pwEl.value=''; }
+      catch(err){ console.error(err); authMessage.textContent='Register: '+err.message; }
     });
 
-    // Sign out
     signOutBtn.addEventListener('click', async () => {
-      try {
-        await signOut(auth);
-        authMessage.textContent = 'Signed out.';
-      } catch (err) {
-        console.error(err);
-        authMessage.textContent = 'Sign out error.';
-      }
+      try{ await signOut(auth); authMessage.textContent='Signed out.'; } 
+      catch(err){ console.error(err); authMessage.textContent='Sign out error.'; }
     });
 
-    // Listen for auth state changes
     onAuthStateChanged(auth, user => {
-      if (user) {
-        authStatus.textContent = 'Signed in';
-        userEmailEl.textContent = user.email || '';
-        signOutBtn.style.display = 'inline-block';
-        document.querySelector('.auth-box').classList.add('signed-in');
+      if(user){
+        authStatus.textContent='Signed in';
+        userEmailEl.textContent=user.email||'';
+        signOutBtn.style.display='inline-block';
       } else {
-        authStatus.textContent = 'Not signed in';
-        userEmailEl.textContent = '';
-        signOutBtn.style.display = 'none';
-        authMessage.textContent = '';
-        document.querySelector('.auth-box').classList.remove('signed-in');
+        authStatus.textContent='Not signed in';
+        userEmailEl.textContent='';
+        signOutBtn.style.display='none';
       }
     });
-
-    // Small UX: if user clicks a competition button and is on mobile or small viewport, navigate
-    document.getElementById('btn-ad').addEventListener('click', () => { /* just link */ });
-    document.getElementById('btn-ast').addEventListener('click', () => { /* just link */ });
-    document.getElementById('btn-jpp').addEventListener('click', () => { /* just link */ });
-
   </script>
+
 </body>
 </html>
