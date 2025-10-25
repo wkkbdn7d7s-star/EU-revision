@@ -6,31 +6,48 @@
   <title>EUreka! — Welcome</title>
 
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Modern font to match AD Level pages -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
   <link rel="icon" type="image/png" href="eci-icon.png" />
   <link rel="apple-touch-icon" href="eci-icon.png" />
-  
+
   <style>
-    body { font-family: 'Merriweather', serif; background:#f7f6f4; margin:0; padding:0; }
-    header { display:flex; justify-content:space-between; align-items:center; padding:20px; background:#003399; color:#fff; }
+    body { 
+      font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif; 
+      background:#f7f6f4; 
+      margin:0; 
+      padding:0; 
+      color:#2c2a28;
+    }
+
+    header { 
+      display:flex; 
+      justify-content:space-between; 
+      align-items:center; 
+      padding:20px; 
+      background:#003399; 
+      color:#fff; 
+    }
+
     .header-left { display:flex; align-items:center; gap:12px; }
     .header-left .logo { height:80px; }
-    .header-left .text h1 { margin:0; font-size:1.8rem; }
+    .header-left .text h1 { margin:0; font-size:1.8rem; font-weight:700; }
     .header-left .text p { margin:2px 0 0 0; font-size:1rem; color:#f0f0f0; }
     .header-right .logo-top { height:80px; }
 
     main { max-width:1200px; margin:0 auto; padding:20px; }
     .hero-section { display:flex; flex-direction:column; align-items:center; gap:24px; margin-bottom:40px; text-align:center; }
 
-    .hero-section h2 { font-size:2rem; color:#003399; margin:0; }
-    .hero-section p { max-width:700px; line-height:1.5; color:#4a453f; }
+    .hero-section h2 { font-size:2rem; color:#003399; margin:0; font-weight:700; }
+    .hero-section p { max-width:700px; line-height:1.6; color:#4a453f; }
 
     .track-buttons { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:20px; }
     .track-buttons a {
       flex:1 1 200px;
       padding:20px;
-      font-size:1.3rem;
-      font-weight:bold;
+      font-size:1.1rem;
+      font-weight:600;
       text-decoration:none;
       color:#fff;
       border-radius:12px;
@@ -38,21 +55,66 @@
       box-shadow:0 6px 18px rgba(0,0,0,0.15);
       transition: transform 0.2s, background 0.2s;
     }
+
     .track-buttons a:hover { transform: translateY(-3px); }
     .ad-btn { background:#1a73e8; }
     .ast-btn { background:#ff8c00; }
     .jpp-btn { background:#28a745; }
 
-    .auth-box { background:#ece7e1; padding:16px; border-radius:12px; max-width:320px; margin:20px auto; box-shadow:0 4px 12px rgba(0,0,0,0.08); display:flex; flex-direction:column; gap:10px; }
-    .auth-box input { padding:8px 10px; border-radius:6px; border:1px solid #cfc7bf; width:100%; box-sizing:border-box; }
+    .auth-box { 
+      background:#ece7e1; 
+      padding:16px; 
+      border-radius:12px; 
+      max-width:320px; 
+      margin:20px auto; 
+      box-shadow:0 4px 12px rgba(0,0,0,0.08); 
+      display:flex; 
+      flex-direction:column; 
+      gap:10px; 
+    }
+
+    .auth-box input { 
+      padding:8px 10px; 
+      border-radius:6px; 
+      border:1px solid #cfc7bf; 
+      width:100%; 
+      box-sizing:border-box; 
+      font-family:inherit;
+    }
+
     .auth-row { display:flex; gap:8px; }
-    .auth-btn { flex:1; padding:10px; font-weight:bold; border:none; border-radius:6px; cursor:pointer; background:#0052cc; color:#fff; }
+
+    .auth-btn { 
+      flex:1; 
+      padding:10px; 
+      font-weight:600; 
+      border:none; 
+      border-radius:6px; 
+      cursor:pointer; 
+      background:#0052cc; 
+      color:#fff; 
+      font-family:inherit;
+    }
+
     .auth-btn.secondary { background:#d4af7f; color:#2c2a28; }
     .auth-btn.signout { background:#d9534f; }
 
-    .resource-list { display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top:40px; }
-    .resource-card { background:#fff; padding:14px; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.06); border-left:4px solid #0052cc; }
-    .resource-card h4 { margin:0 0 6px 0; color:#003399; }
+    .resource-list { 
+      display:grid; 
+      gap:12px; 
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+      margin-top:40px; 
+    }
+
+    .resource-card { 
+      background:#fff; 
+      padding:14px; 
+      border-radius:10px; 
+      box-shadow:0 3px 10px rgba(0,0,0,0.06); 
+      border-left:4px solid #0052cc; 
+    }
+
+    .resource-card h4 { margin:0 0 6px 0; color:#003399; font-weight:600; }
     .small-muted { font-size:0.95rem; color:#6b665f; }
 
     footer { text-align:center; padding:12px 20px; color:#4a453f; font-size:0.9rem; }
@@ -65,6 +127,7 @@
     }
   </style>
 
+  <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
@@ -84,14 +147,11 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    window.firebaseApp = app;
-    window.firebaseAuth = auth;
-    window.firebaseDb = db;
     window.welcomeAuth = { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged };
   </script>
 </head>
-<body>
 
+<body>
   <header>
     <div class="header-left">
       <img class="logo" src="eci-icon.png" alt="EUreka logo">
@@ -124,7 +184,7 @@
           <button id="registerBtn" class="auth-btn secondary">Register</button>
         </div>
         <button id="signOutBtn" class="auth-btn signout" style="display:none">Sign out</button>
-        <div id="user-email" style="font-weight:bold; margin-top:6px;"></div>
+        <div id="user-email" style="font-weight:600; margin-top:6px;"></div>
         <div id="auth-message" class="small-muted"></div>
       </div>
     </section>
@@ -156,6 +216,7 @@
     &copy; 2025 EUreka! — Keep calibrating, keep improving.
   </footer>
 
+  <!-- Auth script -->
   <script type="module">
     const { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } = window.welcomeAuth;
     const emailEl = document.getElementById('email');
@@ -172,7 +233,7 @@
       const email=emailEl.value.trim(), password=pwEl.value;
       if(!email||!password){authMessage.textContent='Enter email and password.'; return;}
       try { await signInWithEmailAndPassword(auth,email,password); authMessage.textContent='Signed in.'; emailEl.value=''; pwEl.value=''; }
-      catch(err){ console.error(err); authMessage.textContent='Sign in: '+err.message; }
+      catch(err){ authMessage.textContent='Sign in: '+err.message; }
     });
 
     registerBtn.addEventListener('click', async () => {
@@ -180,12 +241,12 @@
       const email=emailEl.value.trim(), password=pwEl.value;
       if(!email||!password){authMessage.textContent='Enter email and password.'; return;}
       try { await createUserWithEmailAndPassword(auth,email,password); authMessage.textContent='Account created and signed in.'; emailEl.value=''; pwEl.value=''; }
-      catch(err){ console.error(err); authMessage.textContent='Register: '+err.message; }
+      catch(err){ authMessage.textContent='Register: '+err.message; }
     });
 
     signOutBtn.addEventListener('click', async () => {
       try{ await signOut(auth); authMessage.textContent='Signed out.'; } 
-      catch(err){ console.error(err); authMessage.textContent='Sign out error.'; }
+      catch(err){ authMessage.textContent='Sign out error.'; }
     });
 
     onAuthStateChanged(auth, user => {
@@ -200,6 +261,5 @@
       }
     });
   </script>
-
 </body>
 </html>
