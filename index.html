@@ -6,124 +6,208 @@
   <title>EUreka! — Welcome</title>
 
   <link rel="stylesheet" href="style.css">
-  <!-- Modern font to match AD Level pages -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
   <link rel="icon" type="image/png" href="eci-icon.png" />
   <link rel="apple-touch-icon" href="eci-icon.png" />
 
   <style>
-    body { 
-      font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif; 
-      background:#f7f6f4; 
-      margin:0; 
-      padding:0; 
-      color:#2c2a28;
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f7f6f4;
+      margin: 0;
+      padding: 0;
+      color: #2c2a28;
     }
 
-    header { 
-      display:flex; 
-      justify-content:space-between; 
-      align-items:center; 
-      padding:20px; 
-      background:#003399; 
-      color:#fff; 
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: #003399;
+      color: #fff;
     }
 
-    .header-left { display:flex; align-items:center; gap:12px; }
-    .header-left .logo { height:80px; }
-    .header-left .text h1 { margin:0; font-size:1.8rem; font-weight:700; }
-    .header-left .text p { margin:2px 0 0 0; font-size:1rem; color:#f0f0f0; }
-    .header-right .logo-top { height:80px; }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-    main { max-width:1200px; margin:0 auto; padding:20px; }
-    .hero-section { display:flex; flex-direction:column; align-items:center; gap:24px; margin-bottom:40px; text-align:center; }
+    .header-left .logo {
+      height: 70px;
+    }
 
-    .hero-section h2 { font-size:2rem; color:#003399; margin:0; font-weight:700; }
-    .hero-section p { max-width:700px; line-height:1.6; color:#4a453f; }
+    .header-left .text h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
 
-    .track-buttons { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:20px; }
+    .header-left .text p {
+      margin: 2px 0 0 0;
+      font-size: 1rem;
+      color: #f0f0f0;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .hero-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+    }
+
+    .hero-section h2 {
+      font-size: 2rem;
+      color: #003399;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .hero-section p {
+      max-width: 720px;
+      line-height: 1.6;
+      color: #4a453f;
+    }
+
+    /* New layout for buttons + sign-in */
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 32px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .track-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 240px;
+      flex: 0 1 280px;
+    }
+
     .track-buttons a {
-      flex:1 1 200px;
-      padding:20px;
-      font-size:1.1rem;
-      font-weight:600;
-      text-decoration:none;
-      color:#fff;
-      border-radius:12px;
-      text-align:center;
-      box-shadow:0 6px 18px rgba(0,0,0,0.15);
+      display: block;
+      padding: 22px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
       transition: transform 0.2s, background 0.2s;
     }
 
-    .track-buttons a:hover { transform: translateY(-3px); }
-    .ad-btn { background:#1a73e8; }
-    .ast-btn { background:#ff8c00; }
-    .jpp-btn { background:#28a745; }
-
-    .auth-box { 
-      background:#ece7e1; 
-      padding:16px; 
-      border-radius:12px; 
-      max-width:320px; 
-      margin:20px auto; 
-      box-shadow:0 4px 12px rgba(0,0,0,0.08); 
-      display:flex; 
-      flex-direction:column; 
-      gap:10px; 
+    .track-buttons a:hover {
+      transform: translateY(-3px);
     }
 
-    .auth-box input { 
-      padding:8px 10px; 
-      border-radius:6px; 
-      border:1px solid #cfc7bf; 
-      width:100%; 
-      box-sizing:border-box; 
-      font-family:inherit;
+    .ad-btn { background: #1a73e8; }
+    .ast-btn { background: #ff8c00; }
+    .jpp-btn { background: #28a745; }
+
+    .auth-box {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 0 1 320px;
+      text-align: left;
     }
 
-    .auth-row { display:flex; gap:8px; }
-
-    .auth-btn { 
-      flex:1; 
-      padding:10px; 
-      font-weight:600; 
-      border:none; 
-      border-radius:6px; 
-      cursor:pointer; 
-      background:#0052cc; 
-      color:#fff; 
-      font-family:inherit;
+    .auth-box input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: 0.95rem;
     }
 
-    .auth-btn.secondary { background:#d4af7f; color:#2c2a28; }
-    .auth-btn.signout { background:#d9534f; }
-
-    .resource-list { 
-      display:grid; 
-      gap:12px; 
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-      margin-top:40px; 
+    .auth-row {
+      display: flex;
+      gap: 8px;
     }
 
-    .resource-card { 
-      background:#fff; 
-      padding:14px; 
-      border-radius:10px; 
-      box-shadow:0 3px 10px rgba(0,0,0,0.06); 
-      border-left:4px solid #0052cc; 
+    .auth-btn {
+      flex: 1;
+      padding: 10px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #0052cc;
+      color: #fff;
+      font-family: inherit;
     }
 
-    .resource-card h4 { margin:0 0 6px 0; color:#003399; font-weight:600; }
-    .small-muted { font-size:0.95rem; color:#6b665f; }
+    .auth-btn.secondary {
+      background: #d4af7f;
+      color: #2c2a28;
+    }
 
-    footer { text-align:center; padding:12px 20px; color:#4a453f; font-size:0.9rem; }
+    .auth-btn.signout {
+      background: #d9534f;
+    }
 
-    @media (max-width:920px) {
-      .hero-section { flex-direction:column; }
-      .track-buttons a { flex:1 1 100%; }
-      .header-left { flex-direction:column; align-items:flex-start; }
-      .header-right .logo-top { display:block; margin-top:12px; }
+    .resource-list {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-top: 40px;
+    }
+
+    .resource-card {
+      background: #fff;
+      padding: 16px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+      border-left: 4px solid #0052cc;
+    }
+
+    .resource-card h4 {
+      margin: 0 0 6px 0;
+      color: #003399;
+      font-weight: 600;
+    }
+
+    .small-muted {
+      font-size: 0.95rem;
+      color: #6b665f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px 20px;
+      color: #4a453f;
+      font-size: 0.9rem;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 800px) {
+      .hero-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .track-buttons, .auth-box {
+        width: 100%;
+        max-width: 320px;
+      }
     }
   </style>
 
@@ -170,22 +254,24 @@
       <h2>Welcome to EUreka!</h2>
       <p>Prepare for European Commission competitions with short practice modules (Knowledge, Competencies, Motivation) and a timed Mock Exam. Choose your competition track below to start practicing.</p>
 
-      <div class="track-buttons">
-        <a class="ad-btn" href="ad/index.html">AD5/6</a>
-        <a class="ast-btn" href="ast/index.html">AST</a>
-        <a class="jpp-btn" href="jpp/index.html">JPP</a>
-      </div>
-
-      <div class="auth-box">
-        <input id="email" type="email" placeholder="Email" />
-        <input id="password" type="password" placeholder="Password" />
-        <div class="auth-row">
-          <button id="signInBtn" class="auth-btn">Sign in</button>
-          <button id="registerBtn" class="auth-btn secondary">Register</button>
+      <div class="hero-actions">
+        <div class="track-buttons">
+          <a class="ad-btn" href="ad/index.html">AD5/6</a>
+          <a class="ast-btn" href="ast/index.html">AST</a>
+          <a class="jpp-btn" href="jpp/index.html">JPP</a>
         </div>
-        <button id="signOutBtn" class="auth-btn signout" style="display:none">Sign out</button>
-        <div id="user-email" style="font-weight:600; margin-top:6px;"></div>
-        <div id="auth-message" class="small-muted"></div>
+
+        <div class="auth-box">
+          <input id="email" type="email" placeholder="Email" />
+          <input id="password" type="password" placeholder="Password" />
+          <div class="auth-row">
+            <button id="signInBtn" class="auth-btn">Sign in</button>
+            <button id="registerBtn" class="auth-btn secondary">Register</button>
+          </div>
+          <button id="signOutBtn" class="auth-btn signout" style="display:none">Sign out</button>
+          <div id="user-email" style="font-weight:600; margin-top:6px;"></div>
+          <div id="auth-message" class="small-muted"></div>
+        </div>
       </div>
     </section>
 
@@ -216,7 +302,7 @@
     &copy; 2025 EUreka! — Keep calibrating, keep improving.
   </footer>
 
-  <!-- Auth script -->
+  <!-- Auth Script -->
   <script type="module">
     const { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } = window.welcomeAuth;
     const emailEl = document.getElementById('email');
@@ -229,35 +315,41 @@
     const userEmailEl = document.getElementById('user-email');
 
     signInBtn.addEventListener('click', async () => {
-      authMessage.textContent='';
-      const email=emailEl.value.trim(), password=pwEl.value;
-      if(!email||!password){authMessage.textContent='Enter email and password.'; return;}
-      try { await signInWithEmailAndPassword(auth,email,password); authMessage.textContent='Signed in.'; emailEl.value=''; pwEl.value=''; }
-      catch(err){ authMessage.textContent='Sign in: '+err.message; }
+      authMessage.textContent = '';
+      const email = emailEl.value.trim(), password = pwEl.value;
+      if (!email || !password) { authMessage.textContent = 'Enter email and password.'; return; }
+      try { 
+        await signInWithEmailAndPassword(auth, email, password); 
+        authMessage.textContent = 'Signed in.'; 
+        emailEl.value = ''; pwEl.value = ''; 
+      } catch (err) { authMessage.textContent = 'Sign in: ' + err.message; }
     });
 
     registerBtn.addEventListener('click', async () => {
-      authMessage.textContent='';
-      const email=emailEl.value.trim(), password=pwEl.value;
-      if(!email||!password){authMessage.textContent='Enter email and password.'; return;}
-      try { await createUserWithEmailAndPassword(auth,email,password); authMessage.textContent='Account created and signed in.'; emailEl.value=''; pwEl.value=''; }
-      catch(err){ authMessage.textContent='Register: '+err.message; }
+      authMessage.textContent = '';
+      const email = emailEl.value.trim(), password = pwEl.value;
+      if (!email || !password) { authMessage.textContent = 'Enter email and password.'; return; }
+      try { 
+        await createUserWithEmailAndPassword(auth, email, password); 
+        authMessage.textContent = 'Account created and signed in.'; 
+        emailEl.value = ''; pwEl.value = ''; 
+      } catch (err) { authMessage.textContent = 'Register: ' + err.message; }
     });
 
     signOutBtn.addEventListener('click', async () => {
-      try{ await signOut(auth); authMessage.textContent='Signed out.'; } 
-      catch(err){ authMessage.textContent='Sign out error.'; }
+      try { await signOut(auth); authMessage.textContent = 'Signed out.'; } 
+      catch (err) { authMessage.textContent = 'Sign out error.'; }
     });
 
     onAuthStateChanged(auth, user => {
-      if(user){
-        authStatus.textContent='Signed in';
-        userEmailEl.textContent=user.email||'';
-        signOutBtn.style.display='inline-block';
+      if (user) {
+        authStatus.textContent = 'Signed in';
+        userEmailEl.textContent = user.email || '';
+        signOutBtn.style.display = 'inline-block';
       } else {
-        authStatus.textContent='Not signed in';
-        userEmailEl.textContent='';
-        signOutBtn.style.display='none';
+        authStatus.textContent = 'Not signed in';
+        userEmailEl.textContent = '';
+        signOutBtn.style.display = 'none';
       }
     });
   </script>
