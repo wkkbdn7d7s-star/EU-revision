@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EU Motivation — EUreka! (AD5/6)</title>
+  <title>EU Motivation — EUreka! (AST)</title>
 
   <!-- Global stylesheet -->
   <link rel="stylesheet" href="../style.css" />
@@ -39,7 +39,7 @@
   <!-- Header -->
   <header class="page-header">
     <div class="header-left">
-      <h1>EU Motivation — AD5/6</h1>
+      <h1>EU Motivation — AST</h1>
       <p>Practice motivation & fit questions for working at the European Commission.</p>
     </div>
     <div class="header-right">
@@ -113,7 +113,7 @@
       try {
         const userDoc = doc(db, "users", currentUser.uid);
         await updateDoc(userDoc, {
-          "selfAssessment.AD.EUMotivation": arrayUnion(submission)
+          "selfAssessment.AST.EUMotivation": arrayUnion(submission)
         });
         status.textContent = "✅ Self-assessment submitted successfully!";
         form.reset();
