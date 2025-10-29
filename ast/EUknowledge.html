@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EU Knowledge — EUreka! (AD5/6)</title>
+  <title>EU Knowledge — EUreka! (AST)</title>
 
   <!-- ✅ Use global stylesheet -->
   <link rel="stylesheet" href="../style.css" />
@@ -37,10 +37,10 @@
 </head>
 
 <body id="eu-knowledge-page">
-  <!-- ✅ Consistent Header (matches other AD pages) -->
+  <!-- ✅ Consistent Header (matches other AST pages) -->
   <header class="page-header">
     <div class="header-left">
-      <h1>EU Knowledge — AD5/6</h1>
+      <h1>EU Knowledge — AST</h1>
       <p>Test your knowledge on EU policies, priorities, and institutional questions.</p>
     </div>
     <div class="header-right">
@@ -119,7 +119,7 @@
       try {
         const userDoc = doc(db, "users", currentUser.uid);
         await updateDoc(userDoc, {
-          "selfAssessment.AD.EUKnowledge": arrayUnion(submission)
+          "selfAssessment.AST.EUKnowledge": arrayUnion(submission)
         });
         status.textContent = "✅ Self-assessment submitted successfully!";
         form.reset();
