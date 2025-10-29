@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mock Exam — EUreka! (AD5/6)</title>
+
+  <!-- ✅ Use global stylesheet -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- ✅ Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+    import { getFirestore, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
+      authDomain: "eureka-63b47.firebaseapp.com",
+      projectId: "eureka-63b47",
+      storageBucket: "eureka-63b47.firebasestorage.app",
+      messagingSenderId: "655168214317",
+      appId: "1:655168214317:web:3d3ffc07706ba39efa6fa4",
+      measurementId: "G-KFTB45DCFZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Make Firebase globally accessible
+    window.firebaseFns = { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged };
+  </script>
+</head>
+
+<body id="mockexam-page">
+  <!-- ✅ Header consistent with EU Knowledge / Competencies / Motivation -->
+  <header class="page-header">
+    <div class="header-left">
+      <h1>Mock Exam — AD5/6</h1>
+      <p>Simulate a full EU interview practice with Knowledge, Competency, and Motivation questions.</p>
+    </div>
+    <div class="header-right">
+      <a href="index.html" class="back-home">Back to Homepage</a>
+    </div>
+  </header>
+
+  <main class="card">
+    <!-- ✅ Exam content area -->
+    <div id="content">
+      <p>Click "Start Mock Exam" to begin the simulation.</p>
+      <div class="controls">
+        <button id="startBtn">Start Mock Exam</button>
+      </div>
+    </div>
+
+    <!-- ✅ Status bar -->
+    <div class="status">
+      <button id="finishBtn" style="display:none;">Finish Exam</button>
+      <span id="timer">00:00</span>
+    </div>
+
+    <!-- ✅ Self-assessment form -->
+    <section id="self-assessment">
+      <h2>Submit Your Self-Assessment</h2>
+      <form id="assessment-form">
+        <label>Clarity (1–5): <input type="number" id="clarity" min="1" max="5" required></label>
+        <label>Structure (1–5): <input type="number" id="structure" min="1" max="5" required></label>
+        <label>Confidence (1–5): <input type="number" id="confidence" min="1" max="5" required></label>
+        <button type="submit">Submit Score</button>
+      </form>
+      <p id="form-status"></p>
+    </section>
+  </main>
+
+  <!-- ✅ Main exam logic -->
+  <script type="module" src="../Mockexam.js"></script>
+
+  <!-- ✅ Self-assessment Firestore logic -->
+  <script type="module">
+    const { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged } = window.firebaseFns;
+    const finishBtn = document.getElementById("finishBtn");
+    const content = document.getElementById("content");
+    const formSection = document.getElementById("self-assessment");
+    const form = document.getElementById("assessment-form");
+    const status = document.getElementById("form-status");
+
+    let currentUser = null;
+
+    // Listen for authentication
+    onAuthStateChanged(auth, user => {
+      currentUser = user;
+      status.textContent = user ? "" : "Please log in on the main page to submit scores.";
+    });
+
+    // When user finishes the mock
+    finishBtn.addEventListener("click", () => {
+      content.style.display = "none";
+      formSection.style.display = "block";
+      finishBtn.style.display = "none"; // hide after click
+    });
+
+    // Handle self-assessment submission
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      if (!currentUser) {
+        status.textContent = "You must be logged in!";
+        return;
+      }
+
+      const clarity = parseInt(document.getElementById("clarity").value);
+      const structure = parseInt(document.getElementById("structure").value);
+      const confidence = parseInt(document.getElementById("confidence").value);
+
+      const submission = {
+        clarity,
+        structure,
+        confidence,
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const userDoc = doc(db, "users", currentUser.uid);
+        await updateDoc(userDoc, {
+          "selfAssessment.AD.Mockexam": arrayUnion(submission)
+        });
+        status.textContent = "✅ Score submitted successfully!";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        status.textContent = "❌ Error submitting score: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

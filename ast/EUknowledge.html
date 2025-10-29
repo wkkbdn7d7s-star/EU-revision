@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EU Knowledge — EUreka! (AD5/6)</title>
+
+  <!-- ✅ Use global stylesheet -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- ✅ Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- ✅ Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+    import { getFirestore, doc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
+      authDomain: "eureka-63b47.firebaseapp.com",
+      projectId: "eureka-63b47",
+      storageBucket: "eureka-63b47.firebasestorage.app",
+      messagingSenderId: "655168214317",
+      appId: "1:655168214317:web:3d3ffc07706ba39efa6fa4",
+      measurementId: "G-KFTB45DCFZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Make Firebase globally accessible
+    window.firebaseFns = { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged };
+  </script>
+</head>
+
+<body id="eu-knowledge-page">
+  <!-- ✅ Consistent Header (matches other AD pages) -->
+  <header class="page-header">
+    <div class="header-left">
+      <h1>EU Knowledge — AD5/6</h1>
+      <p>Test your knowledge on EU policies, priorities, and institutional questions.</p>
+    </div>
+    <div class="header-right">
+      <a href="index.html" class="back-home">Back to Homepage</a>
+    </div>
+  </header>
+
+  <!-- ✅ Main Card -->
+  <main class="card">
+    <!-- Question section -->
+    <div id="question" class="question">Click "Next Question" to start</div>
+
+    <!-- Control buttons -->
+    <div class="controls">
+      <button id="nextBtn">Next Question</button>
+      <button id="shuffleBtn">Shuffle</button>
+      <button id="copyBtn">Copy</button>
+    </div>
+
+    <!-- Status bar -->
+    <div class="status">
+      <span id="counter">0 / 0</span>
+      <span id="timer">00:00</span>
+    </div>
+
+    <!-- ✅ Self-Assessment Section -->
+    <section id="self-assessment">
+      <h2>Submit Your Self-Assessment</h2>
+      <form id="assessment-form">
+        <label>Clarity (1–5): <input type="number" id="clarity" min="1" max="5" required></label>
+        <label>Structure (1–5): <input type="number" id="structure" min="1" max="5" required></label>
+        <label>Confidence (1–5): <input type="number" id="confidence" min="1" max="5" required></label>
+        <button type="submit">Submit Score</button>
+      </form>
+      <p id="form-status"></p>
+    </section>
+  </main>
+
+  <!-- ✅ Base logic + module logic -->
+  <script src="../EUreka-base.js"></script>
+  <script type="module" src="../EUknowledge.js"></script>
+
+  <!-- ✅ Firestore submission logic -->
+  <script type="module">
+    const { auth, db, doc, updateDoc, arrayUnion, onAuthStateChanged } = window.firebaseFns;
+    const form = document.getElementById("assessment-form");
+    const status = document.getElementById("form-status");
+
+    let currentUser = null;
+
+    // Track authentication state
+    onAuthStateChanged(auth, user => {
+      currentUser = user;
+      status.textContent = user ? "" : "Please log in on the main page to submit scores.";
+    });
+
+    // Handle form submission
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      if (!currentUser) {
+        status.textContent = "You must be logged in!";
+        return;
+      }
+
+      const clarity = parseInt(document.getElementById("clarity").value);
+      const structure = parseInt(document.getElementById("structure").value);
+      const confidence = parseInt(document.getElementById("confidence").value);
+
+      const submission = {
+        clarity,
+        structure,
+        confidence,
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const userDoc = doc(db, "users", currentUser.uid);
+        await updateDoc(userDoc, {
+          "selfAssessment.AD.EUKnowledge": arrayUnion(submission)
+        });
+        status.textContent = "✅ Self-assessment submitted successfully!";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        status.textContent = "❌ Error submitting self-assessment: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
