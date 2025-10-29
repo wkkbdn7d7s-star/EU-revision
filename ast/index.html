@@ -145,7 +145,7 @@ async function updateChart(user) {
   const data = docSnap.data();
   const section = sectionFilter.value;
 
-  const adData = data.selfAssessment.AST || {};
+  const astData = data.selfAssessment.AST || {};
 
   if(section === "average") {
     const allSections = ["EUKnowledge","EUCompetencies","EUMotivation","Mockexam"];
