@@ -187,7 +187,7 @@ async function updateChart(user) {
       type: 'line',
       data: { labels, datasets:[
         { label:'Clarity', data:clarity, borderColor:'#1a73e8', fill:false, tension:0.25 },
-        { label:'Structure', data:structure, borderColor:'#16a34a', fill:false, tension:0.25 },
+        { label:'Structure', data:structure, borderColor:'#ff8c00', fill:false, tension:0.25 },
         { label:'Confidence', data:confidence, borderColor:'#28a745', fill:false, tension:0.25 }
       ]},
       options: { responsive:true, plugins:{ legend:{ position:'bottom' } }, scales:{ y:{ min:1, max:5, ticks:{ stepSize:1 }, title:{ display:true, text:'Score (1-5)' } } } }
