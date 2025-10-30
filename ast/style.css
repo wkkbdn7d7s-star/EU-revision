@@ -215,9 +215,11 @@ footer {
   box-sizing: border-box;
 }
 
+/* ====== Module & Mock Exam Headers (Orange Style) ====== */
 #eu-knowledge-page header.page-header,
 #eu-motivation-page header.page-header,
-#eu-competencies-page header.page-header {
+#eu-competencies-page header.page-header,
+#mockexam-page header.page-header {
   width: 100%;
   background: linear-gradient(90deg, #ff8c00 0%, #d97706 100%);
   padding: 20px 30px;
@@ -232,26 +234,31 @@ footer {
   box-sizing: border-box;
 }
 
+/* ====== Header Titles ====== */
 #eu-knowledge-page header.page-header .header-left h1,
 #eu-motivation-page header.page-header .header-left h1,
-#eu-competencies-page header.page-header .header-left h1 {
+#eu-competencies-page header.page-header .header-left h1,
+#mockexam-page header.page-header .header-left h1 {
   margin: 0;
   font-size: 2em;
   font-weight: bold;
   color: #fff7ed;
 }
+
 #eu-knowledge-page header.page-header .header-left p,
 #eu-motivation-page header.page-header .header-left p,
-#eu-competencies-page header.page-header .header-left p {
+#eu-competencies-page header.page-header .header-left p,
+#mockexam-page header.page-header .header-left p {
   margin-top: 5px;
   font-size: 1em;
   color: #ffedc0;
 }
 
-/* Back to Homepage Button */
+/* ====== Back to Homepage Button ====== */
 #eu-knowledge-page header.page-header .header-right .back-home,
 #eu-motivation-page header.page-header .header-right .back-home,
-#eu-competencies-page header.page-header .header-right .back-home {
+#eu-competencies-page header.page-header .header-right .back-home,
+#mockexam-page header.page-header .header-right .back-home {
   padding: 8px 14px;
   background-color: #f7ca75;
   color: #2c2a28;
@@ -261,12 +268,15 @@ footer {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   transition: background 0.3s ease, transform 0.15s ease;
 }
+
 #eu-knowledge-page header.page-header .header-right .back-home:hover,
 #eu-motivation-page header.page-header .header-right .back-home:hover,
-#eu-competencies-page header.page-header .header-right .back-home:hover {
+#eu-competencies-page header.page-header .header-right .back-home:hover,
+#mockexam-page header.page-header .header-right .back-home:hover {
   background-color: #f1b94f;
   transform: translateY(-2px);
 }
+
 
 /* ====== Buttons & Layouts (applied to all module pages and mock) ====== */
 .controls button,
