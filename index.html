@@ -10,27 +10,37 @@
   <link rel="apple-touch-icon" href="eci-icon.png" />
 
   <style>
+    :root {
+      --blue-dark: #1b1f3b;
+      --blue-main: #003399;
+      --gold: #d4af7f;
+      --text-dark: #2c2a28;
+      --text-light: #f0f0f0;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background: #f7f6f4;
       margin: 0;
       padding: 0;
-      color: #2c2a28;
+      color: var(--text-dark);
     }
 
+    /* ---- HEADER ---- */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px;
-      background: #003399;
+      padding: 20px 32px;
+      background: linear-gradient(90deg, var(--blue-main) 0%, var(--blue-dark) 100%);
       color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
 
     .header-left .logo {
@@ -39,20 +49,36 @@
 
     .header-left .text h1 {
       margin: 0;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       font-weight: 700;
+      color: var(--gold);
     }
 
     .header-left .text p {
-      margin: 2px 0 0 0;
+      margin: 3px 0 0 0;
       font-size: 1rem;
-      color: #f0f0f0;
+      color: var(--text-light);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.95rem;
+    }
+
+    #auth-status {
+      background: rgba(255,255,255,0.1);
+      padding: 6px 12px;
+      border-radius: 8px;
+      color: var(--gold);
+      font-weight: 600;
     }
 
     main {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 50px 20px;
     }
 
     .hero-section {
@@ -62,7 +88,7 @@
 
     .hero-section h2 {
       font-size: 2rem;
-      color: #003399;
+      color: var(--blue-main);
       margin-bottom: 10px;
     }
 
@@ -107,13 +133,13 @@
       transform: translateY(-3px);
     }
 
-    .ad-btn { background: #1a73e8; }
+    .ad-btn { background: var(--blue-main); }
     .ast-btn { background: #ff8c00; }
     .jpp-btn { background: #28a745; }
 
     .auth-box {
       background: #ffffff;
-      padding: 20px;
+      padding: 22px 24px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       display: flex;
@@ -145,14 +171,20 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      background: #0052cc;
+      background: var(--blue-main);
       color: #fff;
       font-family: inherit;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .auth-btn:hover {
+      transform: translateY(-2px);
+      background: var(--blue-dark);
     }
 
     .auth-btn.secondary {
-      background: #d4af7f;
-      color: #2c2a28;
+      background: var(--gold);
+      color: var(--text-dark);
     }
 
     .auth-btn.signout {
@@ -171,12 +203,12 @@
       padding: 16px;
       border-radius: 10px;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-      border-left: 4px solid #0052cc;
+      border-left: 4px solid var(--blue-main);
     }
 
     .resource-card h4 {
       margin: 0 0 6px 0;
-      color: #003399;
+      color: var(--blue-main);
       font-weight: 600;
     }
 
@@ -190,7 +222,7 @@
       padding: 16px 20px;
       color: #4a453f;
       font-size: 0.9rem;
-      margin-top: 40px;
+      margin-top: 50px;
     }
 
     @media (max-width: 800px) {
@@ -198,7 +230,6 @@
         flex-direction: column;
         align-items: center;
       }
-
       .track-buttons, .auth-box {
         width: 100%;
         max-width: 320px;
@@ -236,11 +267,11 @@
       <img class="logo" src="eci-icon.png" alt="EUreka logo">
       <div class="text">
         <h1>EUreka!</h1>
-        <p>Practice & prepare for EU competitions</p>
+        <p>Empowering EU candidates for success</p>
       </div>
     </div>
     <div class="header-right">
-      <div id="auth-status" style="margin-left:10px;">Not signed in</div>
+      <div id="auth-status">Not signed in</div>
     </div>
   </header>
 
@@ -271,7 +302,7 @@
     </section>
 
     <section>
-      <h3 style="color:#003399;">What EUreka! Provides</h3>
+      <h3 style="color:var(--blue-main);">What EUreka! Provides</h3>
       <div class="resource-list">
         <div class="resource-card">
           <h4>Practice Modules</h4>
@@ -294,7 +325,7 @@
   </main>
 
   <footer>
-    &copy; 2025 EUreka! —  Empowering EU candidates for success.
+    &copy; 2025 <strong>EUreka!</strong> — Empowering EU candidates for success.
   </footer>
 
   <script type="module">
