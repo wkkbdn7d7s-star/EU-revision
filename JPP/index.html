@@ -166,7 +166,7 @@ async function updateChart(user) {
     if(performanceChart) performanceChart.destroy();
     performanceChart = new Chart(ctx, {
       type: 'bar',
-      data: { labels: averages.map(s=>s.metric), datasets: [{ label:'Average Score', data:averages.map(s=>s.value), backgroundColor:['#1a73e8','#16a34a','#28a745'] }] },
+      data: { labels: averages.map(s=>s.metric), datasets: [{ label:'Average Score', data:averages.map(s=>s.value), backgroundColor:['#1a73e8','#ff8c00','#28a745'] }] },
       options: { responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ min:0, max:5, ticks:{ stepSize:1 }, title:{ display:true, text:'Score (1-5)' } } } }
     });
   } else {
