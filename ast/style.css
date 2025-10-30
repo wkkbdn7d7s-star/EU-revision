@@ -1,4 +1,4 @@
-/* ====== EUreka! Global Styles (AST Version - Orange/Gold Theme) ====== */
+/* ====== EUreka! Global Styles (Orange/Gold Theme - Structured Like AD) ====== */
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background-color: #f8f5ef;
@@ -19,7 +19,11 @@ header {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-.header-left { display: flex; align-items: center; gap: 20px; }
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 .header-left .logo {
   width: 80px;
   border-radius: 10px;
@@ -34,7 +38,7 @@ header {
 .header-left .text p {
   margin-top: 5px;
   font-size: 1em;
-  color: #fff0da;
+  color: #ffedc0;
 }
 
 .header-right {
@@ -67,10 +71,15 @@ header {
 }
 
 /* ====== Main ====== */
-main { padding: 50px 20px; background-color: #f8f5ef; }
+main {
+  padding: 50px 20px;
+  background-color: #f8f5ef;
+}
 
 /* ====== Sections ====== */
-section { margin-bottom: 60px; }
+section {
+  margin-bottom: 60px;
+}
 section h2 {
   text-align: center;
   font-size: 1.8em;
@@ -112,7 +121,9 @@ section h2 {
   margin-top: 15px;
   transition: color 0.3s;
 }
-.card a:hover { color: #b45309; }
+.card a:hover {
+  color: #b45309;
+}
 
 /* ====== Mock Card ====== */
 .mock-card {
@@ -121,10 +132,19 @@ section h2 {
   border-top: 5px solid #f7ca75;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
-.mock-card h3 { color: #ffedc0; }
-.mock-card p { color: #fffaf0; }
-.mock-card a { color: #ffedc0; font-weight: bold; }
-.mock-card a:hover { color: #ffffff; }
+.mock-card h3 {
+  color: #ffedc0;
+}
+.mock-card p {
+  color: #fffaf0;
+}
+.mock-card a {
+  color: #ffedc0;
+  font-weight: bold;
+}
+.mock-card a:hover {
+  color: #ffffff;
+}
 .mock-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
@@ -155,7 +175,9 @@ section h2 {
   background-color: #fff5e6;
   border-color: #d97706;
 }
-#performance-chart { max-width: 100%; }
+#performance-chart {
+  max-width: 100%;
+}
 
 /* ====== Admin Module ====== */
 #admin-module {
@@ -169,8 +191,15 @@ section h2 {
   margin-right: auto;
   background-color: #fffdf8;
 }
-#admin-module h2 { color: #d97706; text-align: center; }
-#admin-module form { display: flex; flex-direction: column; gap: 12px; }
+#admin-module h2 {
+  color: #d97706;
+  text-align: center;
+}
+#admin-module form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 #admin-module input {
   padding: 8px;
   border-radius: 6px;
@@ -186,7 +215,9 @@ section h2 {
   font-weight: bold;
   cursor: pointer;
 }
-#admin-module button:hover { background-color: #d97706; }
+#admin-module button:hover {
+  background-color: #d97706;
+}
 #admin-status {
   text-align: center;
   font-weight: bold;
@@ -206,7 +237,8 @@ footer {
 /* ====== EU Knowledge / Motivation / Competencies Pages ====== */
 #eu-knowledge-page,
 #eu-motivation-page,
-#eu-competencies-page {
+#eu-competencies-page,
+#mockexam-page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -229,36 +261,24 @@ footer {
   flex-wrap: wrap;
   color: #fff7ed;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  border-radius: 0;
   margin-bottom: 40px;
-  box-sizing: border-box;
 }
 
 /* ====== Header Titles ====== */
-#eu-knowledge-page header.page-header .header-left h1,
-#eu-motivation-page header.page-header .header-left h1,
-#eu-competencies-page header.page-header .header-left h1,
-#mockexam-page header.page-header .header-left h1 {
+header.page-header .header-left h1 {
   margin: 0;
   font-size: 2em;
   font-weight: bold;
   color: #fff7ed;
 }
-
-#eu-knowledge-page header.page-header .header-left p,
-#eu-motivation-page header.page-header .header-left p,
-#eu-competencies-page header.page-header .header-left p,
-#mockexam-page header.page-header .header-left p {
+header.page-header .header-left p {
   margin-top: 5px;
   font-size: 1em;
   color: #ffedc0;
 }
 
 /* ====== Back to Homepage Button ====== */
-#eu-knowledge-page header.page-header .header-right .back-home,
-#eu-motivation-page header.page-header .header-right .back-home,
-#eu-competencies-page header.page-header .header-right .back-home,
-#mockexam-page header.page-header .header-right .back-home {
+header.page-header .header-right .back-home {
   padding: 8px 14px;
   background-color: #f7ca75;
   color: #2c2a28;
@@ -268,17 +288,12 @@ footer {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   transition: background 0.3s ease, transform 0.15s ease;
 }
-
-#eu-knowledge-page header.page-header .header-right .back-home:hover,
-#eu-motivation-page header.page-header .header-right .back-home:hover,
-#eu-competencies-page header.page-header .header-right .back-home:hover,
-#mockexam-page header.page-header .header-right .back-home:hover {
+header.page-header .header-right .back-home:hover {
   background-color: #f1b94f;
   transform: translateY(-2px);
 }
 
-
-/* ====== Buttons & Layouts (applied to all module pages and mock) ====== */
+/* ====== Buttons (Consistent Style) ====== */
 .controls button,
 #mockexam-page button {
   background-color: #ff8c00;
@@ -297,25 +312,10 @@ footer {
   background: #d97706;
 }
 
-/* ====== Mock Exam Page ====== */
-#mockexam-page header.page-header {
-  width: 100%;
-  background: linear-gradient(90deg, #ff8c00 0%, #d97706 100%);
-  padding: 20px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff7ed;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  margin-bottom: 40px;
-}
-#mockexam-page #assessment-form button:hover {
-  background-color: #d97706;
-}
-
 /* ====== Responsive ====== */
 @media (max-width: 520px) {
-  header, #mockexam-page header.page-header {
+  header,
+  #mockexam-page header.page-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
