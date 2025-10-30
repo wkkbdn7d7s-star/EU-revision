@@ -9,7 +9,7 @@ body {
 
 /* ====== Header ====== */
 header {
-  background: linear-gradient(90deg, #ff8c00 0%, #d97706 100%);
+  background: linear-gradient(90deg, #16a34a 0%, #15803d 100%);
   padding: 20px 30px;
   display: flex;
   justify-content: space-between;
@@ -59,7 +59,7 @@ header {
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9em;
-  background-color: #f7ca75;
+  background-color: #86efac;
   color: #2c2a28;
   font-weight: bold;
 }
@@ -84,8 +84,8 @@ section h2 {
   text-align: center;
   font-size: 1.8em;
   margin-bottom: 30px;
-  color: #d97706;
-  border-bottom: 3px solid #ff8c00;
+  color: #15803d;
+  border-bottom: 3px solid #16a34a;
   display: inline-block;
   padding-bottom: 5px;
 }
@@ -107,7 +107,7 @@ section h2 {
   text-align: center;
   padding: 25px 20px;
   transition: transform 0.3s, box-shadow 0.3s;
-  border-top: 5px solid #ff8c00;
+  border-top: 5px solid #16a34a;
 }
 .card:hover {
   transform: translateY(-5px);
@@ -115,7 +115,7 @@ section h2 {
 }
 .card a {
   text-decoration: none;
-  color: #d97706;
+  color: #15803d;
   font-weight: bold;
   display: inline-block;
   margin-top: 15px;
@@ -127,9 +127,9 @@ section h2 {
 
 /* ====== Mock Card ====== */
 .mock-card {
-  background: linear-gradient(135deg, #ff8c00, #d97706);
+  background: linear-gradient(135deg, #16a34a, #15803d);
   color: #ffffff;
-  border-top: 5px solid #f7ca75;
+  border-top: 5px solid #86efac;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 .mock-card h3 {
@@ -164,7 +164,7 @@ section h2 {
   padding: 10px 14px;
   font-size: 1em;
   border-radius: 12px;
-  border: 2px solid #f7ca75;
+  border: 2px solid #86efac;
   background-color: #fdf9f2;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   color: #2c2a28;
@@ -173,7 +173,7 @@ section h2 {
 }
 #section-filter:hover {
   background-color: #fff5e6;
-  border-color: #d97706;
+  border-color: #15803d;
 }
 #performance-chart {
   max-width: 100%;
@@ -183,7 +183,7 @@ section h2 {
 #admin-module {
   margin-top: 50px;
   padding: 20px;
-  border: 2px dashed #ff8c00;
+  border: 2px dashed #16a34a;
   border-radius: 12px;
   display: none;
   max-width: 500px;
@@ -192,7 +192,7 @@ section h2 {
   background-color: #fffdf8;
 }
 #admin-module h2 {
-  color: #d97706;
+  color: #15803d;
   text-align: center;
 }
 #admin-module form {
@@ -203,12 +203,12 @@ section h2 {
 #admin-module input {
   padding: 8px;
   border-radius: 6px;
-  border: 1px solid #ff8c00;
+  border: 1px solid #16a34a;
   font-size: 1em;
 }
 #admin-module button {
   padding: 10px;
-  background-color: #ff8c00;
+  background-color: #16a34a;
   color: #fff7ed;
   border: none;
   border-radius: 6px;
@@ -216,20 +216,20 @@ section h2 {
   cursor: pointer;
 }
 #admin-module button:hover {
-  background-color: #d97706;
+  background-color: #15803d;
 }
 #admin-status {
   text-align: center;
   font-weight: bold;
   margin-top: 10px;
-  color: #d97706;
+  color: #15803d;
 }
 
 /* ====== Footer ====== */
 footer {
   text-align: center;
   padding: 20px;
-  background: linear-gradient(90deg, #ff8c00 0%, #d97706 100%);
+  background: linear-gradient(90deg, #16a34a 0%, #15803d 100%);
   color: #fff7ed;
   font-size: 0.9em;
 }
@@ -251,7 +251,7 @@ footer {
 #eu-motivation-page header.page-header,
 #eu-competencies-page header.page-header {
   width: 100%;
-  background: linear-gradient(90deg, #ff8c00 0%, #d97706 100%);
+  background: linear-gradient(90deg, #16a34a 0%, #15803d 100%);
   padding: 20px 30px;
   display: flex;
   justify-content: space-between;
@@ -375,7 +375,7 @@ footer {
 #eu-motivation-page .controls button:hover,
 #eu-competencies-page .controls button:hover {
   transform: translateY(-3px);
-  background: #d97706;
+  background: #15803d;
 }
 
 #eu-knowledge-page .status,
@@ -411,7 +411,7 @@ footer {
 #eu-motivation-page #self-assessment h2,
 #eu-competencies-page #self-assessment h2 {
   text-align: center;
-  color: #d97706;
+  color: #15803d;
   margin-bottom: 15px;
 }
 #eu-knowledge-page #assessment-form,
@@ -453,7 +453,7 @@ footer {
 }
 #eu-knowledge-page #assessment-form button:hover,
 #eu-motivation-page #assessment-form button:hover,
-#eu-competencies-page #assessment-form button:hover { background-color: #d97706; }
+#eu-competencies-page #assessment-form button:hover { background-color: #15803d; }
 
 #eu-knowledge-page #form-status,
 #eu-motivation-page #form-status,
@@ -517,7 +517,7 @@ footer {
 /* ====== Header (Full Width Like Homepage) ====== */
 #mockexam-page header.page-header {
   width: 100%;
-  background: linear-gradient(90deg, #ff8c00 0%, #d97706 100%);
+  background: linear-gradient(90deg, #16a34a 0%, #15803d 100%);
   padding: 20px 30px;
   display: flex;
   justify-content: space-between;
@@ -613,7 +613,7 @@ footer {
 }
 #mockexam-page button:hover {
   transform: translateY(-3px);
-  background: #d97706;
+  background: #15803d;
 }
 
 /* ====== Status Bar ====== */
@@ -639,7 +639,7 @@ footer {
 }
 #mockexam-page #self-assessment h2 {
   text-align: center;
-  color: #d97706;
+  color: #15803d;
   margin-bottom: 15px;
 }
 #mockexam-page #assessment-form {
@@ -671,7 +671,7 @@ footer {
   font-weight: bold;
   cursor: pointer;
 }
-#mockexam-page #assessment-form button:hover { background-color: #d97706; }
+#mockexam-page #assessment-form button:hover { background-color: #15803d; }
 #mockexam-page #form-status {
   margin-top: 10px;
   text-align: center;
