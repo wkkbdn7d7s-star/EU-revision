@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mock Exam — EUreka! (AST)</title>
+  <title>Mock Exam — EUreka! (JPP)</title>
 
   <!-- ✅ Use global stylesheet -->
   <link rel="stylesheet" href="style.css" />
@@ -37,7 +37,7 @@
   <!-- ✅ Header consistent with EU Knowledge / Competencies / Motivation -->
   <header class="page-header">
     <div class="header-left">
-      <h1>Mock Exam — AST</h1>
+      <h1>Mock Exam — JPP</h1>
       <p>Simulate a full EU interview practice with Knowledge, Competency, and Motivation questions.</p>
     </div>
     <div class="header-right">
@@ -122,7 +122,7 @@
       try {
         const userDoc = doc(db, "users", currentUser.uid);
         await updateDoc(userDoc, {
-          "selfAssessment.AST.Mockexam": arrayUnion(submission)
+          "selfAssessment.JPP.Mockexam": arrayUnion(submission)
         });
         status.textContent = "✅ Score submitted successfully!";
         form.reset();
