@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EUreka! — Welcome</title>
 
+  <!-- PWA Essentials -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#003399">
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="eci-icon.png" />
   <link rel="apple-touch-icon" href="eci-icon.png" />
@@ -328,6 +332,7 @@
     &copy; 2025 <strong>EUreka!</strong> all rights reserved — Empowering EU candidates for success.
   </footer>
 
+  <!-- Firebase Auth logic -->
   <script type="module">
     const { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } = window.welcomeAuth;
     const emailEl = document.getElementById('email');
@@ -377,6 +382,15 @@
         signOutBtn.style.display = 'none';
       }
     });
+  </script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('Service Worker registered for homepage'))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    }
   </script>
 </body>
 </html>
