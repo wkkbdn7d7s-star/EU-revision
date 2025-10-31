@@ -608,8 +608,8 @@ footer {
 }
 
 .toggle-howto {
-  background: #ff8c00;
-  color: #fff;
+  background: #003399;
+  color: #fff7ed;
   font-size: 1rem;
   font-weight: 600;
   border: none;
@@ -621,7 +621,7 @@ footer {
 }
 
 .toggle-howto:hover {
-  background: #e07b00;
+  background: #001f73;
   transform: translateY(-2px);
 }
 
@@ -630,7 +630,7 @@ footer {
   max-height: 0;
   opacity: 0;
   transition: all 0.4s ease;
-  background: #fff8f0;
+  background: #f3f5fb;
   border-radius: 12px;
   margin-top: 20px;
   padding: 0 25px;
@@ -638,7 +638,7 @@ footer {
 }
 
 .howto-content h2 {
-  color: #d97706;
+  color: #003399;
   font-size: 1.6rem;
   margin-top: 25px;
   margin-bottom: 20px;
@@ -652,8 +652,8 @@ footer {
 }
 
 .tip {
-  background: #fff;
-  border-left: 4px solid #ff8c00;
+  background: #ffffff;
+  border-left: 4px solid #003399;
   padding: 15px 18px;
   border-radius: 10px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.05);
