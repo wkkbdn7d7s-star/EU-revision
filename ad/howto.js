@@ -69,26 +69,39 @@ export function loadHowToSection(topic) {
   const data = sections[topic];
   if (!data) return;
 
-  // Create container
+  // Create the container
   const section = document.createElement("section");
   section.className = "how-to";
 
-  const html = `
-    <h2>${data.title}</h2>
-    <div class="tips-grid">
-      ${data.tips
-        .map(
-          (t) => `
+  // Button + content container
+  section.innerHTML = `
+    <button class="toggle-howto">📘 Show ${data.title}</button>
+    <div class="howto-content">
+      <h2>${data.title}</h2>
+      <div class="tips-grid">
+        ${data.tips.map(t => `
           <div class="tip">
             <h3>${t.title}</h3>
             <p>${t.text}</p>
-          </div>
-        `
-        )
-        .join("")}
+          </div>`).join("")}
+      </div>
     </div>
   `;
 
-  section.innerHTML = html;
+  // Append to page
   document.body.appendChild(section);
+
+  // Add toggle behavior
+  const btn = section.querySelector(".toggle-howto");
+  const content = section.querySelector(".howto-content");
+  let visible = false;
+
+  btn.addEventListener("click", () => {
+    visible = !visible;
+    content.style.maxHeight = visible ? content.scrollHeight + "px" : "0";
+    content.style.opacity = visible ? "1" : "0";
+    btn.textContent = visible
+      ? `📘 Hide ${data.title}`
+      : `📘 Show ${data.title}`;
+  });
 }
