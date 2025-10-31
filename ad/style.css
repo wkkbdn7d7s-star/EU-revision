@@ -602,25 +602,53 @@ footer {
   #mockexam-page #assessment-form input { width: 100%; }
 }
 .how-to {
-  margin: 60px auto;
   max-width: 900px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.toggle-howto {
+  background: #ff8c00;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.toggle-howto:hover {
+  background: #e07b00;
+  transform: translateY(-2px);
+}
+
+.howto-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.4s ease;
   background: #fff8f0;
-  padding: 30px;
   border-radius: 12px;
+  margin-top: 20px;
+  padding: 0 25px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.how-to h2 {
+.howto-content h2 {
   color: #d97706;
-  font-size: 1.8rem;
-  margin-bottom: 25px;
-  text-align: center;
+  font-size: 1.6rem;
+  margin-top: 25px;
+  margin-bottom: 20px;
 }
 
 .tips-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  padding-bottom: 30px;
 }
 
 .tip {
@@ -629,6 +657,7 @@ footer {
   padding: 15px 18px;
   border-radius: 10px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  text-align: left;
 }
 
 .tip h3 {
