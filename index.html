@@ -30,7 +30,6 @@
       color: var(--text-dark);
     }
 
-    /* ---- HEADER ---- */
     header {
       display: flex;
       justify-content: space-between;
@@ -103,7 +102,6 @@
       color: #4a453f;
     }
 
-    /* ---- Horizontal layout for buttons + auth ---- */
     .hero-actions {
       display: flex;
       justify-content: center;
@@ -133,9 +131,7 @@
       transition: transform 0.2s, background 0.2s;
     }
 
-    .track-buttons a:hover {
-      transform: translateY(-3px);
-    }
+    .track-buttons a:hover { transform: translateY(-3px); }
 
     .ad-btn { background: var(--blue-main); }
     .ast-btn { background: #ff8c00; }
@@ -158,15 +154,10 @@
       border-radius: 6px;
       border: 1px solid #ccc;
       width: 100%;
-      box-sizing: border-box;
-      font-family: inherit;
       font-size: 0.95rem;
     }
 
-    .auth-row {
-      display: flex;
-      gap: 8px;
-    }
+    .auth-row { display: flex; gap: 8px; }
 
     .auth-btn {
       flex: 1;
@@ -177,23 +168,12 @@
       cursor: pointer;
       background: var(--blue-main);
       color: #fff;
-      font-family: inherit;
       transition: background 0.2s, transform 0.2s;
     }
 
-    .auth-btn:hover {
-      transform: translateY(-2px);
-      background: var(--blue-dark);
-    }
-
-    .auth-btn.secondary {
-      background: var(--gold);
-      color: var(--text-dark);
-    }
-
-    .auth-btn.signout {
-      background: #d9534f;
-    }
+    .auth-btn:hover { transform: translateY(-2px); background: var(--blue-dark); }
+    .auth-btn.secondary { background: var(--gold); color: var(--text-dark); }
+    .auth-btn.signout { background: #d9534f; }
 
     .resource-list {
       display: grid;
@@ -210,15 +190,32 @@
       border-left: 4px solid var(--blue-main);
     }
 
-    .resource-card h4 {
-      margin: 0 0 6px 0;
-      color: var(--blue-main);
-      font-weight: 600;
-    }
+    .resource-card h4 { margin: 0 0 6px 0; color: var(--blue-main); font-weight: 600; }
+    .small-muted { font-size: 0.95rem; color: #6b665f; }
 
-    .small-muted {
-      font-size: 0.95rem;
-      color: #6b665f;
+    /* Install section */
+    .install-app {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin-top: 60px;
+      text-align: center;
+    }
+    .install-app h3 {
+      color: var(--blue-main);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+    .install-app p {
+      color: #4a453f;
+      margin: 10px auto;
+      max-width: 700px;
+      line-height: 1.6;
+    }
+    .install-step {
+      font-weight: 600;
+      color: var(--blue-dark);
     }
 
     footer {
@@ -230,18 +227,12 @@
     }
 
     @media (max-width: 800px) {
-      .hero-actions {
-        flex-direction: column;
-        align-items: center;
-      }
-      .track-buttons, .auth-box {
-        width: 100%;
-        max-width: 320px;
-      }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .track-buttons, .auth-box { width: 100%; max-width: 320px; }
     }
   </style>
 
-  <!-- Firebase -->
+  <!-- Firebase init -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
@@ -308,23 +299,20 @@
     <section>
       <h3 style="color:var(--blue-main);">What EUreka! Provides</h3>
       <div class="resource-list">
-        <div class="resource-card">
-          <h4>Practice Modules</h4>
-          <div class="small-muted">Knowledge, Competencies, Motivation — short timed prompts for practice.</div>
-        </div>
-        <div class="resource-card">
-          <h4>Mock Exam</h4>
-          <div class="small-muted">Simulated multi-stage exam with timers and self-assessment submission.</div>
-        </div>
-        <div class="resource-card">
-          <h4>Progress Tracking</h4>
-          <div class="small-muted">Logged-in users can submit self-assessments, tracked per competition track.</div>
-        </div>
-        <div class="resource-card">
-          <h4>How to Use</h4>
-          <div class="small-muted">Sign in, pick a competition track, practice regularly, and use the Mock Exam to simulate real timing.</div>
-        </div>
+        <div class="resource-card"><h4>Practice Modules</h4><div class="small-muted">Knowledge, Competencies, Motivation — short timed prompts for practice.</div></div>
+        <div class="resource-card"><h4>Mock Exam</h4><div class="small-muted">Simulated multi-stage exam with timers and self-assessment submission.</div></div>
+        <div class="resource-card"><h4>Progress Tracking</h4><div class="small-muted">Logged-in users can submit self-assessments, tracked per competition track.</div></div>
+        <div class="resource-card"><h4>How to Use</h4><div class="small-muted">Sign in, pick a competition track, practice regularly, and use the Mock Exam to simulate real timing.</div></div>
       </div>
+    </section>
+
+    <!-- 💡 INSTALL APP SECTION -->
+    <section class="install-app">
+      <h3>📲 Install EUreka! on Your Device</h3>
+      <p><span class="install-step">💻 On your computer:</span> open EUreka! in Chrome or Edge. You’ll see an “Install” icon (a small monitor with a down arrow) in the address bar. Click it to install the app — it will open in its own window.</p>
+      <p><span class="install-step">📱 On your iPhone or iPad (Safari):</span> tap the <strong>Share</strong> icon at the bottom of the screen, then choose <strong>“Add to Home Screen.”</strong> The EUreka! app will appear on your home screen like a regular app.</p>
+      <p><span class="install-step">🤖 On Android (Chrome):</span> tap the <strong>⋮ menu</strong> (top-right), then select <strong>“Install App”</strong> or <strong>“Add to Home screen.”</strong></p>
+      <p>Once installed, EUreka! works offline and behaves like a standalone application.</p>
     </section>
   </main>
 
@@ -348,22 +336,16 @@
       authMessage.textContent = '';
       const email = emailEl.value.trim(), password = pwEl.value;
       if (!email || !password) { authMessage.textContent = 'Enter email and password.'; return; }
-      try { 
-        await signInWithEmailAndPassword(auth, email, password); 
-        authMessage.textContent = 'Signed in.'; 
-        emailEl.value = ''; pwEl.value = ''; 
-      } catch (err) { authMessage.textContent = 'Sign in: ' + err.message; }
+      try { await signInWithEmailAndPassword(auth, email, password); authMessage.textContent = 'Signed in.'; emailEl.value = ''; pwEl.value = ''; }
+      catch (err) { authMessage.textContent = 'Sign in: ' + err.message; }
     });
 
     registerBtn.addEventListener('click', async () => {
       authMessage.textContent = '';
       const email = emailEl.value.trim(), password = pwEl.value;
       if (!email || !password) { authMessage.textContent = 'Enter email and password.'; return; }
-      try { 
-        await createUserWithEmailAndPassword(auth, email, password); 
-        authMessage.textContent = 'Account created and signed in.'; 
-        emailEl.value = ''; pwEl.value = ''; 
-      } catch (err) { authMessage.textContent = 'Register: ' + err.message; }
+      try { await createUserWithEmailAndPassword(auth, email, password); authMessage.textContent = 'Account created and signed in.'; emailEl.value = ''; pwEl.value = ''; }
+      catch (err) { authMessage.textContent = 'Register: ' + err.message; }
     });
 
     signOutBtn.addEventListener('click', async () => {
