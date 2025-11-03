@@ -76,6 +76,8 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
       <h3>EU Motivation</h3>
       <p>Reflect on your motivation and suitability for a career in the EU institutions.</p>
       <a href="EUmotivation.html">Start Exercise →</a>
+      <!-- Added Question Bank button -->
+      <a href="question-bank-motivation.html" class="auth-btn secondary" style="margin-top:10px; display:inline-block;">Question Bank →</a>
     </div>
     <div class="card mock-card">
       <h3>Mock Exam</h3>
@@ -132,6 +134,7 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </footer>
 
 <script type="module">
+// Performance chart & admin code unchanged
 const perfSection = document.getElementById("performance-section");
 const sectionFilter = document.getElementById("section-filter");
 const ctx = document.getElementById("performance-chart").getContext("2d");
@@ -195,7 +198,6 @@ async function updateChart(user) {
   }
 }
 
-// Show performance section only for logged-in users, hide admin section for non-admin
 firebaseFns.onAuthStateChanged(auth, async user => {
   if(user) {
     perfSection.style.display = "block";
