@@ -2,50 +2,170 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>EU Motivation Question Bank</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css"> <!-- or inline style -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EU Motivation — Question Bank</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="eci-icon.png" />
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f8faff;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #1a73e8;
+      color: #fff;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    header a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      background: rgba(255,255,255,0.15);
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    header a:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      color: #1a73e8;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .question {
+      background: #fff;
+      padding: 14px 16px;
+      border-left: 4px solid #1a73e8;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+
+    .question-text {
+      flex: 1;
+      margin-left: 10px;
+      line-height: 1.5;
+    }
+
+    .copy-btn {
+      background: #1a73e8;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: #1559b0;
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+    }
+  </style>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
+      authDomain: "eureka-63b47.firebaseapp.com",
+      projectId: "eureka-63b47",
+      storageBucket: "eureka-63b47.firebasestorage.app",
+      messagingSenderId: "655168214317",
+      appId: "1:655168214317:web:3d3ffc07706ba39efa6fa4",
+      measurementId: "G-KFTB45DCFZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const container = document.getElementById("question-list");
+      const status = document.getElementById("status");
+      status.textContent = "Loading EU Motivation questions...";
+
+      try {
+        const masterDocRef = doc(db, "questions", "masterQuestions");
+        const snapshot = await getDocs(collection(masterDocRef, "EUmotivation"));
+        const questions = snapshot.docs.map(doc => doc.data().text).filter(Boolean);
+
+        if (!questions.length) {
+          status.textContent = "No questions found in Firestore.";
+          return;
+        }
+
+        status.textContent = "";
+        questions.forEach((q, i) => {
+          const div = document.createElement("div");
+          div.className = "question";
+
+          div.innerHTML = `
+            <input type="checkbox" id="q${i}">
+            <label for="q${i}" class="question-text">${q}</label>
+            <button class="copy-btn" data-text="${q.replace(/"/g, '&quot;')}">Copy</button>
+          `;
+          container.appendChild(div);
+        });
+
+        // Copy to clipboard functionality
+        document.querySelectorAll(".copy-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            navigator.clipboard.writeText(btn.dataset.text);
+            btn.textContent = "Copied!";
+            setTimeout(() => (btn.textContent = "Copy"), 1000);
+          });
+        });
+      } catch (err) {
+        console.error(err);
+        status.textContent = "Failed to load questions: " + err.message;
+      }
+    });
+  </script>
 </head>
+
 <body>
   <header>
-    <h1>EU Motivation Question Bank</h1>
-    <a href="index.html">← Back to AST</a>
+    <h1>EU Motivation — Question Bank</h1>
+    <a href="AST.html">← Back to AST Page</a>
   </header>
 
   <main>
-    <ul id="question-list" style="list-style:none; padding:0;"></ul>
+    <h2>All EU Motivation Questions</h2>
+    <div id="question-list"></div>
+    <p id="status"></p>
   </main>
-
-  <script type="module">
-    import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-    const db = window.firebaseFns.db; // assuming Firestore is already initialized
-
-    const listEl = document.getElementById("question-list");
-
-    async function loadQuestions() {
-      const snapshot = await getDocs(collection(doc(db, "questions", "masterQuestions"), "EUmotivation"));
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const li = document.createElement("li");
-        li.style.marginBottom = "12px";
-
-        li.innerHTML = `
-          <input type="checkbox" style="margin-right:6px" />
-          <span>${data.text}</span>
-          <button style="margin-left:10px;">Copy</button>
-        `;
-
-        // Copy button logic
-        li.querySelector("button").addEventListener("click", () => {
-          navigator.clipboard.writeText(data.text).then(() => alert("Copied!"));
-        });
-
-        listEl.appendChild(li);
-      });
-    }
-
-    loadQuestions();
-  </script>
 </body>
 </html>
