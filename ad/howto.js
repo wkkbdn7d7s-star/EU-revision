@@ -63,6 +63,35 @@ export function loadHowToSection(topic) {
           text: "Write your motivation down, refine it, and rehearse aloud. Keep a few sentences ready for interviews or presentations."
         }
       ]
+    },
+    mockExam: {
+      title: "How to Perform Well in the Mock Exam",
+      tips: [
+        {
+          title: "⏱️ Manage Your Time",
+          text: "Stick closely to the time limits for each section. Practice pacing yourself so that you finish without rushing."
+        },
+        {
+          title: "🗣️ Speak Clearly and Calmly",
+          text: "Don’t talk too fast. Enunciate your words clearly and maintain a steady rhythm. Clarity is more important than speed."
+        },
+        {
+          title: "🎯 Stay Focused on the Question",
+          text: "Directly answer what is being asked. Avoid drifting into unrelated topics, even if you know them well."
+        },
+        {
+          title: "🧭 Structure and Transitions",
+          text: "Use a simple structure (Introduction – Main Points – Conclusion). Signal transitions verbally: 'Firstly…', 'Moving on…', 'In conclusion…'."
+        },
+        {
+          title: "💬 Simulate Real Conditions",
+          text: "Record yourself answering questions aloud in one take. Review tone, timing, and body language to mirror the real interview setting."
+        },
+        {
+          title: "💡 Preparation Strategy",
+          text: "Familiarize yourself with the different question types in the mock exam and practice under timed conditions regularly."
+        }
+      ]
     }
   };
 
@@ -88,7 +117,7 @@ export function loadHowToSection(topic) {
     </div>
   `;
 
-  // Append to page
+  // Append to page (bottom)
   document.body.appendChild(section);
 
   // Add toggle behavior
