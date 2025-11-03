@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EU Motivation Question Bank</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css"> <!-- or inline style -->
+</head>
+<body>
+  <header>
+    <h1>EU Motivation Question Bank</h1>
+    <a href="index.html">← Back to AST</a>
+  </header>
+
+  <main>
+    <ul id="question-list" style="list-style:none; padding:0;"></ul>
+  </main>
+
+  <script type="module">
+    import { getFirestore, collection, doc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+    const db = window.firebaseFns.db; // assuming Firestore is already initialized
+
+    const listEl = document.getElementById("question-list");
+
+    async function loadQuestions() {
+      const snapshot = await getDocs(collection(doc(db, "questions", "masterQuestions"), "EUmotivation"));
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement("li");
+        li.style.marginBottom = "12px";
+
+        li.innerHTML = `
+          <input type="checkbox" style="margin-right:6px" />
+          <span>${data.text}</span>
+          <button style="margin-left:10px;">Copy</button>
+        `;
+
+        // Copy button logic
+        li.querySelector("button").addEventListener("click", () => {
+          navigator.clipboard.writeText(data.text).then(() => alert("Copied!"));
+        });
+
+        listEl.appendChild(li);
+      });
+    }
+
+    loadQuestions();
+  </script>
+</body>
+</html>
