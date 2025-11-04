@@ -149,32 +149,35 @@ section h2 {
   transform: translateY(-6px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
 }
+/* --- Question Bank Button --- */
 .knowledge-card {
-  position: relative; /* for the button to position inside */
+  position: relative;
+  padding-bottom: 50px; /* Make space for the new button */
 }
 
 .question-bank-btn {
   position: absolute;
   bottom: 12px;
   left: 12px;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   background-color: #003399; /* AD blue */
   color: #fff;
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-decoration: none;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
   transition: background 0.25s ease, transform 0.2s ease;
 }
 
 .question-bank-btn:hover {
-  background-color: #001f73; /* darker hover */
+  background-color: #001f73;
   transform: translateY(-2px);
 }
+
 
 /* ====== Performance Section ====== */
 #performance-section {
