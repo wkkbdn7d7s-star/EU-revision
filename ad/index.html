@@ -42,6 +42,7 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </script>
 
 <style>
+/* ONLY header styles from homepage */
 :root {
   --blue-dark: #1b1f3b;
   --blue-main: #003399;
@@ -51,18 +52,6 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   --text-light: #f0f0f0;
 }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: #f8f5ef;
-  margin: 0;
-  padding: 0;
-  color: var(--text-dark);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ---- HEADER ---- */
 header {
   display: flex;
   justify-content: space-between;
@@ -113,66 +102,6 @@ header {
   transform: translateY(-2px);
 }
 
-/* ---- MAIN CONTENT ---- */
-main {
-  flex: 1;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 50px 20px;
-}
-
-/* ---- CARDS ---- */
-.card-grid {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-
-.card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  text-align: left;
-}
-
-.card h3 {
-  margin-top: 0;
-  color: var(--blue-main);
-}
-
-.card p {
-  margin-bottom: 10px;
-}
-
-.card a {
-  color: var(--blue-main);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.card a:hover {
-  text-decoration: underline;
-}
-
-/* ---- FOOTER ---- */
-footer {
-  text-align: center;
-  padding: 16px 20px;
-  color: #4a453f;
-  font-size: 0.9rem;
-  margin-top: auto;
-}
-
-footer a {
-  color: var(--blue-main);
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
 @media (max-width:600px) {
   header {
     flex-direction: column;
@@ -188,6 +117,7 @@ footer a:hover {
 </head>
 
 <body>
+<!-- ===== Harmonized Header ===== -->
 <header>
   <div class="header-left">
     <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
@@ -201,6 +131,7 @@ footer a:hover {
   </div>
 </header>
 
+<!-- ===== Main AD-level page content (unchanged) ===== -->
 <main>
 <section>
   <h2>Oral Exam Practice</h2>
@@ -220,7 +151,7 @@ footer a:hover {
       <p>Reflect on your motivation and suitability for a career in the EU institutions.</p>
       <a href="EUmotivation.html">Start Exercise →</a>
     </div>
-    <div class="card">
+    <div class="card mock-card">
       <h3>Mock Exam</h3>
       <p>Simulate a complete EU interview with timed questions and self-assessment.</p>
       <a href="Mockexam.html">Start Mock Exam →</a>
@@ -247,10 +178,7 @@ footer a:hover {
 </footer>
 
 <script type="module">
-// Firebase logic (unchanged)
-const { auth, db, firebaseFns } = window;
-
-// Admin question form
+// Firebase admin form logic (unchanged)
 const adminForm = document.getElementById("question-form");
 const adminStatus = document.getElementById("admin-status");
 adminForm.addEventListener("submit", async e=>{
