@@ -9,276 +9,16 @@
   <link rel="icon" type="image/png" href="eci-icon.png" />
   <link rel="apple-touch-icon" href="eci-icon.png" />
 
-  <style>
-    :root {
-      --blue-dark: #1b1f3b;
-      --blue-main: #003399;
-      --blue-light: #e9f0ff;
-      --gold: #d4af7f;
-      --text-dark: #2c2a28;
-      --text-light: #f0f0f0;
-    }
+  <!-- Your existing CSS here (omitted for brevity) -->
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f8f5ef;
-      margin: 0;
-      padding: 0;
-      color: var(--text-dark);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ---- HEADER ---- */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 32px;
-      background: linear-gradient(90deg, var(--blue-main) 0%, var(--blue-dark) 100%);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .header-left .logo {
-      height: 70px;
-    }
-
-    .header-left .text h1 {
-      margin: 0;
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: var(--gold);
-    }
-
-    .header-left .text p {
-      margin: 3px 0 0 0;
-      font-size: 1rem;
-      color: var(--text-light);
-    }
-
-    .header-right a {
-      display: inline-block;
-      padding: 10px 18px;
-      background-color: var(--gold);
-      color: var(--text-dark);
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: background 0.3s ease, transform 0.15s ease;
-    }
-
-    .header-right a:hover {
-      background-color: #c69c5f;
-      transform: translateY(-2px);
-    }
-
-    main {
-      flex: 1;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 50px 20px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .contact-section {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .contact-section h2 {
-      font-size: 2rem;
-      color: var(--blue-main);
-      margin-bottom: 10px;
-    }
-
-    .contact-section p {
-      max-width: 600px;
-      margin: 0 auto 30px;
-      line-height: 1.6;
-      color: #4a453f;
-    }
-
-    /* ---- CONTACT FORM ---- */
-    .contact-form-wrapper {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
-
-    .form-group label {
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: var(--text-dark);
-    }
-
-    .form-group input,
-    .form-group textarea {
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-family: inherit;
-      font-size: 1rem;
-      transition: border-color 0.2s;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--blue-main);
-    }
-
-    .form-group textarea {
-      min-height: 150px;
-      resize: vertical;
-    }
-
-    .submit-btn {
-      padding: 14px 28px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      background: var(--blue-main);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
-      transition: transform 0.2s, background 0.2s;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-3px);
-      background: var(--blue-dark);
-    }
-
-    /* Honeypot field - hidden from users */
-    .bot-field {
-      position: absolute;
-      left: -9999px;
-    }
-
-    /* ---- INFO CARDS ---- */
-    .info-section {
-      margin-top: 50px;
-    }
-
-    .info-section h3 {
-      color: var(--blue-main);
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .info-cards {
-      display: grid;
-      gap: 16px;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-
-    .info-card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-      border-left: 4px solid var(--blue-main);
-      text-align: left;
-    }
-
-    .info-card h4 {
-      margin: 0 0 8px 0;
-      color: var(--blue-main);
-      font-weight: 600;
-    }
-
-    .info-card p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: #6b665f;
-      line-height: 1.5;
-    }
-
-    footer {
-      text-align: center;
-      padding: 16px 20px;
-      color: #4a453f;
-      font-size: 0.9rem;
-      margin-top: auto;
-    }
-
-    footer a {
-      color: var(--blue-main);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* ---- SUCCESS MESSAGE ---- */
-    .success-message {
-      background: #d4edda;
-      color: #155724;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      margin-bottom: 20px;
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-      }
-
-      .header-left {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .contact-form-wrapper {
-        padding: 20px;
-      }
-    }
-  </style>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
   <header>
-    <div class="header-left">
-      <img class="logo" src="eci-icon.png" alt="EUreka logo">
-      <div class="text">
-        <h1>EUreka!</h1>
-        <p>Empowering EU candidates for success</p>
-      </div>
-    </div>
-    <div class="header-right">
-      <a href="index.html">Back to Homepage</a>
-    </div>
+    <!-- Your header here -->
   </header>
 
   <main>
@@ -291,17 +31,10 @@
 
       <div class="contact-form-wrapper">
         <div class="success-message" id="success-message">
-          Thank you for your message! We'll get back to you soon.
+          Thank you for your feedback! We'll get back to you soon.
         </div>
 
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form">
-          <input type="hidden" name="form-name" value="contact" />
-
-          <!-- Honeypot field for spam protection -->
-          <p class="bot-field">
-            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-          </p>
-
+        <form id="contact-form" class="contact-form">
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required placeholder="Your name" />
@@ -326,46 +59,54 @@
         </form>
       </div>
     </section>
-
-    <section class="info-section">
-      <h3>Other Ways to Connect</h3>
-      <div class="info-cards">
-        <div class="info-card">
-          <h4>About This Project</h4>
-          <p>EUreka! was developed by an AD5 competition laureate to help future candidates prepare for European Commission internal competitions.</p>
-        </div>
-        <div class="info-card">
-          <h4>Feedback Welcome</h4>
-          <p>Found a bug? Have a suggestion for new features or questions? We're always looking to improve the platform based on user feedback.</p>
-        </div>
-        <div class="info-card">
-          <h4>Response Time</h4>
-          <p>We aim to respond to all inquiries within a few business days. Thank you for your patience.</p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
-    <p>
-      &copy; 2026 EUreka! |
-      <a href="contact.html">Contact</a> |
-      <a href="disclaimer.html">Disclaimer</a>
-    </p>
+    <!-- Your footer here -->
   </footer>
 
   <script>
-    // Show success message if form was submitted
-    if (window.location.search.includes('success=true')) {
-      document.getElementById('success-message').style.display = 'block';
-    }
+    // ---- Initialize Firebase ----
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-    // Handle form submission (redirect with success parameter)
-    document.querySelector('.contact-form').addEventListener('submit', function(e) {
-      // Let Netlify handle the form, then redirect
-      setTimeout(() => {
-        window.location.href = 'contact.html?success=true';
-      }, 100);
+    // ---- Handle feedback submission ----
+    const form = document.getElementById('contact-form');
+    const successMessage = document.getElementById('success-message');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const subject = form.subject.value.trim();
+      const message = form.message.value.trim();
+
+      if (!name || !email || !subject || !message) return;
+
+      try {
+        await db.collection('feedback').add({
+          name,
+          email,
+          subject,
+          message,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        successMessage.style.display = 'block';
+        form.reset();
+      } catch (err) {
+        alert('Error sending feedback: ' + err.message);
+        console.error(err);
+      }
     });
   </script>
 </body>
