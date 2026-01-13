@@ -12,6 +12,9 @@
 <link rel="apple-touch-icon" href="eci-icon.png" />
 <meta name="mobile-web-app-capable" content="yes" />
 
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
@@ -29,7 +32,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -37,25 +40,46 @@ window.auth = auth;
 window.db = db;
 window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ================================ HEADER — FULLY SCOPED & SAFE ================================ */
+.eureka-header {
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.eureka-header .header-left { display: flex; align-items: center; gap: 16px; }
+.eureka-header .logo { height: 70px; }
+.eureka-header h1 { margin: 0; font-size: 1.9rem; font-weight: 700; color: #d4af7f; }
+.eureka-header p { margin: 3px 0 0; font-size: 1rem; color: #f0f0f0; }
+.eureka-header .header-right a {
+  padding: 10px 18px; background-color: #d4af7f; color: #2c2a28;
+  text-decoration: none; font-weight: 600; border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+@media (max-width: 600px) {
+  .eureka-header { flex-direction: column; gap: 16px; text-align: center; }
+  .eureka-header .header-left { flex-direction: column; gap: 10px; }
+}
+</style>
 </head>
 
 <body>
-<header>
+<header class="eureka-header">
   <div class="header-left">
     <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
-    <div class="text">
+    <div>
       <h1>EUreka!</h1>
       <p>Prepare for your European Commission AST level oral exam.</p>
     </div>
   </div>
-
   <div class="header-right">
-    <a href="../index.html">
-      <button style="padding:8px 14px; font-weight:bold; border:none; border-radius:6px; background:#1a73e8; color:#fff; cursor:pointer; box-shadow:0 3px 8px rgba(0,0,0,0.15);">
-        Back to Welcome Page
-      </button>
-    </a>
+    <a href="../index.html">Back to Welcome Page</a>
   </div>
 </header>
 
@@ -63,26 +87,10 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 <section>
   <h2>Oral Exam Practice</h2>
   <div class="card-grid">
-    <div class="card">
-      <h3>EU Knowledge</h3>
-      <p>Practice questions on EU policies, priorities, and institutions.</p>
-      <a href="EUknowledge.html">Start Exercise →</a>
-    </div>
-    <div class="card">
-      <h3>EU Competencies</h3>
-      <p>Practice behavioral and competency-based questions for EU roles.</p>
-      <a href="CBQ.html">Start Exercise →</a>
-    </div>
-		<div class="card">
-  		<h3>EU Motivation</h3>
-  		<p>Reflect on your motivation and suitability for a career in the EU institutions.</p>
-  		<a href="EUmotivation.html">Start Exercise →</a>
-    </div>
-    <div class="card mock-card">
-      <h3>Mock Exam</h3>
-      <p>Simulate a complete EU interview with timed questions and self-assessment.</p>
-      <a href="Mockexam.html">Start Mock Exam →</a>
-    </div>
+    <div class="card"><h3>EU Knowledge</h3><p>Practice questions on EU policies, priorities, and institutions.</p><a href="EUknowledge.html">Start Exercise →</a></div>
+    <div class="card"><h3>EU Competencies</h3><p>Practice behavioral and competency-based questions for EU roles.</p><a href="CBQ.html">Start Exercise →</a></div>
+    <div class="card"><h3>EU Motivation</h3><p>Reflect on your motivation and suitability for a career in the EU institutions.</p><a href="EUmotivation.html">Start Exercise →</a></div>
+    <div class="card mock-card"><h3>Mock Exam</h3><p>Simulate a complete EU interview with timed questions and self-assessment.</p><a href="Mockexam.html">Start Mock Exam →</a></div>
   </div>
 </section>
 
@@ -101,23 +109,13 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 <section>
   <h2>Exam Preparation Materials</h2>
   <div class="card-grid">
-    <div class="card">
-      <h3>Preparation Modules</h3>
-      <p>Access key EU resources, fact sheets, and legal bases for study.</p>
-      <a href="Preparation.html">Open Modules →</a>
-    </div>
-    <div class="card">
-      <h3>Useful Links</h3>
-      <p>Find trusted news outlets, statistics, and EU-focused training tools.</p>
-      <a href="UsefulLinks.html">Explore Links →</a>
-    </div>
+    <div class="card"><h3>Preparation Modules</h3><p>Access key EU resources, fact sheets, and legal bases for study.</p><a href="Preparation.html">Open Modules →</a></div>
+    <div class="card"><h3>Useful Links</h3><p>Find trusted news outlets, statistics, and EU-focused training tools.</p><a href="UsefulLinks.html">Explore Links →</a></div>
   </div>
 </section>
 
 <section id="admin-module" style="display:none;">
   <h2>Question Entry (Admin)</h2>
-  <p>Enter new questions for EU Knowledge, EU Competencies, or EU Motivation (AST level).</p>
-
   <form id="question-form">
     <label>EU Knowledge: <input type="text" id="knowledge-input"></label>
     <label>EU Competencies: <input type="text" id="competency-input"></label>
@@ -133,12 +131,11 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </footer>
 
 <script type="module">
-// Performance chart & admin code unchanged
+// ===== PERFORMANCE CHART & ADMIN =====
 const perfSection = document.getElementById("performance-section");
 const sectionFilter = document.getElementById("section-filter");
 const ctx = document.getElementById("performance-chart").getContext("2d");
 let performanceChart;
-
 const { auth, db, firebaseFns } = window;
 
 async function updateChart(user) {
@@ -146,7 +143,6 @@ async function updateChart(user) {
   if(!docSnap.exists()) return;
   const data = docSnap.data();
   const section = sectionFilter.value;
-
   const astData = data.selfAssessment.AST || {};
 
   if(section === "average") {
@@ -197,6 +193,7 @@ async function updateChart(user) {
   }
 }
 
+// ===== AUTH STATE & EVENT LISTENERS =====
 firebaseFns.onAuthStateChanged(auth, async user => {
   if(user) {
     perfSection.style.display = "block";
@@ -213,7 +210,7 @@ sectionFilter.addEventListener("change", async () => {
   if(user) await updateChart(user);
 });
 
-// Admin question form
+// ===== ADMIN FORM =====
 const adminForm = document.getElementById("question-form");
 const adminStatus = document.getElementById("admin-status");
 adminForm.addEventListener("submit", async e=>{
