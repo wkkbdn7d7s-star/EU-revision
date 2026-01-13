@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>EUreka! — JPP</title>
-
+<title>EUreka! — AD Level</title>
 <link rel="stylesheet" href="style.css" />
 <link rel="manifest" href="manifest.json" />
 <link rel="icon" type="image/png" href="eci-icon.png" />
 <link rel="apple-touch-icon" href="eci-icon.png" />
 <meta name="mobile-web-app-capable" content="yes" />
 
-<!-- Font -->
+<!-- Font (header-only usage) -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <!-- Chart.js -->
@@ -36,7 +35,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 getAnalytics(app);
-
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -46,7 +44,7 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </script>
 
 <style>
-/* ================================ HEADER ================================ */
+/* ================================ HEADER — FULLY SCOPED & SAFE ================================ */
 .eureka-header {
   font-family: 'Inter', sans-serif;
   display: flex;
@@ -74,12 +72,13 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </head>
 
 <body>
+<!-- ===== HEADER ===== -->
 <header class="eureka-header">
   <div class="header-left">
     <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
     <div>
       <h1>EUreka!</h1>
-      <p>Prepare for your European Commission JPP oral exam.</p>
+      <p>Empowering EU candidates for success</p>
     </div>
   </div>
   <div class="header-right">
@@ -88,6 +87,7 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </header>
 
 <main>
+<!-- ===== ORAL PRACTICE ===== -->
 <section>
   <h2>Oral Exam Practice</h2>
   <div class="card-grid">
@@ -98,8 +98,9 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   </div>
 </section>
 
+<!-- ===== PERFORMANCE ===== -->
 <section id="performance-section" style="display:none;">
-  <h2>Your JPP Performance</h2>
+  <h2>Your AD Level Performance</h2>
   <select id="section-filter">
     <option value="EUKnowledge">EU Knowledge</option>
     <option value="EUCompetencies">EU Competencies</option>
@@ -110,6 +111,7 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   <canvas id="performance-chart"></canvas>
 </section>
 
+<!-- ===== PREPARATION MATERIALS ===== -->
 <section>
   <h2>Exam Preparation Materials</h2>
   <div class="card-grid">
@@ -118,6 +120,7 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   </div>
 </section>
 
+<!-- ===== ADMIN ===== -->
 <section id="admin-module" style="display:none;">
   <h2>Question Entry (Admin)</h2>
   <form id="question-form">
@@ -148,24 +151,21 @@ async function updateChart(user){
     if(!docSnap.exists()) return;
     const data = docSnap.data();
     const section = sectionFilter.value;
-    const jppData = data.selfAssessment.JPP || {};
+    const adData = data.selfAssessment.AD || {};
 
-    if(section==="average"){
+    if(section === "average"){
       const allSections = ["EUKnowledge","EUCompetencies","EUMotivation","Mockexam"];
-      const merged = allSections.flatMap(sec => jppData[sec] || []);
+      const merged = allSections.flatMap(sec => adData[sec] || []);
       if(!merged.length) return;
-
       const total = merged.length;
       const avgClarity = merged.reduce((sum,s)=>sum+(s.clarity||0),0)/total;
       const avgStructure = merged.reduce((sum,s)=>sum+(s.structure||0),0)/total;
       const avgConfidence = merged.reduce((sum,s)=>sum+(s.confidence||0),0)/total;
-
       const averages = [
         { metric:"Clarity", value:avgClarity },
         { metric:"Structure", value:avgStructure },
         { metric:"Confidence", value:avgConfidence }
       ];
-
       if(performanceChart) performanceChart.destroy();
       performanceChart = new Chart(ctx,{
         type:'bar',
@@ -173,16 +173,14 @@ async function updateChart(user){
         options:{ responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ min:0, max:5, ticks:{ stepSize:1 }, title:{ display:true, text:'Score (1-5)' } } } }
       });
     } else {
-      const submissions = (jppData[section] || []).map(s=>{
+      const submissions = (adData[section] || []).map(s=>{
         let ts = s.timestamp || s.submittedAt || Date.now();
         return { timestamp:new Date(ts), clarity:s.clarity||0, structure:s.structure||0, confidence:s.confidence||0 };
       }).sort((a,b)=>a.timestamp - b.timestamp);
-
       const labels = submissions.map(s=>s.timestamp.toLocaleString('en-GB',{ hour12:false, day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', second:'2-digit' }));
       const clarity = submissions.map(s=>s.clarity);
       const structure = submissions.map(s=>s.structure);
       const confidence = submissions.map(s=>s.confidence);
-
       if(performanceChart) performanceChart.destroy();
       performanceChart = new Chart(ctx,{
         type:'line',
@@ -225,9 +223,9 @@ adminForm.addEventListener("submit", async e=>{
 
   try{
     const masterDocRef = firebaseFns.doc(db,"questions","masterQuestions");
-    if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUknowledge"),{ text:knowledge, level:"JPP" });
-    if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUcompetencies"),{ text:competency, level:"JPP" });
-    if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUmotivation"),{ text:motivation, level:"JPP" });
+    if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUknowledge"),{ text:knowledge, level:"AD" });
+    if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUcompetencies"),{ text:competency, level:"AD" });
+    if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUmotivation"),{ text:motivation, level:"AD" });
     adminStatus.textContent="Questions added successfully!";
     adminForm.reset();
   } catch(err){
