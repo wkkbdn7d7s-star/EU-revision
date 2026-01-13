@@ -250,13 +250,28 @@ sectionFilter.addEventListener("change", () => {
   if (auth.currentUser) updateChart(auth.currentUser);
 });
 
-// Admin
-document.getElementById("question-form").addEventListener("submit", async e => {
+// Admin question form
+const adminForm = document.getElementById("question-form");
+const adminStatus = document.getElementById("admin-status");
+adminForm.addEventListener("submit", async e=>{
   e.preventDefault();
-  const master = firebaseFns.doc(db,"questions","masterQuestions");
-  await firebaseFns.addDoc(firebaseFns.collection(master,"EUKnowledge"),
-    { text: knowledge-input.value, level:"AD" });
+  const knowledge = document.getElementById("knowledge-input").value.trim();
+  const competency = document.getElementById("competency-input").value.trim();
+  const motivation = document.getElementById("motivation-input").value.trim();
+
+  try {
+    const masterDocRef = firebaseFns.doc(db,"questions","masterQuestions");
+    if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUKnowledge"),{ text:knowledge, level:"AD" });
+    if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUCompetencies"),{ text:competency, level:"AD" });
+    if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUMotivation"),{ text:motivation, level:"AD" });
+    adminStatus.textContent="Questions added successfully!";
+    adminForm.reset();
+  } catch(err) {
+    console.error(err);
+    adminStatus.textContent="Error adding questions: "+err.message;
+  }
 });
+
 </script>
 
 </body>
