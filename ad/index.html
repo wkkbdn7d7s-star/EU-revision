@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>EUreka! — AD Level</title>
+<title>EUreka! — JPP</title>
 
 <link rel="stylesheet" href="style.css" />
 <link rel="manifest" href="manifest.json" />
@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" href="eci-icon.png" />
 <meta name="mobile-web-app-capable" content="yes" />
 
-<!-- Font (header-only usage) -->
+<!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <!-- Chart.js -->
@@ -46,9 +46,7 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </script>
 
 <style>
-/* ================================
-   HEADER — FULLY SCOPED & SAFE
-================================ */
+/* ================================ HEADER ================================ */
 .eureka-header {
   font-family: 'Inter', sans-serif;
   display: flex;
@@ -59,7 +57,6 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
-
 .eureka-header .header-left { display: flex; align-items: center; gap: 16px; }
 .eureka-header .logo { height: 70px; }
 .eureka-header h1 { margin: 0; font-size: 1.9rem; font-weight: 700; color: #d4af7f; }
@@ -69,7 +66,6 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   text-decoration: none; font-weight: 600; border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-
 @media (max-width: 600px) {
   .eureka-header { flex-direction: column; gap: 16px; text-align: center; }
   .eureka-header .header-left { flex-direction: column; gap: 10px; }
@@ -78,14 +74,12 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </head>
 
 <body>
-
-<!-- ===== HEADER ===== -->
 <header class="eureka-header">
   <div class="header-left">
     <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
     <div>
       <h1>EUreka!</h1>
-      <p>Empowering EU candidates for success</p>
+      <p>Prepare for your European Commission JPP oral exam.</p>
     </div>
   </div>
   <div class="header-right">
@@ -94,8 +88,6 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </header>
 
 <main>
-
-<!-- ===== ORAL PRACTICE ===== -->
 <section>
   <h2>Oral Exam Practice</h2>
   <div class="card-grid">
@@ -106,9 +98,8 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   </div>
 </section>
 
-<!-- ===== PERFORMANCE ===== -->
 <section id="performance-section" style="display:none;">
-  <h2>Your AD Level Performance</h2>
+  <h2>Your JPP Performance</h2>
   <select id="section-filter">
     <option value="EUKnowledge">EU Knowledge</option>
     <option value="EUCompetencies">EU Competencies</option>
@@ -119,7 +110,6 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   <canvas id="performance-chart"></canvas>
 </section>
 
-<!-- ===== PREPARATION MATERIALS ===== -->
 <section>
   <h2>Exam Preparation Materials</h2>
   <div class="card-grid">
@@ -128,7 +118,6 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   </div>
 </section>
 
-<!-- ===== ADMIN ===== -->
 <section id="admin-module" style="display:none;">
   <h2>Question Entry (Admin)</h2>
   <form id="question-form">
@@ -139,7 +128,6 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
   </form>
   <p id="admin-status"></p>
 </section>
-
 </main>
 
 <footer>
@@ -160,11 +148,11 @@ async function updateChart(user){
     if(!docSnap.exists()) return;
     const data = docSnap.data();
     const section = sectionFilter.value;
-    const adData = data.selfAssessment.AD || {};
+    const jppData = data.selfAssessment.JPP || {};
 
-    if(section === "average"){
+    if(section==="average"){
       const allSections = ["EUKnowledge","EUCompetencies","EUMotivation","Mockexam"];
-      const merged = allSections.flatMap(sec => adData[sec] || []);
+      const merged = allSections.flatMap(sec => jppData[sec] || []);
       if(!merged.length) return;
 
       const total = merged.length;
@@ -185,7 +173,7 @@ async function updateChart(user){
         options:{ responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ min:0, max:5, ticks:{ stepSize:1 }, title:{ display:true, text:'Score (1-5)' } } } }
       });
     } else {
-      const submissions = (adData[section] || []).map(s=>{
+      const submissions = (jppData[section] || []).map(s=>{
         let ts = s.timestamp || s.submittedAt || Date.now();
         return { timestamp:new Date(ts), clarity:s.clarity||0, structure:s.structure||0, confidence:s.confidence||0 };
       }).sort((a,b)=>a.timestamp - b.timestamp);
@@ -206,9 +194,7 @@ async function updateChart(user){
         options:{ responsive:true, plugins:{ legend:{ position:'bottom' } }, scales:{ y:{ min:1, max:5, ticks:{ stepSize:1 }, title:{ display:true, text:'Score (1-5)' } } } }
       });
     }
-  } catch(err){
-    console.error("updateChart error:",err);
-  }
+  } catch(err){ console.error("updateChart error:",err); }
 }
 
 // ===== AUTH STATE & EVENT LISTENERS =====
@@ -239,9 +225,9 @@ adminForm.addEventListener("submit", async e=>{
 
   try{
     const masterDocRef = firebaseFns.doc(db,"questions","masterQuestions");
-    if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUknowledge"),{ text:knowledge, level:"AD" });
-    if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUcompetencies"),{ text:competency, level:"AD" });
-    if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUmotivation"),{ text:motivation, level:"AD" });
+    if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUknowledge"),{ text:knowledge, level:"JPP" });
+    if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUcompetencies"),{ text:competency, level:"JPP" });
+    if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUmotivation"),{ text:motivation, level:"JPP" });
     adminStatus.textContent="Questions added successfully!";
     adminForm.reset();
   } catch(err){
