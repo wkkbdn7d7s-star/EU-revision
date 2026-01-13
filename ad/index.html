@@ -199,55 +199,88 @@ window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
 </main>
 
 <footer>
-  &copy; 2026 EUreka! | Empowering EU candidates for success
+  &copy; 2025 EUreka! all rights reserved | Empowering EU candidates for success
 </footer>
 
-<!-- ===== LOGIC ===== -->
 <script type="module">
+// Performance chart & admin code unchanged
 const perfSection = document.getElementById("performance-section");
 const sectionFilter = document.getElementById("section-filter");
 const ctx = document.getElementById("performance-chart").getContext("2d");
 let performanceChart;
 
+const { auth, db, firebaseFns } = window;
+
+async function updateChart(user) {
+  const docSnap = await firebaseFns.getDoc(firebaseFns.doc(db, "users", user.uid));
+  if(!docSnap.exists()) return;
+  const data = docSnap.data();
+  const section = sectionFilter.value;
+
+  const adData = data.selfAssessment.AD || {};
+
+  if(section === "average") {
+    const allSections = ["EUKnowledge","EUCompetencies","EUMotivation","Mockexam"];
+    const merged = allSections.flatMap(sec => adData[sec] || []);
+    if(!merged.length) return;
+
+    const total = merged.length;
+    const avgClarity = merged.reduce((sum,s)=>sum+(s.clarity||0),0)/total;
+    const avgStructure = merged.reduce((sum,s)=>sum+(s.structure||0),0)/total;
+    const avgConfidence = merged.reduce((sum,s)=>sum+(s.confidence||0),0)/total;
+
+    const averages = [
+      { metric: "Clarity", value: avgClarity },
+      { metric: "Structure", value: avgStructure },
+      { metric: "Confidence", value: avgConfidence }
+    ];
+
+    if(performanceChart) performanceChart.destroy();
+    performanceChart = new Chart(ctx, {
+      type: 'bar',
+      data: { labels: averages.map(s=>s.metric), datasets: [{ label:'Average Score', data:averages.map(s=>s.value), backgroundColor:['#1a73e8','#ff8c00','#28a745'] }] },
+      options: { responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ min:0, max:5, ticks:{ stepSize:1 }, title:{ display:true, text:'Score (1-5)' } } } }
+    });
+  } else {
+    const submissions = (adData[section] || []).map(s => ({
+      timestamp: new Date(s.timestamp || s.submittedAt).toLocaleString('en-GB', {hour12:false, day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit', second:'2-digit'}),
+      clarity: s.clarity,
+      structure: s.structure,
+      confidence: s.confidence
+    })).sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+
+    const labels = submissions.map(s=>s.timestamp);
+    const clarity = submissions.map(s=>s.clarity);
+    const structure = submissions.map(s=>s.structure);
+    const confidence = submissions.map(s=>s.confidence);
+
+    if(performanceChart) performanceChart.destroy();
+    performanceChart = new Chart(ctx, {
+      type: 'line',
+      data: { labels, datasets:[
+        { label:'Clarity', data:clarity, borderColor:'#1a73e8', fill:false, tension:0.25 },
+        { label:'Structure', data:structure, borderColor:'#ff8c00', fill:false, tension:0.25 },
+        { label:'Confidence', data:confidence, borderColor:'#28a745', fill:false, tension:0.25 }
+      ]},
+      options: { responsive:true, plugins:{ legend:{ position:'bottom' } }, scales:{ y:{ min:1, max:5, ticks:{ stepSize:1 }, title:{ display:true, text:'Score (1-5)' } } } }
+    });
+  }
+}
+
 firebaseFns.onAuthStateChanged(auth, async user => {
-  if (user) {
+  if(user) {
     perfSection.style.display = "block";
-    document.getElementById("admin-module").style.display =
-      user.email.toLowerCase() === "admin@admin.com" ? "block" : "none";
     await updateChart(user);
+    document.getElementById("admin-module").style.display = (user.email.toLowerCase()==='admin@admin.com')?'block':'none';
   } else {
     perfSection.style.display = "none";
     document.getElementById("admin-module").style.display = "none";
   }
 });
 
-async function updateChart(user) {
-  const snap = await firebaseFns.getDoc(firebaseFns.doc(db, "users", user.uid));
-  if (!snap.exists()) return;
-
-  const adData = snap.data().selfAssessment?.AD || {};
-  const section = sectionFilter.value;
-
-  if (performanceChart) performanceChart.destroy();
-
-  if (section === "average") {
-    const all = ["EUKnowledge","EUCompetencies","EUMotivation","Mockexam"]
-      .flatMap(s => adData[s] || []);
-    if (!all.length) return;
-
-    const avg = m => all.reduce((s,x)=>s+(x[m]||0),0)/all.length;
-
-    performanceChart = new Chart(ctx,{
-      type:"bar",
-      data:{labels:["Clarity","Structure","Confidence"],
-        datasets:[{data:[avg("clarity"),avg("structure"),avg("confidence")]}]},
-      options:{scales:{y:{min:0,max:5,ticks:{stepSize:1}}}}
-    });
-  }
-}
-
-sectionFilter.addEventListener("change", () => {
-  if (auth.currentUser) updateChart(auth.currentUser);
+sectionFilter.addEventListener("change", async () => {
+  const user = auth.currentUser;
+  if(user) await updateChart(user);
 });
 
 // Admin question form
@@ -271,8 +304,6 @@ adminForm.addEventListener("submit", async e=>{
     adminStatus.textContent="Error adding questions: "+err.message;
   }
 });
-
 </script>
-
 </body>
 </html>
