@@ -261,9 +261,9 @@ adminForm.addEventListener("submit", async e=>{
 
   try {
     const masterDocRef = firebaseFns.doc(db,"questions","masterQuestions");
-    if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUKnowledge"),{ text:knowledge, level:"AD" });
-    if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUCompetencies"),{ text:competency, level:"AD" });
-    if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUMotivation"),{ text:motivation, level:"AD" });
+    if(knowledge) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUknowledge"),{ text:knowledge, level:"AD" });
+    if(competency) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUcompetencies"),{ text:competency, level:"AD" });
+    if(motivation) await firebaseFns.addDoc(firebaseFns.collection(masterDocRef,"EUmotivation"),{ text:motivation, level:"AD" });
     adminStatus.textContent="Questions added successfully!";
     adminForm.reset();
   } catch(err) {
