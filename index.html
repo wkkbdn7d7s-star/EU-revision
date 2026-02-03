@@ -99,38 +99,38 @@
 
     .hero-section p {
       max-width: 720px;
-      margin: 0 auto 30px;
+      margin: 0 auto 20px;
       line-height: 1.6;
       color: #4a453f;
     }
 
-    /* ---- Horizontal layout for buttons + auth ---- */
+    /* ---- Buttons + Auth ---- */
     .hero-actions {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       gap: 40px;
       flex-wrap: wrap;
-      margin-top: 10px;
+      margin-top: 20px;
     }
 
     .track-buttons {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      flex: 0 1 280px;
+      gap: 20px;
+      flex: 0 1 340px;
     }
 
     .track-buttons a {
       display: block;
-      padding: 22px 0;
-      font-size: 1.1rem;
-      font-weight: 600;
+      padding: 26px 0;
+      font-size: 1.25rem;
+      font-weight: 700;
       text-decoration: none;
       color: #fff;
-      border-radius: 10px;
+      border-radius: 12px;
       text-align: center;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
       transition: transform 0.2s, background 0.2s;
     }
 
@@ -139,9 +139,9 @@
     }
 
     .ad-btn { background: var(--blue-main); }
-    .ast-btn { background: #ff8c00; }
     .jpp-btn { background: #28a745; }
 
+    /* ---- Auth Box ---- */
     .auth-box {
       background: #ffffff;
       padding: 22px 24px;
@@ -196,6 +196,7 @@
       background: #d9534f;
     }
 
+    /* ---- Resources ---- */
     .resource-list {
       display: grid;
       gap: 12px;
@@ -222,7 +223,7 @@
       color: #6b665f;
     }
 
-    /* ---- Collapsible install section ---- */
+    /* ---- Install ---- */
     .install-section {
       max-width: 800px;
       margin: 60px auto 0;
@@ -259,18 +260,6 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    .install-content h3 {
-      color: var(--blue-main);
-      margin-top: 20px;
-    }
-
-    .install-content ol {
-      text-align: left;
-      margin: 20px auto;
-      max-width: 600px;
-      color: #333;
-    }
-
     footer {
       text-align: center;
       padding: 16px 20px;
@@ -286,33 +275,10 @@
       }
       .track-buttons, .auth-box {
         width: 100%;
-        max-width: 320px;
+        max-width: 360px;
       }
     }
   </style>
-
-  <!-- Firebase -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
-      authDomain: "eureka-63b47.firebaseapp.com",
-      projectId: "eureka-63b47",
-      storageBucket: "eureka-63b47.firebasestorage.app",
-      messagingSenderId: "655168214317",
-      appId: "1:655168214317:web:3d3ffc07706ba39efa6fa4",
-      measurementId: "G-KFTB45DCFZ"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    window.welcomeAuth = { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged };
-  </script>
 </head>
 
 <body>
@@ -332,29 +298,12 @@
   <main>
     <section class="hero-section">
       <h2>Welcome to EUreka!</h2>
-        <p>
-          Prepare for European Commission competitions with short practice modules
-          (Knowledge, Competencies, Motivation) and a timed Mock Exam.
-        </p>
-        
-        <p>
-          This study tool was developed by an <strong>AD5 competition laureate</strong>,
-          born out of the need to practise oral exam questions with timers and under
-          real exam conditions. What started as a personal preparation tool evolved
-          into this platform, bringing together practice exercises, key sources of
-          information, and curated study materials to help future candidates prepare
-          effectively and perform at their best in European Commission internal
-          competitions.
-        </p>
-        
-        <p>
-          Choose your competition track below to start practising!
-        </p>
+      <p>Choose your competition track below to start practising!</p>
+
       <div class="hero-actions">
         <div class="track-buttons">
-          <a class="ad-btn" href="ad/index.html">AD5/6</a>
-          <a class="ast-btn" href="ast/index.html">AST(TBD)</a>
-          <a class="jpp-btn" href="JPP/index.html">JPP(same as AD5)</a>
+          <a class="ad-btn" href="ad/index.html">AD5 / AD6</a>
+          <a class="jpp-btn" href="JPP/index.html">JPP (same as AD5)</a>
         </div>
 
         <div class="auth-box">
@@ -370,128 +319,10 @@
         </div>
       </div>
     </section>
-
-    <section>
-      <h3 style="color:var(--blue-main);">What EUreka! Provides</h3>
-      <div class="resource-list">
-        <div class="resource-card">
-          <h4>Practice Modules</h4>
-          <div class="small-muted">Knowledge, Competencies, Motivation — short timed prompts for practice.</div>
-        </div>
-        <div class="resource-card">
-          <h4>Mock Exam</h4>
-          <div class="small-muted">Simulated multi-stage exam with timers and self-assessment submission.</div>
-        </div>
-        <div class="resource-card">
-          <h4>Progress Tracking</h4>
-          <div class="small-muted">Logged-in users can submit self-assessments, tracked per competition track.</div>
-        </div>
-        <div class="resource-card">
-          <h4>How to Use</h4>
-          <div class="small-muted">Sign in, pick a competition track, practice regularly, and use the Mock Exam to simulate real timing.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Install Instructions -->
-    <section class="install-section">
-      <button class="toggle-install">📱 Show “How to Install EUreka!”</button>
-      <div class="install-content">
-        <h3>How to Install EUreka! as an App</h3>
-        <ol>
-          <li>On your <strong>computer</strong> or <strong>mobile browser</strong>, open <em>EUreka!</em>.</li>
-          <li>Look for the “Install” or “Add to Home Screen” option in your browser’s menu.</li>
-          <li>On <strong>iPhone (Safari)</strong>: tap <strong>Share → Add to Home Screen</strong>.</li>
-          <li>On <strong>Android (Chrome)</strong>: tap <strong>⋮ → Install App</strong>.</li>
-          <li>Once installed, launch it from your home screen just like a normal app!</li>
-        </ol>
-      </div>
-    </section>
   </main>
 
   <footer>
-    <p>
-      © 2026 EUreka! |
-      <a href="contact.html">Contact</a> |
-      <a href="disclaimer.html">Disclaimer</a>
-    </p>
+    <p>© 2026 EUreka!</p>
   </footer>
-
-  <script>
-    // Collapsible install section
-    const installBtn = document.querySelector('.toggle-install');
-    const installContent = document.querySelector('.install-content');
-    let installVisible = false;
-
-    installBtn.addEventListener('click', () => {
-      installVisible = !installVisible;
-      installContent.style.maxHeight = installVisible ? installContent.scrollHeight + 'px' : '0';
-      installContent.style.opacity = installVisible ? '1' : '0';
-      installBtn.textContent = installVisible
-        ? '📱 Hide “How to Install EUreka!”'
-        : '📱 Show “How to Install EUreka!”';
-    });
-  </script>
-
-  <!-- Firebase Auth logic -->
-  <script type="module">
-    const { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } = window.welcomeAuth;
-    const emailEl = document.getElementById('email');
-    const pwEl = document.getElementById('password');
-    const signInBtn = document.getElementById('signInBtn');
-    const registerBtn = document.getElementById('registerBtn');
-    const signOutBtn = document.getElementById('signOutBtn');
-    const authMessage = document.getElementById('auth-message');
-    const authStatus = document.getElementById('auth-status');
-    const userEmailEl = document.getElementById('user-email');
-
-    signInBtn.addEventListener('click', async () => {
-      authMessage.textContent = '';
-      const email = emailEl.value.trim(), password = pwEl.value;
-      if (!email || !password) { authMessage.textContent = 'Enter email and password.'; return; }
-      try { 
-        await signInWithEmailAndPassword(auth, email, password); 
-        authMessage.textContent = 'Signed in.'; 
-        emailEl.value = ''; pwEl.value = ''; 
-      } catch (err) { authMessage.textContent = 'Sign in: ' + err.message; }
-    });
-
-    registerBtn.addEventListener('click', async () => {
-      authMessage.textContent = '';
-      const email = emailEl.value.trim(), password = pwEl.value;
-      if (!email || !password) { authMessage.textContent = 'Enter email and password.'; return; }
-      try { 
-        await createUserWithEmailAndPassword(auth, email, password); 
-        authMessage.textContent = 'Account created and signed in.'; 
-        emailEl.value = ''; pwEl.value = ''; 
-      } catch (err) { authMessage.textContent = 'Register: ' + err.message; }
-    });
-
-    signOutBtn.addEventListener('click', async () => {
-      try { await signOut(auth); authMessage.textContent = 'Signed out.'; } 
-      catch (err) { authMessage.textContent = 'Sign out error.'; }
-    });
-
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        authStatus.textContent = 'Signed in';
-        userEmailEl.textContent = user.email || '';
-        signOutBtn.style.display = 'inline-block';
-      } else {
-        authStatus.textContent = 'Not signed in';
-        userEmailEl.textContent = '';
-        signOutBtn.style.display = 'none';
-      }
-    });
-  </script>
-
-  <!-- Service Worker Registration -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('Service Worker registered for homepage'))
-        .catch(err => console.error('Service Worker registration failed:', err));
-    }
-  </script>
 </body>
 </html>
