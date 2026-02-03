@@ -1,191 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>EUreka! — AD Level</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EUreka! — AD Level</title>
 
-<link rel="stylesheet" href="style.css" />
-<link rel="manifest" href="manifest.json" />
-<link rel="icon" type="image/png" href="eci-icon.png" />
-<link rel="apple-touch-icon" href="eci-icon.png" />
-<meta name="mobile-web-app-capable" content="yes" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" href="eci-icon.png" />
+  <link rel="apple-touch-icon" href="eci-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Font (header-only usage) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
-  authDomain: "eureka-63b47.firebaseapp.com",
-  projectId: "eureka-63b47",
-  storageBucket: "eureka-63b47.firebasestorage.app",
-  messagingSenderId: "655168214317",
-  appId: "1:655168214317:web:3d3ffc07706ba39efa6fa4",
-  measurementId: "G-KFTB45DCFZ"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyDVv0Ag4-i3h0bEEYOiX4pRCZF7a4_a220",
+      authDomain: "eureka-63b47.firebaseapp.com",
+      projectId: "eureka-63b47",
+      storageBucket: "eureka-63b47.firebasestorage.app",
+      messagingSenderId: "655168214317",
+      appId: "1:655168214317:web:3d3ffc07706ba39efa6fa4",
+      measurementId: "G-KFTB45DCFZ"
+    };
 
-const app = initializeApp(firebaseConfig);
-getAnalytics(app);
-const auth = getAuth(app);
-const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
 
-window.auth = auth;
-window.db = db;
-window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
-</script>
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-<style>
-/* ================= HEADER ================= */
-.eureka-header {
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 32px;
-  background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-.eureka-header .header-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.eureka-header .logo {
-  height: 70px;
-}
-.eureka-header h1 {
-  margin: 0;
-  font-size: 1.9rem;
-  font-weight: 700;
-  color: #d4af7f;
-}
-.eureka-header p {
-  margin: 3px 0 0;
-  font-size: 1rem;
-  color: #f0f0f0;
-}
-.eureka-header .header-right a {
-  padding: 10px 18px;
-  background-color: #d4af7f;
-  color: #2c2a28;
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
+    window.auth = auth;
+    window.db = db;
+    window.firebaseFns = { onAuthStateChanged, doc, getDoc, collection, addDoc };
+  </script>
 
-@media (max-width: 600px) {
-  .eureka-header {
-    flex-direction: column;
-    gap: 16px;
-    text-align: center;
-  }
-  .eureka-header .header-left {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
+  <style>
+    /* ================================ HEADER — FULLY SCOPED & SAFE ================================ */
+    .eureka-header {
+      font-family: "Inter", sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 32px;
+      background: linear-gradient(90deg, #003399 0%, #1b1f3b 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
 
-/* ================= FOOTER — SAME AS WELCOME PAGE ================= */
-footer {
-  text-align: center;
-  padding: 16px 20px;
-  color: #4a453f;
-  font-size: 0.9rem;
-  margin-top: 50px;
-}
+    .eureka-header .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
 
-footer a {
-  color: #003399;
-  text-decoration: none;
-  font-weight: 600;
-}
+    .eureka-header .logo {
+      height: 70px;
+    }
 
-footer a:hover {
-  text-decoration: underline;
-}
-</style>
+    .eureka-header h1 {
+      margin: 0;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #d4af7f;
+    }
+
+    .eureka-header p {
+      margin: 3px 0 0;
+      font-size: 1rem;
+      color: #f0f0f0;
+    }
+
+    .eureka-header .header-right a {
+      padding: 10px 18px;
+      background-color: #d4af7f;
+      color: #2c2a28;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 600px) {
+      .eureka-header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .eureka-header .header-left {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-<header class="eureka-header">
-  <div class="header-left">
-    <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
-    <div>
-      <h1>EUreka!</h1>
-      <p>Prepare for your European Commission AD level oral exam.</p>
+  <!-- ===== HEADER ===== -->
+  <header class="eureka-header">
+    <div class="header-left">
+      <img src="eci-icon.png" alt="EUreka Logo" class="logo" />
+      <div>
+        <h1>EUreka!</h1>
+        <p>Prepare for your European Commission AD level oral exam.</p>
+      </div>
     </div>
-  </div>
-  <div class="header-right">
-    <a href="../index.html">Back to Welcome Page</a>
-  </div>
-</header>
 
-<main>
+    <div class="header-right">
+      <a href="../index.html">Back to Welcome Page</a>
+    </div>
+  </header>
 
-<section>
-  <h2>Oral Exam Practice</h2>
-  <div class="card-grid">
-    <div class="card"><h3>EU Knowledge</h3><p>Practice questions on EU policies, priorities, and institutions.</p><a href="EUknowledge.html">Start Exercise →</a></div>
-    <div class="card"><h3>EU Competencies</h3><p>Practice behavioral and competency-based questions for EU roles.</p><a href="CBQ.html">Start Exercise →</a></div>
-    <div class="card"><h3>EU Motivation</h3><p>Reflect on your motivation and suitability for a career in the EU institutions.</p><a href="EUmotivation.html">Start Exercise →</a></div>
-    <div class="card mock-card"><h3>Mock Exam</h3><p>Simulate a complete EU interview with timed questions and self-assessment.</p><a href="Mockexam.html">Start Mock Exam →</a></div>
-  </div>
-</section>
+  <main>
+    <!-- ===== ORAL PRACTICE ===== -->
+    <section>
+      <h2>Oral Exam Practice</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>EU Knowledge</h3>
+          <p>Practice questions on EU policies, priorities, and institutions.</p>
+          <a href="EUknowledge.html">Start Exercise →</a>
+        </div>
 
-<section id="performance-section" style="display:none;">
-  <h2>Your AD Level Performance</h2>
-  <select id="section-filter">
-    <option value="EUKnowledge">EU Knowledge</option>
-    <option value="EUCompetencies">EU Competencies</option>
-    <option value="EUMotivation">EU Motivation</option>
-    <option value="Mockexam">Mock Exam</option>
-    <option value="average">Average</option>
-  </select>
-  <canvas id="performance-chart"></canvas>
-</section>
+        <div class="card">
+          <h3>EU Competencies</h3>
+          <p>Practice behavioral and competency-based questions for EU roles.</p>
+          <a href="CBQ.html">Start Exercise →</a>
+        </div>
 
-<section>
-  <h2>Exam Preparation Materials</h2>
-  <div class="card-grid">
-    <div class="card"><h3>Preparation Modules</h3><p>Access key EU resources, fact sheets, and legal bases for study.</p><a href="Preparation.html">Open Modules →</a></div>
-    <div class="card"><h3>Useful Links</h3><p>Find trusted news outlets, statistics, and EU-focused training tools.</p><a href="UsefulLinks.html">Explore Links →</a></div>
-  </div>
-</section>
+        <div class="card">
+          <h3>EU Motivation</h3>
+          <p>Reflect on your motivation and suitability for a career in the EU institutions.</p>
+          <a href="EUmotivation.html">Start Exercise →</a>
+        </div>
 
-<section id="admin-module" style="display:none;">
-  <h2>Question Entry (Admin)</h2>
-  <form id="question-form">
-    <label>EU Knowledge: <input type="text" id="knowledge-input"></label>
-    <label>EU Competencies: <input type="text" id="competency-input"></label>
-    <label>EU Motivation: <input type="text" id="motivation-input"></label>
-    <button type="submit">Add Questions</button>
-  </form>
-  <p id="admin-status"></p>
-</section>
+        <div class="card mock-card">
+          <h3>Mock Exam</h3>
+          <p>Simulate a complete EU interview with timed questions and self-assessment.</p>
+          <a href="Mockexam.html">Start Mock Exam →</a>
+        </div>
+      </div>
+    </section>
 
-</main>
+    <!-- ===== PERFORMANCE ===== -->
+    <section id="performance-section" style="display:none;">
+      <h2>Your AD Level Performance</h2>
 
-<footer>
-  <p>
-    © 2026 EUreka! |
-    <a href="../contact.html">Contact</a> |
-    <a href="../disclaimer.html">Disclaimer</a>
-  </p>
-</footer>
+      <select id="section-filter">
+        <option value="EUKnowledge">EU Knowledge</option>
+        <option value="EUCompetencies">EU Competencies</option>
+        <option value="EUMotivation">EU Motivation</option>
+        <option value="Mockexam">Mock Exam</option>
+        <option value="average">Average</option>
+      </select>
 
-<script type="module">
-/* JS unchanged — omitted here for brevity in explanation, but included exactly as provided */
-</script>
+      <canvas id="performance-chart"></canvas>
+    </section>
 
+    <!-- ===== PREPARATION MATERIALS ===== -->
+    <section>
+      <h2>Exam Preparation Materials</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Preparation Modules</h3>
+          <p>Access key EU resources, fact sheets, and legal bases for study.</p>
+          <a href="Preparation.html">Open Modules →</a>
+        </div>
+
+        <div class="card">
+          <h3>Useful Links</h3>
+          <p>Find trusted news outlets, statistics, and EU-focused training tools.</p>
+          <a href="UsefulLinks.html">Explore Links →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ADMIN ===== -->
+    <section id="admin-module" style="display:none;">
+      <h2>Question Entry (Admin)</h2>
+
+      <form id="question-form">
+        <label>
+          EU Knowledge:
+          <input type="text" id="knowledge-input" />
+        </label>
+
+        <label>
+          EU Competencies:
+          <input type="text" id="competency-input" />
+        </label>
+
+        <label>
+          EU Motivation:
+          <input type="text" id="motivation-input" />
+        </label>
+
+        <button type="submit">Add Questions</button>
+      </form>
+
+      <p id="admin-status"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      © 2026 EUreka! |
+      <a href="contact.html">Contact</a> |
+      <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+  <script type="module">
+    // ===== PERFORMANCE CHART & ADMIN =====
+    const perfSection = document.getElementById("performance-section");
+    const sectionFilter = document.getElementById("section-filter");
+    const ctx = document.getElementById("performance-chart").getContext("2d");
+    let performanceChart;
+
+    const { auth, db, firebaseFns } = window;
+
+    async function updateChart(user) {
+      try {
+        const docSnap = await firebaseFns.getDoc(
+          firebaseFns.doc(db, "users", user.uid)
+        );
+        if (!docSnap.exists()) return;
+
+        const data = docSnap.data();
+        const section = sectionFilter.value;
+        const adData = data.selfAssessment.AD || {};
+
+        if (section === "average") {
+          const allSections = [
+            "EUKnowledge",
+            "EUCompetencies",
+            "EUMotivation",
+            "Mockexam"
+          ];
+
+          const merged = allSections.flatMap(sec => adData[sec] || []);
+          if (!merged.length) return;
+
+          const total = merged.length;
+          const avgClarity =
+            merged.reduce((sum, s) => sum + (s.clarity || 0), 0) / total;
+          const avgStructure =
+            merged.reduce((sum, s) => sum + (s.structure || 0), 0) / total;
+          const avgConfidence =
+            merged.reduce((sum, s) => sum + (s.confidence || 0), 0) / total;
+
+          const averages = [
+            { metric: "Clarity", value: avgClarity },
+            { metric: "Structure", value: avgStructure },
+            { metric: "Confidence", value: avgConfidence }
+          ];
+
+          if (performanceChart) performanceChart.destroy();
+
+          performanceChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: averages.map(s => s.metric),
+              datasets: [
+                {
+                  label: "Average Score",
+                  data: averages.map(s => s.value),
+                  backgroundColor: ["#1a73e8", "#ff8c00", "#28a745"]
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              plugins: { legend: { display: false } },
+              scales: {
+                y: {
+                  min: 0,
+                  max: 5,
+                  ticks: { stepSize: 1 },
+                  title: { display: true, text: "Score (1-5)" }
+                }
+              }
+            }
+          });
+        } else {
+          const submissions = (adData[section] || [])
+            .map(s => {
+              let ts = s.timestamp || s.submittedAt || Date.now();
+              return {
+                timestamp: new Date(ts),
+                clarity: s.clarity || 0,
+                structure: s.structure || 0,
+                confidence: s.confidence || 0
+              };
+            })
+            .sort((a, b) => a.timestamp - b.timestamp);
+
+          const labels = submissions.map(s =>
+            s.timestamp.toLocaleString("en-GB", {
+              hour12: false,
+              day: "2-digit",
+              month: "short",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit"
+            })
+          );
+
+          const clarity = submissions.map(s => s.clarity);
+          const structure = submissions.map(s => s.structure);
+          const confidence = submissions.map(s => s.confidence);
+
+          if (performanceChart) performanceChart.destroy();
+
+          performanceChart = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Clarity",
+                  data: clarity,
+                  borderColor: "#1a73e8",
+                  fill: false,
+                  tension: 0.25
+                },
+                {
+                  label: "Structure",
+                  data: structure,
+                  borderColor: "#ff8c00",
+                  fill: false,
+                  tension: 0.25
+                },
+                {
+                  label: "Confidence",
+                  data: confidence,
+                  borderColor: "#28a745",
+                  fill: false,
+                  tension: 0.25
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              plugins: { legend: { position: "bottom" } },
+              scales: {
+                y: {
+                  min: 1,
+                  max: 5,
+                  ticks: { stepSize: 1 },
+                  title: { display: true, text: "Score (1-5)" }
+                }
+              }
+            }
+          });
+        }
+      } catch (err) {
+        console.error("updateChart error:", err);
+      }
+    }
+
+    // ===== AUTH STATE & EVENT LISTENERS =====
+    firebaseFns.onAuthStateChanged(auth, async user => {
+      if (user) {
+        perfSection.style.display = "block";
+        await updateChart(user);
+        document.getElementById("admin-module").style.display =
+          user.email.toLowerCase() === "admin@admin.com" ? "block" : "none";
+      } else {
+        perfSection.style.display = "none";
+        document.getElementById("admin-module").style.display = "none";
+      }
+    });
+
+    sectionFilter.addEventListener("change", async () => {
+      const user = auth.currentUser;
+      if (user) await updateChart(user);
+    });
+
+    // ===== ADMIN FORM =====
+    const adminForm = document.getElementById("question-form");
+    const adminStatus = document.getElementById("admin-status");
+
+    adminForm.addEventListener("submit", async e => {
+      e.preventDefault();
+
+      const knowledge = document.getElementById("knowledge-input").value.trim();
+      const competency = document
+        .getElementById("competency-input")
+        .value.trim();
+      const motivation = document
+        .getElementById("motivation-input")
+        .value.trim();
+
+      try {
+        const masterDocRef = firebaseFns.doc(
+          db,
+          "questions",
+          "masterQuestions"
+        );
+
+        if (knowledge)
+          await firebaseFns.addDoc(
+            firebaseFns.collection(masterDocRef, "EUknowledge"),
+            { text: knowledge, level: "AD" }
+          );
+
+        if (competency)
+          await firebaseFns.addDoc(
+            firebaseFns.collection(masterDocRef, "EUcompetencies"),
+            { text: competency, level: "AD" }
+          );
+
+        if (motivation)
+          await firebaseFns.addDoc(
+            firebaseFns.collection(masterDocRef, "EUmotivation"),
+            { text: motivation, level: "AD" }
+          );
+
+        adminStatus.textContent = "Questions added successfully!";
+        adminForm.reset();
+      } catch (err) {
+        console.error(err);
+        adminStatus.textContent = "Error adding questions: " + err.message;
+      }
+    });
+  </script>
 </body>
 </html>
