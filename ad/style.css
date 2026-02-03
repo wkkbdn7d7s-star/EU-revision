@@ -121,10 +121,21 @@ section h2 {
 /* ====== Footer ====== */
 footer {
   text-align: center;
-  padding: 20px;
-  background-color: #003399;
-  color: #dde2f0;
-  font-size: 0.9em;
+  padding: 16px 20px;
+  background-color: #f8f5ef; /* same as body */
+  color: #4a453f;
+  font-size: 0.9rem;
+  margin-top: 50px;
+}
+
+footer a {
+  color: #003399;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 
